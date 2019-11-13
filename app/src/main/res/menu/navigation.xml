@@ -4,16 +4,22 @@
     <item
         android:id="@+id/navigation_flights"
         android:icon="@drawable/ic_flights"
-        android:title="@string/flights_tab" />
+        android:title="@string/flights_tab"
+        android:iconTint="@color/accentOrange"
+        />
 
     <item
         android:id="@+id/navigation_saved"
         android:icon="@drawable/ic_saved"
-        android:title="@string/favorites_tab" />
+        android:title="@string/favorites_tab"
+        android:iconTint="@color/accentOrange"
+        />
 
     <item
         android:id="@+id/navigation_compare"
         android:icon="@drawable/ic_compare"
-        android:title="@string/compare_tab" />
+        android:title="@string/compare_tab"
+        android:iconTint="@color/accentOrange"
+        />
 
 </menu>

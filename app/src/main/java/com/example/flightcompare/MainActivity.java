@@ -1,12 +1,12 @@
 package com.example.flightcompare;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
 import android.view.MenuItem;
 
 import com.example.flightcompare.FlightsTab.SearchFlights;
@@ -32,10 +32,10 @@ public class MainActivity extends AppCompatActivity implements SearchFlights.OnS
 
         // load the search for flights fragment by default
         toolbar.setTitle("Search for Flights");
-        loadFragment(new SearchFlights());
-//
-//        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
-//        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        loadFragment(SearchFlights.newInstance());
+
+        BottomNavigationView navigation = findViewById(R.id.navigation);
+        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -47,8 +47,8 @@ public class MainActivity extends AppCompatActivity implements SearchFlights.OnS
             switch (item.getItemId()) {
                 case R.id.navigation_flights:
                     // need to figure out which fragment to show (flights or search)
-                    toolbar.setTitle("Flights");
-                    fragment = new SearchFlights();
+                    toolbar.setTitle("Search for Flights");
+                    fragment = SearchFlights.newInstance();
                     loadFragment(fragment);
                     return true;
                 case R.id.navigation_saved:
