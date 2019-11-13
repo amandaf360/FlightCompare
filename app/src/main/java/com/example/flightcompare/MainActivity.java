@@ -3,13 +3,17 @@ package com.example.flightcompare;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
-import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity {
+import com.example.flightcompare.FlightsTab.SearchFlights;
 
-    private TextView mTextMessage;
+public class MainActivity extends AppCompatActivity implements SearchFlights.OnSearchFlightsSelectedListener{
+
+    private ActionBar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,9 +28,14 @@ public class MainActivity extends AppCompatActivity {
 //                    .commit();
 //        }
 
-        mTextMessage = (TextView) findViewById(R.id.message);
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        toolbar = getSupportActionBar();
+
+        // load the search for flights fragment by default
+        toolbar.setTitle("Search for Flights");
+        loadFragment(new SearchFlights());
+//
+//        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+//        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -34,22 +43,36 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            Fragment fragment;
             switch (item.getItemId()) {
-                case R.id.navigation_home:
-                    // need to switch fragments
-                    mTextMessage.setText(R.string.flights_tab);
+                case R.id.navigation_flights:
+                    // need to figure out which fragment to show (flights or search)
+                    toolbar.setTitle("Flights");
+                    fragment = new SearchFlights();
+                    loadFragment(fragment);
                     return true;
-                case R.id.navigation_dashboard:
-                    // need to switch fragments
-                    mTextMessage.setText(R.string.favorites_tab);
+                case R.id.navigation_saved:
+                    toolbar.setTitle("Saved Flights");
+                    //fragment = new GiftsFragment();
+                    //loadFragment(fragment);
                     return true;
-                case R.id.navigation_notifications:
-                    // need to switch fragments
-                    mTextMessage.setText(R.string.compare_tab);
+                case R.id.navigation_compare:
+                    toolbar.setTitle("Compare Flights");
+//                    fragment = new CartFragment();
+//                    loadFragment(fragment);
                     return true;
             }
+
             return false;
         }
     };
+
+    private void loadFragment(Fragment fragment) {
+        // load fragment
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.frame_container, fragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
 
 }

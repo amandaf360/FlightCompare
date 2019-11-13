@@ -1,4 +1,4 @@
 package com.example.flightcompare.FlightsTab;
 
-public class SearchFlightsFragment {
+public class SearchResultsPresenter {
 }
