@@ -57,8 +57,8 @@ public class MainActivity extends AppCompatActivity implements SearchFlights.OnS
                     return true;
                 case R.id.navigation_saved:
                     toolbar.setTitle("Saved Flights");
-                    //fragment = new GiftsFragment();
-                    //loadFragment(fragment);
+                    fragment = new SavedFlights();
+                    loadFragment(fragment);
                     return true;
                 case R.id.navigation_compare:
                     toolbar.setTitle("Compare Flights");

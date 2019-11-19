@@ -47,28 +47,25 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:layout_marginHorizontal="20dp">
 
                         <!-- "From" airport -->
                         <TextView
                             android:id="@+id/depart_date2"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="20dp"
                             android:text="@string/dest_from" />
 
+                        <!-- "From" airport edit text -->
                         <com.google.android.material.textfield.TextInputLayout
                             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginHorizontal="20dp"
-                            android:hint="@string/airport"
-                            app:endIconContentDescription="Custom description"
-                            app:endIconDrawable="@drawable/ic_flights"
-                            app:endIconMode="custom">
+                            android:hint="@string/airport">
 
                             <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/from_airport"
+                                android:id="@+id/from_airport_edit"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:inputType="textPassword" />
@@ -80,20 +77,20 @@
                             android:id="@+id/depart_date"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="20dp"
                             android:text="@string/depart_date" />
 
+                        <!-- departure date edit text -->
                         <com.google.android.material.textfield.TextInputLayout
                             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginHorizontal="20dp"
-                            android:hint="@string/dest_from"
-                            app:endIconContentDescription="Custom description"
-                            app:endIconDrawable="@drawable/ic_flights"
-                            app:endIconMode="custom">
+                            android:hint="@string/dest_from">
+<!--                            app:endIconContentDescription="Custom description"-->
+<!--                            app:endIconDrawable="@drawable/ic_date"-->
+<!--                            app:endIconMode="custom">-->
 
                             <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/depart_date_edit"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:inputType="textPassword" />
@@ -108,47 +105,56 @@
                         android:layout_weight="1"
                         android:orientation="vertical">
 
+                        <!-- "To" airport text -->
                         <TextView
                             android:id="@+id/depart_date3"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="20dp"
-                            android:text="@string/dest_from" />
+                            android:text="@string/dest_to" />
 
+                        <!-- "To" airport edit text -->
                         <com.google.android.material.textfield.TextInputLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginHorizontal="20dp"
                             android:hint="@string/dest_to"
-                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                            app:endIconMode="password_toggle">
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                             <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/to_airport"
+                                android:id="@+id/to_airport_edit"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:inputType="textPassword" />
 
                         </com.google.android.material.textfield.TextInputLayout>
 
+                        <!-- return date text -->
                         <TextView
-                            android:id="@+id/depart_date4"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="20dp"
-                            android:text="@string/depart_date" />
+                            android:text="@string/return_date" />
 
+<!--                        <DatePicker-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="match_parent">-->
+
+<!--                        </DatePicker>-->
+
+                        <!-- return date edit text -->
                         <com.google.android.material.textfield.TextInputLayout
                             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginHorizontal="20dp"
-                            android:hint="@string/dest_from"
-                            app:endIconContentDescription="Custom description"
-                            app:endIconDrawable="@drawable/ic_flights"
-                            app:endIconMode="custom">
+                            android:hint="@string/dest_from">
+<!--                            app:endIconContentDescription="Custom description"-->
+<!--                            app:endIconDrawable="@drawable/ic_date"-->
+<!--                            app:endIconMode="custom">-->
 
                             <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/return_date_edit"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:inputType="textPassword" />
@@ -158,8 +164,32 @@
                     </LinearLayout>
                 </LinearLayout>
 
+                <RadioGroup
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:id="@+id/radio_group"
+                    android:layout_marginHorizontal="20dp"
+                    android:checkedButton="@+id/roundtrip_radio"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/roundtrip_radio"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/roundtrip" />
+
+                    <RadioButton
+                        android:id="@+id/oneway_radio"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="30dp"
+                        android:layout_weight="1"
+                        android:text="@string/oneway" />
+                </RadioGroup>
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/material_unelevated_button"
+                    android:id="@+id/search_button"
                     style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
