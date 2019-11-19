@@ -2,11 +2,15 @@ package com.example.flightcompare;
 
 import android.os.Bundle;
 import androidx.annotation.NonNull;
+
+import com.example.flightcompare.FlightsTab.CompareResults;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.util.Log;
 import android.view.MenuItem;
 
 import com.example.flightcompare.FlightsTab.SearchFlights;
@@ -58,8 +62,9 @@ public class MainActivity extends AppCompatActivity implements SearchFlights.OnS
                     return true;
                 case R.id.navigation_compare:
                     toolbar.setTitle("Compare Flights");
-//                    fragment = new CartFragment();
-//                    loadFragment(fragment);
+                    Log.i("Navigation", "Comparison Page");
+                    fragment = CompareResults.newInstance();
+                    loadFragment(fragment);
                     return true;
             }
 

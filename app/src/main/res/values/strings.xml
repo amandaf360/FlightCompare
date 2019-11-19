@@ -16,4 +16,9 @@
     <string name="roundtrip">Round Trip</string>
     <string name="oneway">One Way</string>
 
+    <!-- Comparison screen -->
+    <string name="price">Price</string>
+    <string name="flytime">Flytime</string>
+    <string name="bags">Bags</string>
+    <string name="layovertime">Layover Time</string>
 </resources>
