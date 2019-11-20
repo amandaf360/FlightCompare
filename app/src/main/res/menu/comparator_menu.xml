@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/price"
-        android:title="@string/price" />
-    <item android:id="@+id/flytime"
-        android:title="@string/flytime" />
-    <item android:id="@+id/bags"
-        android:title="@string/bags" />
-    <item android:id="@+id/layovertime"
-        android:title="@string/layovertime" />
-    <item android:id="@+id/from"
-        android:title="@string/dest_from" />
-    <item android:id="@+id/to"
-        android:title="@string/dest_to" />
+    <group android:checkableBehavior="all">
+        <item
+            android:id="@+id/price"
+            android:title="@string/price" />
+        <item android:id="@+id/flytime"
+            android:title="@string/flytime" />
+        <item android:id="@+id/bags"
+            android:title="@string/bags" />
+        <item android:id="@+id/layovertime"
+            android:title="@string/layovertime" />
+        <item android:id="@+id/from"
+            android:title="@string/dest_from" />
+        <item android:id="@+id/to"
+            android:title="@string/dest_to" />
+    </group>
 </menu>

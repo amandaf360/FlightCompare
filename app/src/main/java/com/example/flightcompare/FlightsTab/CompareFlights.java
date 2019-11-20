@@ -8,12 +8,15 @@ import androidx.fragment.app.Fragment;
 
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import com.example.flightcompare.R;
 import com.google.android.material.button.MaterialButton;
@@ -37,12 +40,15 @@ public class CompareFlights extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        Log.d("ASDF", "Creating Compare View");
         View v = inflater.inflate(R.layout.fragment_compare, container, false);
         compareByBtn = v.findViewById(R.id.compareByBtn);
         compareByBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                showPopup(v);
+                Log.d("ASDF", "POPUP");
+                Toast.makeText(getContext(), "testToast", Toast.LENGTH_SHORT).show();
+                showCompList(v);
             }
         });
 
@@ -64,10 +70,33 @@ public class CompareFlights extends Fragment {
 //        mListener = null;
     }
 
-    public void showPopup(View v) {
-        PopupMenu popup = new PopupMenu(getContext(), v);
+    public void showCompList(View v) {
+        Log.i("ASDF", "Showing List");
+        PopupMenu popup = new PopupMenu(v.getContext(), v);
         MenuInflater inflater = popup.getMenuInflater();
         inflater.inflate(R.menu.comparator_menu, popup.getMenu());
+        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch(item.getItemId()){
+                    case R.id.price:
+                        break;
+                    case R.id.bags:
+                        break;
+                    case R.id.layovertime:
+                        break;
+                    case R.id.flytime:
+                        break;
+                    case R.id.from:
+                        break;
+                    case R.id.to:
+                        break;
+                    default:
+                        Log.e("Comparator menu", "Not a valid menu item");
+                }
+                return false;
+            }
+        });
         popup.show();
     }
 

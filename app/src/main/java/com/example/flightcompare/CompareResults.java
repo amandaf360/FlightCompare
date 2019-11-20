@@ -5,12 +5,20 @@ import android.os.Bundle;
 
 import androidx.appcompat.widget.PopupMenu;
 import androidx.fragment.app.Fragment;
+
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.flightcompare.FlightsTab.SearchFlights;
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.card.MaterialCardView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -22,6 +30,8 @@ import com.example.flightcompare.FlightsTab.SearchFlights;
  * create an instance of this fragment.
  */
 public class CompareResults extends Fragment {
+    MaterialButton compareByBtn;
+    LinearLayout cardContainer;
 
     public CompareResults() {}
 
@@ -39,7 +49,19 @@ public class CompareResults extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_compare, container, false);
+        Log.d("ASDF", "Creating Compare View");
+        View v = inflater.inflate(R.layout.fragment_compare, container, false);
+        compareByBtn = v.findViewById(R.id.compareByBtn);
+        cardContainer = v.findViewById(R.id.cardContainer);
+        compareByBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("ASDF", "POPUP");
+                showCompList(v);
+            }
+        });
+
+        return v;
     }
 
     @Override
@@ -59,10 +81,75 @@ public class CompareResults extends Fragment {
 //        mListener = null;
     }
 
-    public void showPopup(View v) {
-        PopupMenu popup = new PopupMenu(this.getContext(), v);
-        MenuInflater inflater = popup.getMenuInflater();
+    public void showCompList(View v) {
+        Log.i("ASDF", "Showing List");
+        PopupMenu popup = new PopupMenu(v.getContext(), v);
+        final MenuInflater inflater = popup.getMenuInflater();
         inflater.inflate(R.menu.comparator_menu, popup.getMenu());
+        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch(item.getItemId()){
+                    case R.id.price:
+                        item.setChecked(!item.isChecked());
+                        if(item.isChecked()) {
+                            MaterialCardView cardView = (MaterialCardView) getLayoutInflater().inflate(R.layout.comparator_card, null);
+                            TextView label = cardView.findViewById(R.id.comparatorLabel);
+                            label.setText("PRICE");
+                            cardContainer.addView(cardView);
+                        }
+                        break;
+                    case R.id.bags:
+                        item.setChecked(!item.isChecked());
+                        if(item.isChecked()) {
+                            MaterialCardView cardView = (MaterialCardView) getLayoutInflater().inflate(R.layout.comparator_card, null);
+                            TextView label = cardView.findViewById(R.id.comparatorLabel);
+                            label.setText("BAGS");
+                            cardContainer.addView(cardView);
+                        }
+                        break;
+                    case R.id.layovertime:
+                        item.setChecked(!item.isChecked());
+                        if(item.isChecked()) {
+                            MaterialCardView cardView = (MaterialCardView) getLayoutInflater().inflate(R.layout.comparator_card, null);
+                            TextView label = cardView.findViewById(R.id.comparatorLabel);
+                            label.setText("LAYOVER TIME");
+                            cardContainer.addView(cardView);
+                        }
+                        break;
+                    case R.id.flytime:
+                        item.setChecked(!item.isChecked());
+                        if(item.isChecked()) {
+                            MaterialCardView cardView = (MaterialCardView) getLayoutInflater().inflate(R.layout.comparator_card, null);
+                            TextView label = cardView.findViewById(R.id.comparatorLabel);
+                            label.setText("FLYTIME");
+                            cardContainer.addView(cardView);
+                        }
+                        break;
+                    case R.id.from:
+                        item.setChecked(!item.isChecked());
+                        if(item.isChecked()) {
+                            MaterialCardView cardView = (MaterialCardView) getLayoutInflater().inflate(R.layout.comparator_card, null);
+                            TextView label = cardView.findViewById(R.id.comparatorLabel);
+                            label.setText("FROM");
+                            cardContainer.addView(cardView);
+                        }
+                        break;
+                    case R.id.to:
+                        item.setChecked(!item.isChecked());
+                        if(item.isChecked()) {
+                            MaterialCardView cardView = (MaterialCardView) getLayoutInflater().inflate(R.layout.comparator_card, null);
+                            TextView label = cardView.findViewById(R.id.comparatorLabel);
+                            label.setText("TO");
+                            cardContainer.addView(cardView);
+                        }
+                        break;
+                    default:
+                        Log.e("Comparator menu", "Not a valid menu item");
+                }
+                return false;
+            }
+        });
         popup.show();
     }
 

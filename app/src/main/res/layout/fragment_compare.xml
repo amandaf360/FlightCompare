@@ -16,7 +16,6 @@
         android:layout_weight="1"
         android:gravity="right"
         android:text="Compare By:"
-        android:onClick="showCompList"
         android:textSize="12sp" />
 
     <LinearLayout
