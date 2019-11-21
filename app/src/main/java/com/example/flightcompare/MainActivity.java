@@ -3,15 +3,24 @@ package com.example.flightcompare;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 
+import com.example.flightcompare.Data.FirestoreData;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.util.Log;
 import android.view.MenuItem;
 
 import com.example.flightcompare.FlightsTab.SearchFlights;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 public class MainActivity extends AppCompatActivity implements SearchFlights.OnSearchFlightsSelectedListener{
 
@@ -21,6 +30,8 @@ public class MainActivity extends AppCompatActivity implements SearchFlights.OnS
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        FirestoreData data = new FirestoreData();
+        data.init();
 
         // start by loading the "search for flights" fragment
 //        if (savedInstanceState == null) {
