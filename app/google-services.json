@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1068672953158",
+    "firebase_url": "https://flightcompare-f363e.firebaseio.com",
+    "project_id": "flightcompare-f363e",
+    "storage_bucket": "flightcompare-f363e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1068672953158:android:200a46bfe75c2c8d0f9347",
+        "android_client_info": {
+          "package_name": "com.example.flightcompare"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1068672953158-ime9pllhpfhh2s8ckcn1gflh4lvuuf2t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAPKQLKPWtyWIhy7Jm-mol_l8MibcKiDgA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1068672953158-ime9pllhpfhh2s8ckcn1gflh4lvuuf2t.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

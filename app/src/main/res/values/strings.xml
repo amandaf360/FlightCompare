@@ -19,4 +19,9 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
+    <!-- Comparison screen -->
+    <string name="price">Price</string>
+    <string name="flytime">Flytime</string>
+    <string name="bags">Bags</string>
+    <string name="layovertime">Layover Time</string>
 </resources>
