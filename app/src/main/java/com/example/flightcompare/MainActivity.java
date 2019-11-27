@@ -4,6 +4,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 
 import com.example.flightcompare.Data.FirestoreData;
+import com.example.flightcompare.Data.Singleton;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -30,8 +31,11 @@ public class MainActivity extends AppCompatActivity implements SearchFlights.OnS
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Singleton.init();
         FirestoreData data = new FirestoreData();
-        data.init();
+//        data.setAirports();
+        data.queryAirports();
+        data.queryFlights();
 
         // start by loading the "search for flights" fragment
 //        if (savedInstanceState == null) {
