@@ -18,11 +18,12 @@ public class Flight implements Serializable {
     HashMap<Integer, Integer> bag_price;
     Long bag_num;
     Double flytime;
+    Long price;
 
-
-    public Flight(String airline, Timestamp arrive_time, Timestamp depart_time, Airport from_location, Airport to_location, String flight_num,
+    public Flight(String airline, Long price, Timestamp arrive_time, Timestamp depart_time, Airport from_location, Airport to_location, String flight_num,
             /*HashMap<String, Integer> layovers, HashMap<Integer, Integer> bag_price,*/ Long bag_num, Double flytime) {
         this.airline = airline;
+        this.price = price;
         this.arrive_time = arrive_time;
         this.depart_time = depart_time;
         this.from_location = from_location;
@@ -36,6 +37,10 @@ public class Flight implements Serializable {
 
     public String getAirline() {
         return airline;
+    }
+
+    public Long getPrice() {
+        return price;
     }
 
     public Timestamp getArrive_time() {

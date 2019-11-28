@@ -26,6 +26,8 @@ public class Singleton {
     private void _init(){
         airports = new ArrayList<>();
         flights = new ArrayList<>();
+        savedFlights = new ArrayList<>();
+        comparedFlights = new ArrayList<>();
     }
 
     //*************//
@@ -73,6 +75,7 @@ public class Singleton {
 
     private void _addFlight(Flight flight){
         flights.add(flight);
+        data._addComparedFlight(flight);
         Log.d("Singleton", "Flights size: " + flights.size());
         Log.d("ADD flight", flight.toString());
     }

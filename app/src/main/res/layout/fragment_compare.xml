@@ -60,67 +60,19 @@
         android:layout_height="1dp"
         android:background="@android:color/darker_gray" />
 
-    <LinearLayout
-        android:id="@+id/cardContainer"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="2"
-        android:orientation="vertical">
+        android:layout_weight="2" >
 
-        <androidx.cardview.widget.CardView
+        <LinearLayout
+            android:id="@+id/cardContainer"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:layout_margin="12dp"
-            app:cardUseCompatPadding="true">
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:orientation="vertical">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/comparatorLabel"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Comparator" />
-
-                <LinearLayout
-                    android:id="@+id/comparatorBody"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/comparison1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="airline1"
-                        android:textAlignment="center" />
-
-                    <TextView
-                        android:id="@+id/comparison2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="airline2"
-                        android:textAlignment="center" />
-
-                    <TextView
-                        android:id="@+id/comparison3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="airline3"
-                        android:textAlignment="center" />
-                </LinearLayout>
-
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
-
-    </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>

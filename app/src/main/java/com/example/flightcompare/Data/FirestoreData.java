@@ -27,8 +27,6 @@ public class FirestoreData {
         db = FirebaseFirestore.getInstance();
     }
 
-
-
     public void queryAirports(){
         db.collection("Airports")
                 .get()
@@ -53,8 +51,8 @@ public class FirestoreData {
     }
 
     public void setAirports(){
-        db.collection("Airports").document("BWI").set(new Airport("Baltimore", "Maryland", "United States", "BWI"));
-        db.collection("Airports").document("BIL").set(new Airport("Billings", "Maryland", "United States", "BWI"));
+//        db.collection("Airports").document("BWI").set(new Airport("Baltimore", "Maryland", "United States", "BWI"));
+//        db.collection("Airports").document("BIL").set(new Airport("Billings", "Maryland", "United States", "BWI"));
     }
 
     public void queryFlights(){
@@ -69,6 +67,7 @@ public class FirestoreData {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Log.d("Querying flights", "Getting a result");
                                 String airline = (String) document.get("airline");
+                                Long price = (Long) document.get("price");
                                 Timestamp arrive_time = (Timestamp) document.get("arrive_time");
                                 Timestamp depart_time = (Timestamp) document.get("depart_time");
                                 String from_location = (String) document.get("from_location");
@@ -76,7 +75,7 @@ public class FirestoreData {
                                 String flight_num = (String) document.get("flight_num");
                                 Long bag_num = (Long) document.get("bag_num");
                                 Double flytime = (Double) document.get("flytime");
-                                Flight flight = new Flight(airline, arrive_time, depart_time, Singleton.getAirportFromCode(from_location),
+                                Flight flight = new Flight(airline, price, arrive_time, depart_time, Singleton.getAirportFromCode(from_location),
                                         Singleton.getAirportFromCode(to_location), flight_num, bag_num, flytime);
                                 Singleton.addFlight(flight);
                                 Log.d(TAG, document.getId() + " => " + document.getData());
