@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 
 import androidx.appcompat.widget.PopupMenu;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
@@ -13,6 +14,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -44,7 +46,10 @@ import static androidx.constraintlayout.widget.Constraints.TAG;
 public class CompareResults extends Fragment {
     MaterialButton compareByBtn;
     LinearLayout cardContainer;
-    LinkedHashMap<String, Boolean> comparatorActive;
+    ImageView logo1;
+    ImageView logo2;
+    ImageView logo3;
+    HashMap<String, MaterialCardView> cardViewMap;
 
     public CompareResults() {}
 
@@ -63,16 +68,26 @@ public class CompareResults extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         Log.d("ASDF", "Creating Compare View");
+        cardViewMap = new HashMap<>();
         View v = inflater.inflate(R.layout.fragment_compare, container, false);
         compareByBtn = v.findViewById(R.id.compareByBtn);
         cardContainer = v.findViewById(R.id.cardContainer);
-        comparatorActive = new LinkedHashMap<>();
-        comparatorActive.put(getString(R.string.price), true);
-        comparatorActive.put(getString(R.string.flytime), true);
-        comparatorActive.put(getString(R.string.bags), true);
-        comparatorActive.put(getString(R.string.layovertime), true);
-        comparatorActive.put(getString(R.string.from), true);
-        comparatorActive.put(getString(R.string.to), true);
+
+        logo1 = v.findViewById(R.id.logo1);
+        logo2 = v.findViewById(R.id.logo2);
+        logo3 = v.findViewById(R.id.logo3);
+
+        logo1.setImageResource(R.drawable.aa_logo);
+        logo2.setImageResource(R.drawable.delta_logo);
+        logo3.setImageResource(R.drawable.hawaii_logo);
+
+        Singleton.setComparators(getString(R.string.price), true);
+        Singleton.setComparators(getString(R.string.flytime), true);
+        Singleton.setComparators(getString(R.string.bags), true);
+        Singleton.setComparators(getString(R.string.layovertime), true);
+        Singleton.setComparators(getString(R.string.from), true);
+        Singleton.setComparators(getString(R.string.to), true);
+        inflateAllCards();
         compareByBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -108,7 +123,7 @@ public class CompareResults extends Fragment {
         inflater.inflate(R.menu.comparator_menu, popup.getMenu());
 
         int i = 0;
-        for(Map.Entry<String, Boolean> e : comparatorActive.entrySet()){
+        for(Map.Entry<String, Boolean> e : Singleton.getComparators().entrySet()){
             popup.getMenu().getItem(i).setChecked(e.getValue());
             i++;
             Log.d("Comparators!", e.getKey() + " " + e.getValue());
@@ -120,112 +135,248 @@ public class CompareResults extends Fragment {
                 switch(item.getItemId()){
                     case R.id.price:
                         item.setChecked(!item.isChecked());
-                        comparatorActive.put(getString(R.string.price), item.isChecked());
-                        Log.d("ITEM CLICK", getString(R.string.price) + " " + item.isChecked());
+                        Singleton.setComparators(getString(R.string.price), item.isChecked());
                         if(item.isChecked()) {
-                            LayoutInflater inflater = LayoutInflater.from(cardContainer.getContext());
-                            MaterialCardView cardView = (MaterialCardView) inflater.inflate(R.layout.comparator_card, cardContainer,false);
-                            TextView label = cardView.findViewById(R.id.comparatorLabel);
-                            TextView comparison1 = cardView.findViewById(R.id.comparison1);
-                            TextView comparison2 = cardView.findViewById(R.id.comparison2);
-                            TextView comparison3 = cardView.findViewById(R.id.comparison3);
                             List<Flight> comparedFlights = Singleton.getComparedFlights();
-
-                            comparison1.setText(getString(R.string.price_text, comparedFlights.get(0).getPrice()));
-                            comparison2.setText(getString(R.string.price_text, comparedFlights.get(1).getPrice()));
-                            comparison3.setText(getString(R.string.price_text, comparedFlights.get(2).getPrice()));
-
-                            label.setText(getString(R.string.price));
-                            cardContainer.addView(cardView);
+                            String data1 = getString(R.string.price_text, comparedFlights.get(0).getPrice());
+                            String data2 = getString(R.string.price_text, comparedFlights.get(1).getPrice());
+                            String data3 = getString(R.string.price_text, comparedFlights.get(2).getPrice());
+                            inflateComparatorCard(getString(R.string.price), data1, data2, data3);
+                        }
+                        else{
+                            deleteCard(cardViewMap.get(getString(R.string.price)));
                         }
                         break;
                     case R.id.bags:
                         item.setChecked(!item.isChecked());
-                        comparatorActive.put(getString(R.string.bags), item.isChecked());
-                        Log.d("ITEM CLICK", getString(R.string.bags) + " " + item.isChecked());
+                        Singleton.setComparators(getString(R.string.bags), item.isChecked());
                         if(item.isChecked()) {
-                            LayoutInflater inflater = LayoutInflater.from(cardContainer.getContext());
-                            MaterialCardView cardView = (MaterialCardView) inflater.inflate(R.layout.comparator_card, cardContainer,false);
-                            TextView label = cardView.findViewById(R.id.comparatorLabel);
-                            label.setText(R.string.bags);
-                            cardContainer.addView(cardView);
+                            List<Flight> comparedFlights = Singleton.getComparedFlights();
+                            String data1 = "1";
+                            String data2 = "2";
+                            String data3 = "3";
+                            inflateComparatorCard(getString(R.string.bags), data1, data2, data3);
+                        }
+                        else{
+                            deleteCard(cardViewMap.get(getString(R.string.bags)));
                         }
                         break;
                     case R.id.layovertime:
                         item.setChecked(!item.isChecked());
-                        comparatorActive.put(getString(R.string.layovertime), item.isChecked());
-                        Log.d("ITEM CLICK", getString(R.string.layovertime) + " " + item.isChecked());
+                        Singleton.setComparators(getString(R.string.layovertime), item.isChecked());
                         if(item.isChecked()) {
-                            LayoutInflater inflater = LayoutInflater.from(cardContainer.getContext());
-                            MaterialCardView cardView = (MaterialCardView) inflater.inflate(R.layout.comparator_card, cardContainer,false);
-                            TextView label = cardView.findViewById(R.id.comparatorLabel);
-                            TextView comparison1 = cardView.findViewById(R.id.comparison1);
-                            TextView comparison2 = cardView.findViewById(R.id.comparison2);
-                            TextView comparison3 = cardView.findViewById(R.id.comparison3);
                             List<Flight> comparedFlights = Singleton.getComparedFlights();
-
-//                            int hours1 = comparedFlights.get(0).getLayovers();
-//                            comparison1.setText(getString(R.string.layovertime_text, comparedFlights.get(0).getPrice()));
-//                            comparison2.setText(getString(R.string.layovertime_text, comparedFlights.get(1).getPrice()));
-//                            comparison3.setText(getString(R.string.layovertime_text, comparedFlights.get(2).getPrice()));
-
-                            label.setText(getString(R.string.layovertime));
-                            cardContainer.addView(cardView);
+                            String data1 = "1";
+                            String data2 = "2";
+                            String data3 = "3";
+                            inflateComparatorCard(getString(R.string.layovertime), data1, data2, data3);
+                        }
+                        else{
+                            deleteCard(cardViewMap.get(getString(R.string.layovertime)));
                         }
                         break;
                     case R.id.flytime:
                         item.setChecked(!item.isChecked());
-                        comparatorActive.put(getString(R.string.flytime), item.isChecked());
-                        Log.d("ITEM CLICK", getString(R.string.flytime) + " " + item.isChecked());
+                        Singleton.setComparators(getString(R.string.flytime), item.isChecked());
                         if(item.isChecked()) {
-                            LayoutInflater inflater = LayoutInflater.from(cardContainer.getContext());
-                            MaterialCardView cardView = (MaterialCardView) inflater.inflate(R.layout.comparator_card, cardContainer,false);
-                            TextView label = cardView.findViewById(R.id.comparatorLabel);
-                            TextView comparison1 = cardView.findViewById(R.id.comparison1);
-                            TextView comparison2 = cardView.findViewById(R.id.comparison2);
-                            TextView comparison3 = cardView.findViewById(R.id.comparison3);
                             List<Flight> comparedFlights = Singleton.getComparedFlights();
-
-//                            int flytimeH1 = (Integer) comparedFlights.get(0).getFlytime();
-
-//                            comparison1.setText(getString(R.string.price_text, comparedFlights.get(0).getFlytime()));
-//                            comparison2.setText(getString(R.string.price_text, comparedFlights.get(1).getFlytime()));
-//                            comparison3.setText(getString(R.string.price_text, comparedFlights.get(2).getFlytime()));
-                            label.setText(getString(R.string.flytime));
-                            cardContainer.addView(cardView);
+                            String data1 = "1";
+                            String data2 = "2";
+                            String data3 = "3";
+                            inflateComparatorCard(getString(R.string.flytime), data1, data2, data3);
+                        }
+                        else{
+                            deleteCard(cardViewMap.get(getString(R.string.flytime)));
                         }
                         break;
                     case R.id.from:
                         item.setChecked(!item.isChecked());
-                        comparatorActive.put(getString(R.string.from), item.isChecked());
-                        Log.d("ITEM CLICK", getString(R.string.from) + " " + item.isChecked());
+                        Singleton.setComparators(getString(R.string.from), item.isChecked());
                         if(item.isChecked()) {
-                            LayoutInflater inflater = LayoutInflater.from(cardContainer.getContext());
-                            MaterialCardView cardView = (MaterialCardView) inflater.inflate(R.layout.comparator_card, cardContainer,false);
-                            TextView label = cardView.findViewById(R.id.comparatorLabel);
-                            label.setText(R.string.from);
-                            cardContainer.addView(cardView);
+                            List<Flight> comparedFlights = Singleton.getComparedFlights();
+                            Log.d(TAG, "Comp flights from: " + comparedFlights.get(0).getFrom_location());
+                            Log.d(TAG, "Comp flights from: " + comparedFlights.get(1).getFrom_location());
+                            Log.d(TAG, "Comp flights from: " + comparedFlights.get(2).getFrom_location());
+                            String data1 = comparedFlights.get(0).getFrom_location().getAirport_code();
+                            String data2 = comparedFlights.get(1).getFrom_location().getAirport_code();
+                            String data3 = comparedFlights.get(2).getFrom_location().getAirport_code();
+                            inflateComparatorCard(getString(R.string.from), data1, data2, data3);
+                        }
+                        else{
+                            deleteCard(cardViewMap.get(getString(R.string.from)));
                         }
                         break;
                     case R.id.to:
                         item.setChecked(!item.isChecked());
-                        comparatorActive.put(getString(R.string.to), item.isChecked());
-                        Log.d("ITEM CLICK", getString(R.string.to) + " " + item.isChecked());
+                        Singleton.setComparators(getString(R.string.to), item.isChecked());
                         if(item.isChecked()) {
-                            LayoutInflater inflater = LayoutInflater.from(cardContainer.getContext());
-                            MaterialCardView cardView = (MaterialCardView) inflater.inflate(R.layout.comparator_card, cardContainer,false);
-                            TextView label = cardView.findViewById(R.id.comparatorLabel);
-                            label.setText(R.string.to);
-                            cardContainer.addView(cardView);
+                            List<Flight> comparedFlights = Singleton.getComparedFlights();
+                            Log.d(TAG, "Comp flights to: " + comparedFlights.size());
+                            String data1 = comparedFlights.get(0).getTo_location().getAirport_code();
+                            String data2 = comparedFlights.get(1).getTo_location().getAirport_code();
+                            String data3 = comparedFlights.get(2).getTo_location().getAirport_code();
+                            inflateComparatorCard(getString(R.string.to), data1, data2, data3);
+                        }
+                        else{
+                            deleteCard(cardViewMap.get(getString(R.string.to)));
                         }
                         break;
                     default:
                         Log.e("Comparator menu", "Not a valid menu item");
                 }
+
+                item.setShowAsAction(MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW);
+                item.setActionView(new View(getContext()));
+                item.setOnActionExpandListener(new MenuItem.OnActionExpandListener() {
+                    @Override
+                    public boolean onMenuItemActionExpand(MenuItem item) {
+                        return false;
+                    }
+
+                    @Override
+                    public boolean onMenuItemActionCollapse(MenuItem item) {
+                        return false;
+                    }
+                });
+
                 return false;
             }
         });
         popup.show();
+    }
+
+    private void inflateComparatorCard(String labelText, String data1, String data2, String data3){
+        LayoutInflater inflater = LayoutInflater.from(cardContainer.getContext());
+        MaterialCardView cardView = (MaterialCardView) inflater.inflate(R.layout.comparator_card, cardContainer,false);
+        cardViewMap.put(labelText, cardView);
+        TextView label = cardView.findViewById(R.id.comparatorLabel);
+        TextView comparison1 = cardView.findViewById(R.id.comparison1);
+        TextView comparison2 = cardView.findViewById(R.id.comparison2);
+        TextView comparison3 = cardView.findViewById(R.id.comparison3);
+
+        if(data1 == null){
+            comparison1.setText("SELECT FLIGHT");
+        }
+        else{
+            comparison1.setText(data1);
+        }
+
+        if(data2 == null){
+            comparison2.setText("SELECT FLIGHT");
+        }
+        else{
+            comparison2.setText(data2);
+        }
+
+        if(data3 == null){
+            comparison3.setText("SELECT FLIGHT");
+        }
+        else{
+            comparison3.setText(data3);
+        }
+
+        label.setText(labelText);
+
+        cardView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                return false;
+            }
+        });
+
+        cardContainer.addView(cardView);
+    }
+
+    private void deleteCard(View v) {
+        cardContainer.removeView(v);
+    }
+
+    private void inflateAllCards(){
+        List<Flight> comparedFlights = Singleton.getComparedFlights();
+        if(comparedFlights.size() == 0){
+            return;
+        }
+        String labelString;
+        String data1 = null;
+        String data2 = null;
+        String data3 = null;
+        for(Map.Entry<String, Boolean> e : Singleton.getComparators().entrySet()){
+            switch (e.getKey()){
+                case "PRICE":
+                    labelString = getString(R.string.price);
+                    switch (comparedFlights.size()){
+                        case 3:
+                            data3 = getString(R.string.price_text, comparedFlights.get(2).getPrice());
+                        case 2:
+                            data2 = getString(R.string.price_text, comparedFlights.get(1).getPrice());
+                        case 1:
+                            data1 = getString(R.string.price_text, comparedFlights.get(0).getPrice());
+                    }
+                    break;
+                case "FLYTIME":
+                    labelString = getString(R.string.flytime);
+                    switch (comparedFlights.size()){
+                        case 3:
+                            data3 = comparedFlights.get(2).getFlytime().toString();
+                        case 2:
+                            data2 = comparedFlights.get(1).getFlytime().toString();
+                        case 1:
+                            data1 = comparedFlights.get(0).getFlytime().toString();
+                    }
+                    break;
+                case "BAGS":
+                    labelString = getString(R.string.bags);
+                    switch (comparedFlights.size()){
+                        case 3:
+                            data3 = "4, $50";
+                        case 2:
+                            data2 = "3, $50";
+                        case 1:
+                            data1 = "1, $50";
+                    }
+                    break;
+                case "LAYOVER TIME":
+                    labelString = getString(R.string.layovertime);
+                    switch (comparedFlights.size()){
+                        case 3:
+                            data3 = "1";
+                        case 2:
+                            data2 = "2";
+                        case 1:
+                            data1 = "3";
+                    }
+                    break;
+                case "FROM":
+                    labelString = getString(R.string.from);
+                    switch (comparedFlights.size()){
+                        case 3:
+                            data3 = comparedFlights.get(2).getFrom_location().getAirport_code();
+                        case 2:
+                            data2 = comparedFlights.get(1).getFrom_location().getAirport_code();
+                        case 1:
+                            data1 = comparedFlights.get(0).getFrom_location().getAirport_code();;
+                    }
+                    break;
+                case "TO":
+                    labelString = getString(R.string.to);
+                    switch (comparedFlights.size()){
+                        case 3:
+                            data3 = comparedFlights.get(2).getTo_location().getAirport_code();
+                        case 2:
+                            data2 = comparedFlights.get(1).getTo_location().getAirport_code();
+                        case 1:
+                            data1 = comparedFlights.get(0).getTo_location().getAirport_code();;
+                    }
+                    break;
+                default:
+                    Log.e(TAG, "Not a valid menu item");
+                    labelString = "NOT AN ITEM";
+                    data1 = "INVALID";
+                    data2 = "INVALID";
+                    data3 = "INVALID";
+            }
+            inflateComparatorCard(labelString, data1, data2, data3);
+        }
     }
 
     /**

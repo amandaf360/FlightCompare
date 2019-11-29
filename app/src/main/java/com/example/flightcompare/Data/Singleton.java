@@ -7,6 +7,7 @@ import com.example.flightcompare.Data.CollectionObjects.Flight;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 public class Singleton {
@@ -15,6 +16,7 @@ public class Singleton {
     private ArrayList<Flight> flights;
     private ArrayList<Flight> savedFlights;
     private ArrayList<Flight> comparedFlights;
+    private LinkedHashMap<String, Boolean> comparators;
 
     public static void init(){
         if(data == null){
@@ -28,6 +30,7 @@ public class Singleton {
         flights = new ArrayList<>();
         savedFlights = new ArrayList<>();
         comparedFlights = new ArrayList<>();
+        comparators = new LinkedHashMap<>();
     }
 
     //*************//
@@ -120,5 +123,25 @@ public class Singleton {
             return true;
         }
         return false;
+    }
+
+    //**********************//
+    // COMPARE RESULTS PAGE //
+    //**********************//
+
+    public static void setComparators(String comparator, Boolean value){
+        data._setComparators(comparator, value);
+    }
+
+    private void _setComparators(String comparator, Boolean value){
+        comparators.put(comparator, value);
+    }
+
+    public static LinkedHashMap<String, Boolean> getComparators(){
+        return data._getComparators();
+    }
+
+    private LinkedHashMap<String, Boolean> _getComparators(){
+        return comparators;
     }
 }
