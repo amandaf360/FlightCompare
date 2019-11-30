@@ -50,6 +50,7 @@ public class CompareResults extends Fragment {
     ImageView logo2;
     ImageView logo3;
     HashMap<String, MaterialCardView> cardViewMap;
+    HashMap<String, Integer> logoMap;
 
     public CompareResults() {}
 
@@ -69,6 +70,12 @@ public class CompareResults extends Fragment {
         // Inflate the layout for this fragment
         Log.d("ASDF", "Creating Compare View");
         cardViewMap = new HashMap<>();
+        logoMap = new HashMap<>();
+        // Add new logos here
+        logoMap.put(getString(R.string.american), R.drawable.aa_logo);
+        logoMap.put(getString(R.string.hawaiian), R.drawable.hawaii_logo);
+        logoMap.put(getString(R.string.delta), R.drawable.delta_logo);
+
         View v = inflater.inflate(R.layout.fragment_compare, container, false);
         compareByBtn = v.findViewById(R.id.compareByBtn);
         cardContainer = v.findViewById(R.id.cardContainer);
@@ -77,9 +84,27 @@ public class CompareResults extends Fragment {
         logo2 = v.findViewById(R.id.logo2);
         logo3 = v.findViewById(R.id.logo3);
 
-        logo1.setImageResource(R.drawable.aa_logo);
-        logo2.setImageResource(R.drawable.delta_logo);
-        logo3.setImageResource(R.drawable.hawaii_logo);
+        Flight flight1 = Singleton.getComparedFlights().get(0);
+        Flight flight2 = Singleton.getComparedFlights().get(1);
+        Flight flight3 = Singleton.getComparedFlights().get(2);
+
+        if(flight1 != null) {
+            logo1.setImageResource(logoMap.get(flight1.getAirline()));
+        }else {
+            logo1.setImageResource(R.drawable.ic_home_black_24dp);
+        }
+
+        if(flight2 != null) {
+            logo1.setImageResource(logoMap.get(flight2.getAirline()));
+        }else {
+            logo1.setImageResource(R.drawable.ic_home_black_24dp);
+        }
+
+        if(flight3 != null) {
+            logo1.setImageResource(logoMap.get(flight3.getAirline()));
+        }else {
+            logo1.setImageResource(R.drawable.ic_home_black_24dp);
+        }
 
         Singleton.setComparators(getString(R.string.price), true);
         Singleton.setComparators(getString(R.string.flytime), true);
