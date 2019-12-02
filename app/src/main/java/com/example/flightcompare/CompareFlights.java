@@ -1,4 +1,4 @@
-package com.example.flightcompare.FlightsTab;
+package com.example.flightcompare;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -6,21 +6,15 @@ import android.os.Bundle;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.fragment.app.Fragment;
 
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.Toast;
 
-import com.example.flightcompare.R;
 import com.google.android.material.button.MaterialButton;
-import com.google.android.material.textfield.TextInputEditText;
 
 public class CompareFlights extends Fragment {
     MaterialButton compareByBtn;

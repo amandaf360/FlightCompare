@@ -68,8 +68,8 @@ public class FirestoreData {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Log.d("Querying flights", "Getting a result");
                                 String airline = (String) document.get("airline");
-                                String arrive_time = (String) document.get("arrive_time");
-                                String depart_time = (String) document.get("depart_time");
+                                String arrive_time = document.get("arrive_time").toString();
+                                String depart_time = document.get("depart_time").toString();
                                 DocumentReference from_location = (DocumentReference) document.get("from_location");
                                 DocumentReference to_location = (DocumentReference) document.get("to_location");
                                 String flight_num = (String) document.get("flight_num");

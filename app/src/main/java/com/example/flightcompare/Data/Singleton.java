@@ -12,6 +12,7 @@ import java.util.List;
 public class Singleton {
     static Singleton data;
     private ArrayList<Airport> airports;
+
     private ArrayList<Flight> flights;
 
     public static void init(){
@@ -52,5 +53,9 @@ public class Singleton {
 
     private ArrayList<Airport> _getAirports(){
         return airports;
+    }
+
+    public ArrayList<Flight> getFlights() {
+        return flights;
     }
 }

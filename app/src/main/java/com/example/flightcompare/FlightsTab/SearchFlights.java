@@ -3,6 +3,7 @@ package com.example.flightcompare.FlightsTab;
 import android.content.Context;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -143,8 +144,32 @@ public class SearchFlights extends Fragment {
         return v;
     }
 
+    /*
+
+    TextInputEditText fromAirportEdit;
+    TextInputEditText toAirportEdit;
+    TextInputEditText departDateEdit;
+    TextInputEditText returnDateEdit;
+
+    RadioButton roundtripRadio;
+    RadioButton onewayRadio;
+     */
     public void onSearchClicked() {
         searchButton.setEnabled(false);
+
+        SearchResults searchResults = SearchResults.newInstance(fromAirportEdit.getText().toString(),
+                toAirportEdit.getText().toString(), departDateEdit.getText().toString(),
+                returnDateEdit.getText().toString(), roundtripRadio.isChecked());
+
+        switchFragment(searchResults);
+    }
+
+    private void switchFragment(Fragment fragment) {
+        // load fragment
+        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.frame_container, fragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 
     private void returnSearchResult() {

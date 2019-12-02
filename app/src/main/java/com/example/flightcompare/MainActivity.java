@@ -15,6 +15,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.util.Log;
 import android.view.MenuItem;
+import android.widget.TextView;
+import android.widget.Toolbar;
 
 import com.example.flightcompare.FlightsTab.SearchFlights;
 import com.google.firebase.firestore.CollectionReference;
@@ -46,7 +48,11 @@ public class MainActivity extends AppCompatActivity implements SearchFlights.OnS
 //        }
 
         toolbar = getSupportActionBar();
-
+//        setSupportActionBar(toolbar);
+//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_top);
+//        TextView mTitle = (TextView) toolbar.findViewById(R.id.toolbar_title);
+//
+//        setSupportActionBar(toolbar);
         // load the search for flights fragment by default
         toolbar.setTitle("Search for Flights");
         loadFragment(SearchFlights.newInstance());
