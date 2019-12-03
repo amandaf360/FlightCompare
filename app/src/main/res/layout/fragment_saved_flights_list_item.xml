@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/Widget.MaterialComponents.CardView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="@dimen/mtrl_card_spacing"
+    android:layout_marginTop="@dimen/mtrl_card_spacing"
+    android:layout_marginRight="@dimen/mtrl_card_spacing"
+    android:minHeight="200dp"
+    android:padding="10dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/saved_flights_depart_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="@string/depart_flight"
+                android:textAppearance="?attr/textAppearanceListItem" />
+
+            <!--    departure info -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/saved_flights_depart_flight_airline_img"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:paddingLeft="10dp"
+                    android:src="@drawable/ic_flights" />
+
+                <TextView
+                    android:id="@+id/saved_flights_depart_time_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:layout_weight="1"
+                    android:text="11:37 AM - 2:30 PM"
+                    android:textAppearance="?attr/textAppearanceListItem" />
+
+                <TextView
+                    android:id="@+id/saved_flights_depart_duration_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:layout_weight="1"
+                    android:text="1h 53m"
+                    android:textAppearance="?attr/textAppearanceListItem" />
+
+                <TextView
+                    android:id="@+id/saved_flights_depart_price_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:layout_weight="1"
+                    android:text="$90"
+                    android:textAppearance="?attr/textAppearanceListItem" />
+            </LinearLayout>
+
+            <View
+                android:id="@+id/saved_flights_divider"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginRight="10dp"
+                android:background="@android:color/darker_gray" />
+
+            <TextView
+                android:id="@+id/saved_flights_return_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="@string/return_flight"
+                android:textAppearance="?attr/textAppearanceListItem" />
+            <!--    returning info -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/saved_flights_return_flight_airline_img"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:paddingLeft="10dp"
+                    android:src="@drawable/ic_flights" />
+
+                <TextView
+                    android:id="@+id/saved_flights_return_time_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:layout_weight="1"
+                    android:text="9:37 AM - 2:30 PM"
+                    android:textAppearance="?attr/textAppearanceListItem" />
+
+                <TextView
+                    android:id="@+id/saved_flights_return_duration_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:layout_weight="1"
+                    android:text="3h 53m"
+                    android:textAppearance="?attr/textAppearanceListItem" />
+
+                <TextView
+                    android:id="@+id/saved_flights_return_price_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:layout_weight="1"
+                    android:text="$95"
+                    android:textAppearance="?attr/textAppearanceListItem" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="4"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/saved_flights_checkbox_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/compare_question" />
+
+            <CheckBox
+                android:id="@+id/saved_flights_checkbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="start|center_horizontal" />
+            <!--            <CheckBox-->
+            <!--                android:id="@+id/saved_checkbox"-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_gravity="center|right"-->
+            <!--                android:layout_weight="1">-->
+
+            <!--            </CheckBox>-->
+        </LinearLayout>
+
+
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>

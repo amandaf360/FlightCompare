@@ -4,7 +4,6 @@ import android.content.Context;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -20,13 +19,8 @@ import com.example.flightcompare.R;
 import com.google.android.material.button.MaterialButton;
 import com.google.firebase.Timestamp;
 
-import java.lang.reflect.Array;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Objects;
 
 public class SearchResults extends Fragment {
 

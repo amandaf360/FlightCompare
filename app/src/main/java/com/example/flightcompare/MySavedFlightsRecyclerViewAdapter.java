@@ -1,11 +1,7 @@
-package com.example.flightcompare.FlightsTab;
-
-import androidx.recyclerview.widget.RecyclerView;
+package com.example.flightcompare;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.drawable.Drawable;
-import android.graphics.drawable.Icon;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,12 +10,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.flightcompare.Data.CollectionObjects.Flight;
-import com.example.flightcompare.R;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MyFlightResultRecyclerViewAdapter extends RecyclerView.Adapter<MyFlightResultRecyclerViewAdapter.ViewHolder> {
+import androidx.recyclerview.widget.RecyclerView;
+
+public class MySavedFlightsRecyclerViewAdapter extends RecyclerView.Adapter<MySavedFlightsRecyclerViewAdapter.ViewHolder> {
 
     private final List<Object> mItems;
     private Context context;
@@ -51,12 +48,12 @@ public class MyFlightResultRecyclerViewAdapter extends RecyclerView.Adapter<MyFl
         }
     }
 
-    public MyFlightResultRecyclerViewAdapter(List<Object> lines) {
+    public MySavedFlightsRecyclerViewAdapter(List<Object> lines) {
         this.mItems = lines;
     }
 
     @Override
-    public MyFlightResultRecyclerViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public MySavedFlightsRecyclerViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.fragment_flightresult_list_item, parent, false);
         context = parent.getContext();
@@ -65,12 +62,9 @@ public class MyFlightResultRecyclerViewAdapter extends RecyclerView.Adapter<MyFl
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-//        Icon flightIcon = (Icon)context.getResources().getDrawable(R.drawable.ic_flights, null);
+        Drawable flightIcon = context.getResources().getDrawable(R.drawable.ic_flights, null);
         String temp;
-        holder.mImageView1.setColorFilter(context.getResources().getColor(R.color.accentOrange));
-        holder.mImageView2.setImageResource(R.drawable.ic_flights);
-        holder.mImageView1.setImageResource(R.drawable.ic_flights);
-//        holder.mImageView1.setImageDrawable(flightIcon);
+        holder.mImageView1.setImageDrawable(flightIcon);
 
         /*
         TextView mTextView1;
@@ -82,7 +76,7 @@ public class MyFlightResultRecyclerViewAdapter extends RecyclerView.Adapter<MyFl
         TextView mTextView6;
         CheckBox mCheckBox;
          */
-//        holder.mImageView2.setImageDrawable(flightIcon);
+        holder.mImageView2.setImageDrawable(flightIcon);
         ArrayList<Flight> flights = (ArrayList<Flight>)mItems.get(position);
 //        String temp = flights.get(0).getDepart_time().toString() + " - " + flights.get(0).getArrive_time();
         temp = "11:30 AM - 4:40 PM";

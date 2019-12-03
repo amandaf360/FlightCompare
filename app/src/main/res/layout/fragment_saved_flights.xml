@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -19,7 +18,7 @@
     <!--        android:orientation="vertical">-->
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/flight_results_recycler_view"
+        android:id="@+id/saved_flights_recycler_view"
         android:name="com.example.flightcompare.FlightsTab.SearchResults"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
