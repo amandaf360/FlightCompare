@@ -3,17 +3,30 @@ package com.example.flightcompare.FlightsTab;
 import android.content.Context;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.flightcompare.Data.CollectionObjects.Airport;
+import com.example.flightcompare.Data.CollectionObjects.Flight;
+import com.example.flightcompare.MainActivity;
 import com.example.flightcompare.R;
+import com.google.android.material.button.MaterialButton;
+import com.google.firebase.Timestamp;
 
+import java.lang.reflect.Array;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 public class SearchResults extends Fragment {
 
@@ -21,6 +34,8 @@ public class SearchResults extends Fragment {
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private List<Object> resultsList;
+
+    MaterialButton searchAgainButton;
 
     // data members
     String fromAirport;
@@ -62,7 +77,14 @@ public class SearchResults extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_flightresults, container, false);
 
-        mRecyclerView = getActivity().findViewById(R.id.flight_results_recycler_view);
+        searchAgainButton = view.findViewById(R.id.search_again_button);
+        searchAgainButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onSearchClicked();
+            }
+        });
+        mRecyclerView = view.findViewById(R.id.flight_results_recycler_view);
         resultsList = new ArrayList<>();
 
         // TODO: set the list of results by making an API call?
@@ -90,6 +112,32 @@ public class SearchResults extends Fragment {
 //        }
         return view;
     }
+
+    private void onSearchClicked() {
+        // TEMP STUFF
+        // Flight(String airline, Long price, Timestamp arrive_time, Timestamp depart_time,
+        // Airport from_location, Airport to_location, String flight_num,
+        //            / Long bag_num, Double flytime)
+        Airport airport = new Airport("Salt Lake City", "West", "USA", "SLC");
+
+        Flight flight = new Flight("Delta", (long)90, Timestamp.now(), Timestamp.now(), airport, airport, "123", (long)1, 120.0);
+        Flight flight2 = new Flight("Delta", (long)90, Timestamp.now(), Timestamp.now(), airport, airport, "123", (long)1, 120.0);
+        ArrayList<Flight> pair = new ArrayList<>();
+        pair.add(flight);
+        pair.add(flight2);
+
+        resultsList.add(pair);
+        mAdapter.notifyDataSetChanged();
+
+
+        // END OF TEMP STUFF
+//        searchAgainButton.setEnabled(false);
+//
+//        SearchFlights searchFlights = SearchFlights.newInstance();
+//        ((MainActivity) Objects.requireNonNull(getActivity())).loadFragment(searchFlights);
+    }
+
+
 
 //
 //    @Override

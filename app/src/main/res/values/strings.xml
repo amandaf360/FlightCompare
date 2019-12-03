@@ -25,8 +25,26 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <!-- Comparison screen -->
-    <string name="price">Price</string>
-    <string name="flytime">Flytime</string>
-    <string name="bags">Bags</string>
-    <string name="layovertime">Layover Time</string>
+    <string name="price">PRICE</string>
+    <string name="flytime">FLYTIME</string>
+    <string name="bags">BAGS</string>
+    <string name="layovertime">LAYOVER TIME</string>
+    <string name="from">FROM</string>
+    <string name="to">TO</string>
+
+    <!-- Comparison display values -->
+    <string name="price_text">$%1$d</string>
+    <string name="layovertime_text">%1$d h, %2$d m</string>
+
+    <!-- Airline Names -->
+    <string name="american">American Airlines</string>
+    <string name="delta">Delta Air Lines</string>
+    <string name="alaska">Alaska Airlines</string>
+    <string name="southwest">Southwest Airlines</string>
+    <string name="hawaiian">Hawaiian Airlines</string>
+    <string name="frontier">Frontier Airlines</string>
+    <string name="spirit">Spirit Airlines</string>
+    <string name="jetblue">JetBlue Airways</string>
+    <string name="united">United Airlines</string>
+    <string name="allegiant">Allegiant Air</string>
 </resources>

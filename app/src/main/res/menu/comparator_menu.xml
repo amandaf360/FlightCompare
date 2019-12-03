@@ -3,16 +3,22 @@
     <group android:checkableBehavior="all">
         <item
             android:id="@+id/price"
+            android:checked="true"
             android:title="@string/price" />
         <item android:id="@+id/flytime"
+            android:checked="true"
             android:title="@string/flytime" />
         <item android:id="@+id/bags"
+            android:checked="true"
             android:title="@string/bags" />
         <item android:id="@+id/layovertime"
+            android:checked="true"
             android:title="@string/layovertime" />
         <item android:id="@+id/from"
-            android:title="@string/dest_from" />
+            android:checked="true"
+            android:title="@string/from" />
         <item android:id="@+id/to"
-            android:title="@string/dest_to" />
+            android:checked="true"
+            android:title="@string/to" />
     </group>
 </menu>

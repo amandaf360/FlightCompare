@@ -12,8 +12,10 @@ import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.flightcompare.Data.CollectionObjects.Flight;
 import com.example.flightcompare.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MyFlightResultRecyclerViewAdapter extends RecyclerView.Adapter<MyFlightResultRecyclerViewAdapter.ViewHolder> {
@@ -63,10 +65,34 @@ public class MyFlightResultRecyclerViewAdapter extends RecyclerView.Adapter<MyFl
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Drawable flightIcon = context.getResources().getDrawable(R.drawable.ic_flights, null);
+        String temp;
         holder.mImageView1.setImageDrawable(flightIcon);
 
+        /*
+        TextView mTextView1;
+        TextView mTextView2;
+        TextView mTextView3;
+        ImageView mImageView2;
+        TextView mTextView4;
+        TextView mTextView5;
+        TextView mTextView6;
+        CheckBox mCheckBox;
+         */
+        holder.mImageView2.setImageDrawable(flightIcon);
+        ArrayList<Flight> flights = (ArrayList<Flight>)mItems.get(position);
+//        String temp = flights.get(0).getDepart_time().toString() + " - " + flights.get(0).getArrive_time();
+        temp = "11:30 AM - 4:40 PM";
+        holder.mTextView1.setText(temp);
+        temp = flights.get(0).getFlytime().toString();
+        holder.mTextView2.setText(temp);
+        holder.mTextView3.setText(flights.get(0).getPrice().toString());
 
-
+//        temp = flights.get(1).getDepart_time().toString() + " - " + flights.get(1).getArrive_time();
+        temp = "9:30 AM - 12:40 PM";
+        holder.mTextView4.setText(temp);
+        temp = flights.get(1).getFlytime().toString();
+        holder.mTextView5.setText(temp);
+        holder.mTextView6.setText(flights.get(1).getPrice().toString());
 
 
 //        Drawable maleIcon = context.getResources().getDrawable(R.drawable.male_icon,null);

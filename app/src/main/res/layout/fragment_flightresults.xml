@@ -1,46 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:app="http://schemas.android.com/apk/res-auto"
-xmlns:tools="http://schemas.android.com/tools"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-android:orientation="vertical"
-android:paddingBottom="20dp"
-android:paddingLeft="20dp"
-android:paddingRight="20dp"
-android:paddingTop="20dp"
-tools:context=".FlightsTab.SearchResults">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="top|center"
+    android:orientation="vertical"
+    android:paddingBottom="80dp"
+    tools:context=".FlightsTab.SearchResults">
 
-    <LinearLayout
-        android:id="@+id/linear_layout_search_results"
+    <!--    <LinearLayout-->
+    <!--        android:id="@+id/linear_layout_search_results"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="match_parent"-->
+    <!--        android:gravity="top|center"-->
+    <!--        android:orientation="vertical">-->
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/search_again_button"
+        style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start"
+        android:layout_margin="10dp"
+        android:text="@string/search_again"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/flight_results_recycler_view"
+        android:name="com.example.flightcompare.FlightsTab.SearchResults"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="top|center"
-        android:orientation="vertical">
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:scrollbars="vertical"
+        app:layoutManager="LinearLayoutManager"
+        tools:context=".FlightsTab.SearchResults"
+        tools:listitem="@layout/fragment_flightresult_list_item" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/search_again_button"
-            style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="start"
-            android:layout_margin="10dp"
-            android:text="@string/search_again"
-            android:textSize="12sp"
-            app:layout_constraintBottom_toBottomOf="parent" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/flight_results_recycler_view"
-            android:name="com.example.flightcompare.FlightsTab.SearchResults"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:scrollbars="vertical"
-            app:layoutManager="LinearLayoutManager"
-            tools:context=".FlightsTab.SearchResults"
-            tools:listitem="@layout/fragment_flightresult_list_item" />
-
-    </LinearLayout>
-</android.support.constraint.ConstraintLayout>
+    <!--    </LinearLayout>-->
+</LinearLayout>

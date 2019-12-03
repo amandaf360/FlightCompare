@@ -13,9 +13,12 @@ import android.view.ViewGroup;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
+import com.example.flightcompare.MainActivity;
 import com.example.flightcompare.R;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
+
+import java.util.Objects;
 
 public class SearchFlights extends Fragment {
 
@@ -154,22 +157,14 @@ public class SearchFlights extends Fragment {
     RadioButton roundtripRadio;
     RadioButton onewayRadio;
      */
-    public void onSearchClicked() {
+    private void onSearchClicked() {
         searchButton.setEnabled(false);
 
         SearchResults searchResults = SearchResults.newInstance(fromAirportEdit.getText().toString(),
                 toAirportEdit.getText().toString(), departDateEdit.getText().toString(),
                 returnDateEdit.getText().toString(), roundtripRadio.isChecked());
 
-        switchFragment(searchResults);
-    }
-
-    private void switchFragment(Fragment fragment) {
-        // load fragment
-        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.frame_container, fragment);
-        transaction.addToBackStack(null);
-        transaction.commit();
+        ((MainActivity) Objects.requireNonNull(getActivity())).loadFragment(searchResults);
     }
 
     private void returnSearchResult() {

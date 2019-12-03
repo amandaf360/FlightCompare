@@ -2,25 +2,28 @@ package com.example.flightcompare.Data.CollectionObjects;
 
 import android.util.Pair;
 
+import com.google.firebase.Timestamp;
+
 import java.io.Serializable;
 import java.util.HashMap;
 
 public class Flight implements Serializable {
     String airline;
-    String arrive_time;
-    String depart_time;
-    String from_location;
-    String to_location;
+    Timestamp arrive_time;
+    Timestamp depart_time;
+    Airport from_location;
+    Airport to_location;
     String flight_num;
     HashMap<String, Integer> layovers;
     HashMap<Integer, Integer> bag_price;
     Long bag_num;
     Double flytime;
+    Long price;
 
-
-    public Flight(String airline, String arrive_time, String depart_time, String from_location, String to_location, String flight_num,
+    public Flight(String airline, Long price, Timestamp arrive_time, Timestamp depart_time, Airport from_location, Airport to_location, String flight_num,
             /*HashMap<String, Integer> layovers, HashMap<Integer, Integer> bag_price,*/ Long bag_num, Double flytime) {
         this.airline = airline;
+        this.price = price;
         this.arrive_time = arrive_time;
         this.depart_time = depart_time;
         this.from_location = from_location;
@@ -36,19 +39,23 @@ public class Flight implements Serializable {
         return airline;
     }
 
-    public String getArrive_time() {
+    public Long getPrice() {
+        return price;
+    }
+
+    public Timestamp getArrive_time() {
         return arrive_time;
     }
 
-    public String getDepart_time() {
+    public Timestamp getDepart_time() {
         return depart_time;
     }
 
-    public String getFrom_location() {
+    public Airport getFrom_location() {
         return from_location;
     }
 
-    public String getTo_location() {
+    public Airport getTo_location() {
         return to_location;
     }
 
