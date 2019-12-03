@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:gravity="top|center"
     android:orientation="vertical"
-    android:paddingBottom="80dp"
+    android:paddingBottom="90dp"
     tools:context=".FlightsTab.SearchResults">
 
     <!--    <LinearLayout-->

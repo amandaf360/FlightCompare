@@ -1,14 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SavedFlights">
+    android:gravity="top|center"
+    android:orientation="vertical"
+    android:paddingBottom="90dp"
+    tools:context=".FlightsTab.SearchResults">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <!--    <LinearLayout-->
+    <!--        android:id="@+id/linear_layout_search_results"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="match_parent"-->
+    <!--        android:gravity="top|center"-->
+    <!--        android:orientation="vertical">-->
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/flight_results_recycler_view"
+        android:name="com.example.flightcompare.FlightsTab.SearchResults"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginRight="16dp"
+        android:scrollbars="vertical"
+        app:layoutManager="LinearLayoutManager"
+        tools:context=".FlightsTab.SearchResults"
+        tools:listitem="@layout/fragment_flightresult_list_item" />
 
-</FrameLayout>
+    <!--    </LinearLayout>-->
+</LinearLayout>
