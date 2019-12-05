@@ -9,7 +9,9 @@ import android.graphics.drawable.Icon;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.CheckBox;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -33,7 +35,9 @@ public class MyFlightResultRecyclerViewAdapter extends RecyclerView.Adapter<MyFl
         TextView mTextView4;
         TextView mTextView5;
         TextView mTextView6;
-        CheckBox mCheckBox;
+        ImageButton faveButton;
+        boolean favorited = false;
+//        CheckBox mCheckBox;
 
         ViewHolder(View v) {
             super(v);
@@ -47,8 +51,32 @@ public class MyFlightResultRecyclerViewAdapter extends RecyclerView.Adapter<MyFl
             mTextView5 = v.findViewById(R.id.return_duration_text);
             mTextView6 = v.findViewById(R.id.return_price_text);
 
-            mCheckBox = v.findViewById(R.id.checkbox);
+            faveButton = v.findViewById(R.id.favoriteButton);
+//            mCheckBox = v.findViewById(R.id.checkbox);
         }
+
+        void bindFavoriteButton(final Object item) {
+            favorited = !favorited;
+            faveButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(favorited) {
+                        faveButton.setImageResource(R.drawable.ic_favorite_border_light_grey_24dp);
+                    }
+                    else {
+                        faveButton.setImageResource(R.drawable.ic_favorite_full_24dp);
+                    }
+                   // favoriteButton.setSelected(!btnextra.isPressed());
+    //                if (favoriteButton.isPressed()) {
+    //                    favoriteButton.setImageResource(R.drawable.yourImage);
+    //                }
+    //                else {
+    //                    favoriteButton.setImageResource(R.drawable.fav);
+    //                }
+                }
+            });
+        }
+
     }
 
     public MyFlightResultRecyclerViewAdapter(List<Object> lines) {
@@ -67,6 +95,22 @@ public class MyFlightResultRecyclerViewAdapter extends RecyclerView.Adapter<MyFl
     public void onBindViewHolder(ViewHolder holder, int position) {
 //        Icon flightIcon = (Icon)context.getResources().getDrawable(R.drawable.ic_flights, null);
         String temp;
+        holder.bindFavoriteButton(mItems.get(position));
+        //final ImageButton btnTest =(ImageButton) findViewById(R.id.btnexctract);
+//        final ImageButton favoriteButton = holder.faveButton;
+//        favoriteButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//               // favoriteButton.setSelected(!btnextra.isPressed());
+////                if (favoriteButton.isPressed()) {
+////                    favoriteButton.setImageResource(R.drawable.yourImage);
+////                }
+////                else {
+////                    favoriteButton.setImageResource(R.drawable.fav);
+////                }
+//            }
+//        });
         holder.mImageView1.setColorFilter(context.getResources().getColor(R.color.accentOrange));
         holder.mImageView2.setImageResource(R.drawable.ic_flights);
         holder.mImageView1.setImageResource(R.drawable.ic_flights);

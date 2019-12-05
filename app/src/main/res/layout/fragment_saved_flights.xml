@@ -10,6 +10,51 @@
     android:paddingBottom="90dp"
     tools:context=".FlightsTab.SearchResults">
 
+    <TextView
+        android:id="@+id/text_view_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/mtrl_card_spacing"
+        android:layout_gravity="start"
+        android:paddingTop="10dp"
+        android:text="@string/saved_flights"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/textview_no_saved_flights"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/mtrl_card_spacing"
+        android:textStyle="italic"
+        android:paddingTop="10dp"
+        android:text="@string/no_saved_flights"
+        android:textSize="10sp" />
+
+    <TextView
+        android:id="@+id/textview_select_saved_flights"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/mtrl_card_spacing"
+        android:textStyle="italic"
+        android:paddingTop="10dp"
+        android:text="@string/compare_flights_info"
+        android:textSize="10sp" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="50dp"
+        android:layout_weight="2">
+
+        <LinearLayout
+            android:id="@+id/cardContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:orientation="vertical">
+
+        </LinearLayout>
+    </ScrollView>
     <!--    <LinearLayout-->
     <!--        android:id="@+id/linear_layout_search_results"-->
     <!--        android:layout_width="match_parent"-->
@@ -17,18 +62,18 @@
     <!--        android:gravity="top|center"-->
     <!--        android:orientation="vertical">-->
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/saved_flights_recycler_view"
-        android:name="com.example.flightcompare.FlightsTab.SearchResults"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginRight="16dp"
-        android:scrollbars="vertical"
-        app:layoutManager="LinearLayoutManager"
-        tools:context=".FlightsTab.SearchResults"
-        tools:listitem="@layout/fragment_flightresult_list_item" />
+<!--    <androidx.recyclerview.widget.RecyclerView-->
+<!--        android:id="@+id/saved_flights_recycler_view"-->
+<!--        android:name="com.example.flightcompare.FlightsTab.SearchResults"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:layout_marginLeft="16dp"-->
+<!--        android:layout_marginTop="16dp"-->
+<!--        android:layout_marginRight="16dp"-->
+<!--        android:scrollbars="vertical"-->
+<!--        app:layoutManager="LinearLayoutManager"-->
+<!--        tools:context=".FlightsTab.SearchResults"-->
+<!--        tools:listitem="@layout/fragment_flightresult_list_item" />-->
 
     <!--    </LinearLayout>-->
 </LinearLayout>

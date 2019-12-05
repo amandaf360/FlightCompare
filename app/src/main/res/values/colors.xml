@@ -7,4 +7,5 @@
     <color name="accentOrange">#F79256</color>
     <color name="darkGrey">#484848</color>
     <color name="lightGrey">#ACACAC</color>
+    <color name="white">#FFFFFF</color>
 </resources>

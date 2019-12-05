@@ -24,6 +24,9 @@
 
     <!-- Saved flights screen -->
     <string name="compare_question">Compare?</string>
+    <string name="saved_flights">Saved Flights</string>
+    <string name="no_saved_flights">You have no saved flights right now</string>
+    <string name="compare_flights_info">Select up to 3 flights to compare</string>
 
     <!-- Comparison screen -->
     <string name="price">PRICE</string>
