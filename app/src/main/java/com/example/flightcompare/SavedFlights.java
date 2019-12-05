@@ -1,5 +1,6 @@
 package com.example.flightcompare;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -9,20 +10,30 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.example.flightcompare.Data.CollectionObjects.Airport;
 import com.example.flightcompare.Data.CollectionObjects.Flight;
+import com.example.flightcompare.Data.Singleton;
 import com.example.flightcompare.FlightsTab.MyFlightResultRecyclerViewAdapter;
+import com.google.android.material.card.MaterialCardView;
 import com.google.firebase.Timestamp;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class SavedFlights extends Fragment {
-    private RecyclerView mRecyclerView;
-    private RecyclerView.Adapter mAdapter;
-    private RecyclerView.LayoutManager mLayoutManager;
-    private List<Object> savedList;
+//    private RecyclerView mRecyclerView;
+//    private RecyclerView.Adapter mAdapter;
+//    private RecyclerView.LayoutManager mLayoutManager;
+    private ArrayList<Flight> savedList;
+    private ArrayList<MaterialCardView> savedCards;
+    LinearLayout cardContainer;
+
+    private TextView noSavedFlightsText;
+    private TextView selectSavedFlightsText;
 
     // data members
 //    String fromAirport;
@@ -31,8 +42,7 @@ public class SavedFlights extends Fragment {
 //    String returnDate;
 //    Boolean roundTrip;
 
-    public SavedFlights() {
-    }
+    public SavedFlights() {}
 
     public static SavedFlights newInstance() {
         SavedFlights fragment = new SavedFlights();
@@ -60,10 +70,44 @@ public class SavedFlights extends Fragment {
     }
 
     @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+//        if (context instanceof OnCompareResultsSelectedListener) {
+//            mListener = (OnCompareResultsSelectedListener) context;
+//        } else {
+//            throw new RuntimeException(context.toString()
+//                    + " must implement OnCompareResultsSelectedListener");
+//        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+//        mListener = null;
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_saved_flights, container, false);
 
+        noSavedFlightsText = view.findViewById(R.id.textview_no_saved_flights);
+        selectSavedFlightsText = view.findViewById(R.id.textview_select_saved_flights);
+        cardContainer = view.findViewById(R.id.savedCardContainer);
+
+        // get all saved flights
+        savedList = Singleton.getSavedFlights();
+
+        if(savedList.size() != 0) {
+            noSavedFlightsText.setVisibility(View.INVISIBLE);
+            selectSavedFlightsText.setVisibility(View.VISIBLE);
+        }
+        else {
+            noSavedFlightsText.setVisibility(View.VISIBLE);
+            selectSavedFlightsText.setVisibility(View.INVISIBLE);
+        }
+
+        inflateSavedList();
 //        searchAgainButton = view.findViewById(R.id.search_again_button);
 //        searchAgainButton.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -71,12 +115,21 @@ public class SavedFlights extends Fragment {
 //                onSearchClicked();
 //            }
 //        });
+
+        /* RECYCLER VIEW STUFF
+        noSavedFlightsText = view.findViewById(R.id.textview_no_saved_flights);
+
         mRecyclerView = view.findViewById(R.id.saved_flights_recycler_view);
         savedList = new ArrayList<>();
 
-        // TODO: set the list of results by making an API call?
+        // maybe set the list of results by making an API call?
         // will just add dummy data right now
-
+        if(savedList.size() != 0) {
+            noSavedFlightsText.setVisibility(View.INVISIBLE);
+        }
+        else {
+            noSavedFlightsText.setVisibility(View.VISIBLE);
+        }
 
 
         mLayoutManager = new LinearLayoutManager(this.getContext());
@@ -85,6 +138,7 @@ public class SavedFlights extends Fragment {
 
         mAdapter = new MyFlightResultRecyclerViewAdapter(savedList);
         mRecyclerView.setAdapter(mAdapter);
+         */
 
         // Set the adapter
 //        if (view instanceof RecyclerView) {
@@ -100,27 +154,79 @@ public class SavedFlights extends Fragment {
         return view;
     }
 
-    private void onSearchClicked() {
-        // TEMP STUFF
-        // Flight(String airline, Long price, Timestamp arrive_time, Timestamp depart_time,
-        // Airport from_location, Airport to_location, String flight_num,
-        //            / Long bag_num, Double flytime)
-        Airport airport = new Airport("Salt Lake City", "West", "USA", "SLC");
+    public void inflateSavedList() {
+        LayoutInflater inflater = LayoutInflater.from(cardContainer.getContext());
+        MaterialCardView cardView = (MaterialCardView) inflater.inflate(R.layout.fragment_saved_flights_list_item, cardContainer,false);
 
-        Flight flight = new Flight("Delta", (long)90, Timestamp.now(), Timestamp.now(), airport, airport, "123", (long)1, 120.0);
-        Flight flight2 = new Flight("Delta", (long)90, Timestamp.now(), Timestamp.now(), airport, airport, "123", (long)1, 120.0);
-        ArrayList<Flight> pair = new ArrayList<>();
-        pair.add(flight);
-        pair.add(flight2);
+        ImageButton removeSavedButton = cardView.findViewById(R.id.remove_saved_button);
+//        TextView outgoingLegAirline = cardView.findViewById(R.id.depart_flight_airline_img);
+        TextView outgoingLegDepartureAirport = cardView.findViewById(R.id.saved_flights_depart_airport_text);
+        TextView outgoingLegDestinationAirport = cardView.findViewById(R.id.saved_flights_dest_airport_text);
+        TextView outgoingLegDepartTime;
+        TextView outgoingLegDuration;
+        TextView outgoingLegDate;
 
-        savedList.add(pair);
-        mAdapter.notifyDataSetChanged();
+        TextView incomingLegAirline;
+        TextView incomingLegDepartureAirport;
+        TextView incomingLegDestinationAirport;
+        TextView incomingLegDepartTime;
+        TextView incomingLegDuration;
+        TextView incomingLegDate;
 
+        TextView price;
 
-        // END OF TEMP STUFF
-//        searchAgainButton.setEnabled(false);
+//        String outgoingLegAirline;
+//        String outgoingLegDepartureAirport;
+//        String outgoingLegDestinationAirport;
+//        String outgoingLegDepartTime;
+//        String outgoingLegDuration;
+//        String outgoingLegDate;
 //
-//        SearchFlights searchFlights = SearchFlights.newInstance();
-//        ((MainActivity) Objects.requireNonNull(getActivity())).loadFragment(searchFlights);
+//        String incomingLegAirline;
+//        String incomingLegDepartureAirport;
+//        String incomingLegDestinationAirport;
+//        String incomingLegDepartTime;
+//        String incomingLegDuration;
+//        String incomingLegDate;
+//
+//        int price;
+
+        for(final Flight f : savedList) {
+            outgoingLegDepartureAirport.setText(f.getFrom_location().getAirport_code());
+            outgoingLegDestinationAirport.setText(f.getTo_location().getAirport_code());
+//            outgoingLegAirline = f.getAirline();
+//            outgoingLegDepartureAirport = f.getFrom_location().getAirport_code();
+//            outgoingLegDestinationAirport = f.getTo_location().getAirport_code();
+//            outgoingLegDepartTime = f.getDepart_time().toString();
+//            outgoingLegDuration = f.getFlytime().toString();
+////            outgoingLegDate = f.getDate().toString();
+//
+//            incomingLegAirline = f.getAirline();
+//            incomingLegDepartureAirport = f.getFrom_location().getAirport_code();
+//            incomingLegDestinationAirport = f.getTo_location().getAirport_code();
+//            incomingLegDepartTime = f.getDepart_time().toString();
+//            incomingLegDuration = f.getFlytime().toString();
+////            incomingLegDate = f.getDate().toString();
+//
+//            price = f.getPrice().intValue();
+
+            removeSavedButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    // need to remove the flight from the saved list
+                    deleteFlight(view, f);
+                }
+            });
+            cardContainer.addView(cardView);
+        }
+
     }
+
+    private void deleteFlight(View v, Flight f) {
+        // remove the flight from the view
+        cardContainer.removeView(v);
+        // need to actually remove it from the saved list though
+//        Singleton.removeSavedFlight(f);
+    }
+
 }

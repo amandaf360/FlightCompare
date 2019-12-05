@@ -57,7 +57,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
             android:layout_weight="1"
             android:orientation="vertical">
 
@@ -78,21 +77,21 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginRight="24dp"
+                    android:layout_marginRight="35dp"
                     android:orientation="horizontal">
 
                     <ImageView
                         android:id="@+id/saved_flights_depart_flight_airline_img"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
                         android:layout_gravity="center"
-                        android:backgroundTint="@color/cardview_dark_background"
-                        android:paddingLeft="10dp"
-                        android:src="@drawable/ic_flights" />
+                        android:layout_marginLeft="10dp"
+                        android:src="@drawable/hawaii_logo" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center"
                         android:gravity="center"
                         android:orientation="horizontal">
 
@@ -177,7 +176,7 @@
                     android:id="@+id/saved_flights_divider"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:layout_marginStart="30dp"
+                    android:layout_marginStart="10dp"
                     android:layout_weight="1"
                     android:background="@android:color/darker_gray" />
 
@@ -199,27 +198,26 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
                 android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginRight="30dp"
+                    android:layout_marginRight="35dp"
                     android:orientation="horizontal">
 
                     <ImageView
                         android:id="@+id/saved_flights_return_flight_airline_img"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
                         android:layout_gravity="center"
-                        android:backgroundTint="@color/cardview_dark_background"
-                        android:paddingLeft="10dp"
-                        android:src="@drawable/ic_flights" />
+                        android:layout_marginLeft="10dp"
+                        android:src="@drawable/delta_logo" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center"
                         android:gravity="center"
                         android:orientation="horizontal">
 
@@ -292,6 +290,7 @@
             </LinearLayout>
 
             <ImageButton
+                android:id="@+id/remove_saved_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"

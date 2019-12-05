@@ -28,7 +28,7 @@
         android:textStyle="italic"
         android:paddingTop="10dp"
         android:text="@string/no_saved_flights"
-        android:textSize="10sp" />
+        android:textSize="12sp" />
 
     <TextView
         android:id="@+id/textview_select_saved_flights"
@@ -38,7 +38,7 @@
         android:textStyle="italic"
         android:paddingTop="10dp"
         android:text="@string/compare_flights_info"
-        android:textSize="10sp" />
+        android:textSize="12sp" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -47,7 +47,7 @@
         android:layout_weight="2">
 
         <LinearLayout
-            android:id="@+id/cardContainer"
+            android:id="@+id/savedCardContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="2"
