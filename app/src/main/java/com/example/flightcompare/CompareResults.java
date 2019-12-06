@@ -20,10 +20,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.flightcompare.Data.CollectionObjects.Flight;
+import com.example.flightcompare.Data.JsonObjects.Trip;
 import com.example.flightcompare.Data.Singleton;
 import com.example.flightcompare.FlightsTab.SearchFlights;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
+import com.google.firebase.database.snapshot.Index;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -84,24 +86,33 @@ public class CompareResults extends Fragment {
         logo2 = v.findViewById(R.id.logo2);
         logo3 = v.findViewById(R.id.logo3);
 
-        Flight flight1 = Singleton.getComparedFlights().get(0);
-        Flight flight2 = Singleton.getComparedFlights().get(1);
-        Flight flight3 = Singleton.getComparedFlights().get(2);
+        Trip trip1 = null;
+        Trip trip2 = null;
+        Trip trip3 = null;
 
-        if(flight1 != null) {
-            logo1.setImageResource(logoMap.get(flight1.getAirline()));
+        try {
+            trip1 = Singleton.getComparedTrips().get(0);
+            trip2 = Singleton.getComparedTrips().get(1);
+            trip3 = Singleton.getComparedTrips().get(2);
+        }
+        catch (IndexOutOfBoundsException ex){
+            Log.d("Compared Trips not full", ex.getMessage());
+        }
+
+        if(trip1 != null) {
+            logo1.setImageResource(logoMap.get("Hawaiian Airlines"));
         }else {
             logo1.setImageResource(R.drawable.ic_home_black_24dp);
         }
 
-        if(flight2 != null) {
-            logo1.setImageResource(logoMap.get(flight2.getAirline()));
+        if(trip2 != null) {
+            logo1.setImageResource(logoMap.get("Hawaiian Airlines"));
         }else {
             logo1.setImageResource(R.drawable.ic_home_black_24dp);
         }
 
-        if(flight3 != null) {
-            logo1.setImageResource(logoMap.get(flight3.getAirline()));
+        if(trip3 != null) {
+            logo1.setImageResource(logoMap.get("Hawaiian Airlines"));
         }else {
             logo1.setImageResource(R.drawable.ic_home_black_24dp);
         }
