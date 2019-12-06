@@ -3,7 +3,6 @@ package com.example.flightcompare.FlightsTab;
 import android.content.Context;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -18,6 +17,8 @@ import com.example.flightcompare.R;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 
+import java.text.SimpleDateFormat;
+import java.util.Locale;
 import java.util.Objects;
 
 public class SearchFlights extends Fragment {
@@ -71,9 +72,18 @@ public class SearchFlights extends Fragment {
         searchButton.setEnabled(false);
 
         TextWatcher watcher = new TextWatcher() {
+            boolean fromAirportGood;
+            boolean toAirportGood;
+            boolean departDateGood;
+            boolean returnDateGood;
+
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 searchButton.setEnabled(false);
+                fromAirportGood = false;
+                toAirportGood = false;
+                departDateGood = false;
+                returnDateGood = false;
             }
 
             @Override
@@ -91,10 +101,78 @@ public class SearchFlights extends Fragment {
                     returnDateEdit.setEnabled(true);
                 }
 
+                // check to see if the from airport is good
+                    // needs to have a length of 3 for the airport code
+                //if(editable.equals(fromAirportEdit)) {
+                    if(fromAirportEdit.getText().toString().length() == 3) {
+                        fromAirportGood = true;
+                    }
+                    else {
+                        fromAirportGood = false;
+                        fromAirportEdit.setError("Need to enter 3 characters for airport code");
+                    }
+                //}
+
+                // check to see if the to airport is good
+                if(toAirportEdit.getText().toString().length() == 3) {
+                    toAirportGood = true;
+                }
+                else {
+                    toAirportGood = false;
+                    toAirportEdit.setError("Need to enter 3 characters for airport code");
+                }
+
+
+                // check to see if the depart date is good
+                if(departDateEdit.getText().length() > 10 || departDateEdit.getText().length() < 8) {
+                    departDateGood = false;
+                    departDateEdit.setError("Need to enter the date in the correct format");
+                }
+                else {
+                    try {
+                        SimpleDateFormat dateFormat = new SimpleDateFormat("mm/dd/yyyy", Locale.ENGLISH);
+                        String date = departDateEdit.getText().toString(); // EditText to check
+                        java.util.Date parsedDate = dateFormat.parse(date);
+                        java.sql.Timestamp timestamp = new java.sql.Timestamp(parsedDate.getTime());
+                        // If the string can be parsed in date, it matches the SimpleDateFormat
+                        // Do whatever you want to do if String matches SimpleDateFormat.
+                        departDateGood = true;
+                    } catch (java.text.ParseException e) {
+                        // Else if there's an exception, it doesn't
+                        // Do whatever you want to do if it doesn't.
+                        departDateGood = false;
+                        departDateEdit.setError("Need to enter valid date");
+                    }
+                }
+
+
+                // check to see if the return date is good
+                if(editable.equals(returnDateEdit)) {
+                    if(returnDateEdit.getText().length() > 10 || returnDateEdit.getText().length() < 8) {
+                        returnDateGood = false;
+                        returnDateEdit.setError("Need to enter the date in the correct format");
+                    }
+                    else {
+                        try {
+                            SimpleDateFormat dateFormat = new SimpleDateFormat("mm/dd/yyyy", Locale.ENGLISH);
+                            String date = returnDateEdit.getText().toString(); // EditText to check
+                            java.util.Date parsedDate = dateFormat.parse(date);
+                            java.sql.Timestamp timestamp = new java.sql.Timestamp(parsedDate.getTime());
+                            // If the string can be parsed in date, it matches the SimpleDateFormat
+                            // Do whatever you want to do if String matches SimpleDateFormat.
+                            returnDateGood = true;
+                        } catch (java.text.ParseException e) {
+                            // Else if there's an exception, it doesn't
+                            // Do whatever you want to do if it doesn't.
+                            returnDateGood = false;
+                            returnDateEdit.setError("Need to enter valid date");
+                        }
+                    }
+                }
+
                 // check to see if all fields are filled out
-                if(fromAirportEdit.getText().toString().length() != 0 && toAirportEdit.getText().toString().length() != 0
-                    && departDateEdit.getText().toString().length() != 0) {
-                    if(roundtripRadio.isChecked() && returnDateEdit.getText().toString().length() != 0) {
+                if(fromAirportGood && toAirportGood && departDateGood) {
+                    if(roundtripRadio.isChecked() && returnDateGood) {
                         searchButton.setEnabled(true);
                     }
                     else if(onewayRadio.isChecked()) {
@@ -119,27 +197,27 @@ public class SearchFlights extends Fragment {
         RadioGroup.OnCheckedChangeListener listener = new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
-                // if oneway, disable the "return date" field
-                if(onewayRadio.isChecked()) {
-                    returnDateEdit.setEnabled(false);
-                }
-                else {
-                    returnDateEdit.setEnabled(true);
-                }
+            // if oneway, disable the "return date" field
+            if(onewayRadio.isChecked()) {
+                returnDateEdit.setEnabled(false);
+            }
+            else {
+                returnDateEdit.setEnabled(true);
+            }
 
-                // check to see if all fields are filled out
-                if(fromAirportEdit.getText().toString().length() != 0 && toAirportEdit.getText().toString().length() != 0
-                        && departDateEdit.getText().toString().length() != 0) {
-                    if(roundtripRadio.isChecked() && returnDateEdit.getText().toString().length() != 0) {
-                        searchButton.setEnabled(true);
-                    }
-                    else if(onewayRadio.isChecked()) {
-                        searchButton.setEnabled(true);
-                    }
+            // check to see if all fields are filled out
+            if(fromAirportEdit.getText().toString().length() != 0 && toAirportEdit.getText().toString().length() != 0
+                    && departDateEdit.getText().toString().length() != 0) {
+                if(roundtripRadio.isChecked() && returnDateEdit.getText().toString().length() != 0) {
+                    searchButton.setEnabled(true);
                 }
-                else {
-                    searchButton.setEnabled(false);
+                else if(onewayRadio.isChecked()) {
+                    searchButton.setEnabled(true);
                 }
+            }
+            else {
+                searchButton.setEnabled(false);
+            }
             }
         };
         tripButtonsGroup.setOnCheckedChangeListener(listener);
