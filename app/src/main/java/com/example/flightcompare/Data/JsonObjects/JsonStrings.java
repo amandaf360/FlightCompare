@@ -4,8 +4,7 @@ import com.google.gson.JsonObject;
 
 public class JsonStrings {
     JsonStrings() {}
-    public static String flightJsonData = "" +
-            "{\n" +
+    public static String flightJsonData = "{\n" +
             "  \"flights\": [\n" +
             "    {\n" +
             "      \"Price\": \"250\",\n" +
@@ -14,14 +13,16 @@ public class JsonStrings {
             "        \"DestinationId\": \"SLC\",\n" +
             "        \"Carrier\": \"American Airlines\",\n" +
             "        \"DepartureDate\": \"2019-12-20T12:35:00\",\n" +
-            "        \"ArrivalDate\": \"2019-12-20T14:35:00\"\n" +
+            "        \"ArrivalDate\": \"2019-12-20T14:35:00\",\n" +
+            "        \"FlightDuration\": \"2h 0m\"\n" +
             "      },\n" +
             "      \"InboundLeg\": {\n" +
             "        \"OriginId\": \"SLC\",\n" +
             "        \"DestinationId\": \"LAX\",\n" +
             "        \"Carrier\": \"American Airlines\",\n" +
             "        \"DepartureDate\": \"2019-1-20T12:35:00\",\n" +
-            "        \"ArrivalDate\": \"2019-1-20T14:35:00\"\n" +
+            "        \"ArrivalDate\": \"2019-1-20T14:35:00\",\n" +
+            "        \"FlightDuration\": \"2h 0m\"\n" +
             "      }\n" +
             "    },\n" +
             "    {\n" +
@@ -31,14 +32,16 @@ public class JsonStrings {
             "        \"DestinationId\": \"SLC\",\n" +
             "        \"Carrier\": \"American Airlines\",\n" +
             "        \"DepartureDate\": \"2019-12-20T14:35:00\",\n" +
-            "        \"ArrivalDate\": \"2019-12-20T16:35:00\"\n" +
+            "        \"ArrivalDate\": \"2019-12-20T16:35:00\",\n" +
+            "        \"FlightDuration\": \"2h 0m\"\n" +
             "      },\n" +
             "      \"InboundLeg\": {\n" +
             "        \"OriginId\": \"SLC\",\n" +
             "        \"DestinationId\": \"LAX\",\n" +
             "        \"Carrier\": \"American Airlines\",\n" +
             "        \"DepartureDate\": \"2019-1-20T08:20:00\",\n" +
-            "        \"ArrivalDate\": \"2019-1-20T10:43:00\"\n" +
+            "        \"ArrivalDate\": \"2019-1-20T10:43:00\",\n" +
+            "        \"FlightDuration\": \"2h 23m\"\n" +
             "      }\n" +
             "    },\n" +
             "    {\n" +
@@ -48,14 +51,16 @@ public class JsonStrings {
             "        \"DestinationId\": \"SLC\",\n" +
             "        \"Carrier\": \"Delta Air Lines\",\n" +
             "        \"DepartureDate\": \"2019-12-20T11:43:00\",\n" +
-            "        \"ArrivalDate\": \"2019-12-20T13:20:00\"\n" +
+            "        \"ArrivalDate\": \"2019-12-20T13:20:00\",\n" +
+            "        \"FlightDuration\": \"1h 37m\"\n" +
             "      },\n" +
             "      \"InboundLeg\": {\n" +
             "        \"OriginId\": \"SLC\",\n" +
             "        \"DestinationId\": \"LAX\",\n" +
             "        \"Carrier\": \"Delta Air Lines\",\n" +
             "        \"DepartureDate\": \"2019-1-20T12:35:00\",\n" +
-            "        \"ArrivalDate\": \"2019-1-20T14:35:00\"\n" +
+            "        \"ArrivalDate\": \"2019-1-20T14:35:00\",\n" +
+            "        \"FlightDuration\": \"2h 0m\"\n" +
             "      }\n" +
             "    },\n" +
             "    {\n" +
@@ -65,14 +70,16 @@ public class JsonStrings {
             "        \"DestinationId\": \"SLC\",\n" +
             "        \"Carrier\": \"American Airlines\",\n" +
             "        \"DepartureDate\": \"2019-12-20T12:35:00\",\n" +
-            "        \"ArrivalDate\": \"2019-12-20T14:35:00\"\n" +
+            "        \"ArrivalDate\": \"2019-12-20T14:35:00\",\n" +
+            "        \"FlightDuration\": \"2h 0m\"\n" +
             "      },\n" +
             "      \"InboundLeg\": {\n" +
             "        \"OriginId\": \"SLC\",\n" +
             "        \"DestinationId\": \"LAX\",\n" +
             "        \"Carrier\": \"Delta Air Lines\",\n" +
             "        \"DepartureDate\": \"2019-1-20T18:35:00\",\n" +
-            "        \"ArrivalDate\": \"2019-1-20T19:55:00\"\n" +
+            "        \"ArrivalDate\": \"2019-1-20T19:55:00\",\n" +
+            "        \"FlightDuration\": \"2h 20m\"\n" +
             "      }\n" +
             "    },\n" +
             "    {\n" +
@@ -82,14 +89,16 @@ public class JsonStrings {
             "        \"DestinationId\": \"SLC\",\n" +
             "        \"Carrier\": \"American Airlines\",\n" +
             "        \"DepartureDate\": \"2019-12-20T12:35:00\",\n" +
-            "        \"ArrivalDate\": \"2019-12-20T14:35:00\"\n" +
+            "        \"ArrivalDate\": \"2019-12-20T14:35:00\",\n" +
+            "        \"FlightDuration\": \"2h 0m\"\n" +
             "      },\n" +
             "      \"InboundLeg\": {\n" +
             "        \"OriginId\": \"SLC\",\n" +
             "        \"DestinationId\": \"LAX\",\n" +
             "        \"Carrier\": \"American Airlines\",\n" +
             "        \"DepartureDate\": \"2019-1-20T12:35:00\",\n" +
-            "        \"ArrivalDate\": \"2019-1-20T14:35:00\"\n" +
+            "        \"ArrivalDate\": \"2019-1-20T14:35:00\",\n" +
+            "        \"FlightDuration\": \"2h 0m\"\n" +
             "      }\n" +
             "    },\n" +
             "    {\n" +
@@ -99,7 +108,8 @@ public class JsonStrings {
             "        \"DestinationId\": \"SLC\",\n" +
             "        \"Carrier\": \"American Airlines\",\n" +
             "        \"DepartureDate\": \"2019-12-20T12:35:00\",\n" +
-            "        \"ArrivalDate\": \"2019-12-20T14:35:00\"\n" +
+            "        \"ArrivalDate\": \"2019-12-20T14:35:00\",\n" +
+            "        \"FlightDuration\": \"2h 0m\"\n" +
             "      },\n" +
             "      \"InboundLeg\": {}\n" +
             "    },\n" +
@@ -110,7 +120,8 @@ public class JsonStrings {
             "        \"DestinationId\": \"SLC\",\n" +
             "        \"Carrier\": \"Delta Air Lines\",\n" +
             "        \"DepartureDate\": \"2019-12-20T11:43:00\",\n" +
-            "        \"ArrivalDate\": \"2019-12-20T13:20:00\"\n" +
+            "        \"ArrivalDate\": \"2019-12-20T13:20:00\",\n" +
+            "        \"FlightDuration\": \"2h 0m\"\n" +
             "      },\n" +
             "      \"InboundLeg\": {}\n" +
             "    },\n" +
@@ -121,7 +132,8 @@ public class JsonStrings {
             "        \"DestinationId\": \"SLC\",\n" +
             "        \"Carrier\": \"Southwest Airlines\",\n" +
             "        \"DepartureDate\": \"2019-12-20T13:17:00\",\n" +
-            "        \"ArrivalDate\": \"2019-12-20T15:25:00\"\n" +
+            "        \"ArrivalDate\": \"2019-12-20T15:25:00\",\n" +
+            "        \"FlightDuration\": \"2h 8m\"\n" +
             "      },\n" +
             "      \"InboundLeg\": {}\n" +
             "    },\n" +
@@ -132,7 +144,8 @@ public class JsonStrings {
             "        \"DestinationId\": \"SLC\",\n" +
             "        \"Carrier\": \"Southwest Airlines\",\n" +
             "        \"DepartureDate\": \"2019-12-20T06:10:00\",\n" +
-            "        \"ArrivalDate\": \"2019-12-20T07:55:00\"\n" +
+            "        \"ArrivalDate\": \"2019-12-20T07:55:00\",\n" +
+            "        \"FlightDuration\": \"1h 45m\"\n" +
             "      },\n" +
             "      \"InboundLeg\": {}\n" +
             "    },\n" +
@@ -143,7 +156,8 @@ public class JsonStrings {
             "        \"DestinationId\": \"SLC\",\n" +
             "        \"Carrier\": \"American Airlines\",\n" +
             "        \"DepartureDate\": \"2019-12-20T20:05:00\",\n" +
-            "        \"ArrivalDate\": \"2019-12-20T21:35:00\"\n" +
+            "        \"ArrivalDate\": \"2019-12-20T21:35:00\",\n" +
+            "        \"FlightDuration\": \"1h 30m\"\n" +
             "      },\n" +
             "      \"InboundLeg\": {}\n" +
             "    }\n" +
