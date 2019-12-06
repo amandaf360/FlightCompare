@@ -91,7 +91,6 @@ public class Singleton {
 
     private void _addFlight(Flight flight){
         flights.add(flight);
-        data._addComparedFlight(flight);
         Log.d("Singleton", "Flights size: " + flights.size());
         Log.d("ADD flight", flight.toString());
     }
@@ -203,6 +202,7 @@ public class Singleton {
 
     private void _addTrip(Trip trip){
         trips.add(trip);
+        _addComparedTrip(trip);
         Log.d("Singleton", "Trips size: " + trips.size());
         Log.d("ADD trip", trip.toString());
     }
@@ -237,7 +237,7 @@ public class Singleton {
     }
 
     private boolean _addComparedTrip(Trip trip){
-        if(savedTrips.size() <= 3) {
+        if(savedTrips.size() < 3) {
             savedTrips.add(trip);
             Log.d("ADD saved trip", trip.toString());
             return true;
