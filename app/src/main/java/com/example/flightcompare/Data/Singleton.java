@@ -18,10 +18,14 @@ public class Singleton {
     private ArrayList<Flight> flights;
     private ArrayList<Flight> savedFlights;
     private ArrayList<Flight> comparedFlights;
-    private ArrayList<Trip> trips;
-    private ArrayList<Airline> airlines;
     private ArrayList<Quote> searchedQuotes;
     private LinkedHashMap<String, Boolean> comparators;
+
+    private ArrayList<Trip> trips;
+    private ArrayList<Airline> airlines;
+    private ArrayList<Trip> searchedTrips;
+    private ArrayList<Trip> savedTrips;
+    private ArrayList<Trip> comparedTrips;
 
     public static void init(){
         if(data == null){
@@ -75,24 +79,6 @@ public class Singleton {
         return null;
     }
 
-    public static void addAirline(Airline airline){
-        data._addAirline(airline);
-    }
-
-    private void _addAirline(Airline airline){
-        airlines.add(airline);
-        Log.d("Singleton", "Airlines size: " + airlines.size());
-        Log.d("ADD trip", airline.toString());
-    }
-
-    public static ArrayList<Airline> getAirlines(){
-        return data._getAirlines();
-    }
-
-    private ArrayList<Airline> _getAirlines(){
-        return airlines;
-    }
-
     //*************//
     // FLIGHTS DATA//
     //*************//
@@ -114,24 +100,6 @@ public class Singleton {
 
     private void _addSearchedQuotes(Quote quote){
         data.searchedQuotes.add(quote);
-    }
-
-    public static void addTrip(Trip trip){
-        data._addTrip(trip);
-    }
-
-    private void _addTrip(Trip trip){
-        trips.add(trip);
-        Log.d("Singleton", "Trips size: " + trips.size());
-        Log.d("ADD trip", trip.toString());
-    }
-
-    public static ArrayList<Trip> getTrips(){
-        return data._getTrips();
-    }
-
-    private ArrayList<Trip> _getTrips(){
-        return trips;
     }
 
     //*********************//
@@ -198,5 +166,89 @@ public class Singleton {
 
     public ArrayList<Flight> getFlights() {
         return flights;
+    }
+
+    //*******************************************************************//
+    //                            JSON DATA                              //
+    //*******************************************************************//
+
+
+    // Airlines
+
+    public static void addAirline(Airline airline){
+        data._addAirline(airline);
+    }
+
+    private void _addAirline(Airline airline){
+        airlines.add(airline);
+        Log.d("Singleton", "Airlines size: " + airlines.size());
+        Log.d("ADD trip", airline.toString());
+    }
+
+    public static ArrayList<Airline> getAirlines(){
+        return data._getAirlines();
+    }
+
+    private ArrayList<Airline> _getAirlines(){
+        return airlines;
+    }
+
+    // Trips
+
+    public static void addTrip(Trip trip){
+        data._addTrip(trip);
+    }
+
+    private void _addTrip(Trip trip){
+        trips.add(trip);
+        Log.d("Singleton", "Trips size: " + trips.size());
+        Log.d("ADD trip", trip.toString());
+    }
+
+    public static ArrayList<Trip> getTrips(){
+        return data._getTrips();
+    }
+
+    private ArrayList<Trip> _getTrips(){
+        return trips;
+    }
+
+    public static void addSavedTrip(Trip trip){
+        data._addTrip(trip);
+    }
+
+    private void _addSavedTrip(Trip trip){
+        savedTrips.add(trip);
+        Log.d("ADD saved trip", trip.toString());
+    }
+
+    public static ArrayList<Trip> getSavedTrips(){
+        return data._getSavedTrips();
+    }
+
+    private ArrayList<Trip> _getSavedTrips(){
+        return savedTrips;
+    }
+
+    public static boolean addComparedTrip(Trip trip){
+        return data._addComparedTrip(trip);
+    }
+
+    private boolean _addComparedTrip(Trip trip){
+        if(savedTrips.size() <= 3) {
+            savedTrips.add(trip);
+            Log.d("ADD saved trip", trip.toString());
+            return true;
+        }
+        Log.d("Saved trips full", trip.toString());
+        return false;
+    }
+
+    public static ArrayList<Trip> getComparedTrips(){
+        return data._getSavedTrips();
+    }
+
+    private ArrayList<Trip> _getComparedTrips(){
+        return savedTrips;
     }
 }
