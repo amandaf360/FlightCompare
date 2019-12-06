@@ -14,6 +14,8 @@ import android.view.ViewGroup;
 
 import com.example.flightcompare.Data.CollectionObjects.Airport;
 import com.example.flightcompare.Data.CollectionObjects.Flight;
+import com.example.flightcompare.Data.JsonObjects.Trip;
+import com.example.flightcompare.Data.Singleton;
 import com.example.flightcompare.MainActivity;
 import com.example.flightcompare.R;
 import com.google.android.material.button.MaterialButton;
@@ -21,13 +23,15 @@ import com.google.firebase.Timestamp;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class SearchResults extends Fragment {
 
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
-    private List<Object> resultsList;
+    private List<Trip> resultsList;
+    private int countSaved;
 
     MaterialButton searchAgainButton;
 
@@ -64,6 +68,7 @@ public class SearchResults extends Fragment {
             returnDate = getArguments().getString("returnDate");
             roundTrip = getArguments().getBoolean("roundTrip");
         }
+        countSaved = 3;
     }
 
     @Override
@@ -81,10 +86,13 @@ public class SearchResults extends Fragment {
         mRecyclerView = view.findViewById(R.id.flight_results_recycler_view);
         resultsList = new ArrayList<>();
 
-        // TODO: set the list of results by making an API call?
-        // will just add dummy data right now
+        //resultsList = Singleton.getTripsForSearch(fromAirport, destAirport, departDate, returnDate);
+        resultsList = Singleton.getTrips();
 
-
+        // save some of the flights
+        for(int i = 0; i < countSaved; i++) {
+            Singleton.addSavedTrip(resultsList.get(i));
+        }
 
         mLayoutManager = new LinearLayoutManager(this.getContext());
         ((LinearLayoutManager)mLayoutManager).setOrientation(LinearLayoutManager.VERTICAL);
@@ -108,61 +116,10 @@ public class SearchResults extends Fragment {
     }
 
     private void onSearchClicked() {
-        // TEMP STUFF
-        // Flight(String airline, Long price, Timestamp arrive_time, Timestamp depart_time,
-        // Airport from_location, Airport to_location, String flight_num,
-        //            / Long bag_num, Double flytime)
-        Airport airport = new Airport("Salt Lake City", "West", "USA", "SLC");
+        searchAgainButton.setEnabled(false);
 
-        Flight flight = new Flight("Delta", (long)90, Timestamp.now(), Timestamp.now(), airport, airport, "123", (long)1, 120.0);
-        Flight flight2 = new Flight("Delta", (long)90, Timestamp.now(), Timestamp.now(), airport, airport, "123", (long)1, 120.0);
-        ArrayList<Flight> pair = new ArrayList<>();
-        pair.add(flight);
-        pair.add(flight2);
-
-        resultsList.add(pair);
-        mAdapter.notifyDataSetChanged();
-
-
-        // END OF TEMP STUFF
-//        searchAgainButton.setEnabled(false);
-//
-//        SearchFlights searchFlights = SearchFlights.newInstance();
-//        ((MainActivity) Objects.requireNonNull(getActivity())).loadFragment(searchFlights);
+        SearchFlights searchFlights = SearchFlights.newInstance();
+        ((MainActivity) Objects.requireNonNull(getActivity())).loadFragment(searchFlights);
     }
 
-
-
-//
-//    @Override
-//    public void onAttach(Context context) {
-//        super.onAttach(context);
-//        if (context instanceof OnListFragmentInteractionListener) {
-//            mListener = (OnListFragmentInteractionListener) context;
-//        } else {
-//            throw new RuntimeException(context.toString()
-//                    + " must implement OnListFragmentInteractionListener");
-//        }
-//    }
-//
-//    @Override
-//    public void onDetach() {
-//        super.onDetach();
-//        mListener = null;
-//    }
-//
-//    /**
-//     * This interface must be implemented by activities that contain this
-//     * fragment to allow an interaction in this fragment to be communicated
-//     * to the activity and potentially other fragments contained in that
-//     * activity.
-//     * <p/>
-//     * See the Android Training lesson <a href=
-//     * "http://developer.android.com/training/basics/fragments/communicating.html"
-//     * >Communicating with Other Fragments</a> for more information.
-//     */
-//    public interface OnListFragmentInteractionListener {
-//        // TODO: Update argument type and name
-//        void onListFragmentInteraction(DummyItem item);
-//    }
 }

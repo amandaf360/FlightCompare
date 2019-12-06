@@ -8,6 +8,7 @@ import com.example.flightcompare.Data.JsonObjects.Airline;
 import com.example.flightcompare.Data.JsonObjects.Trip;
 import com.example.flightcompare.Data.SkyscannerObjects.Quote;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
@@ -207,6 +208,25 @@ public class Singleton {
         Log.d("ADD trip", trip.toString());
     }
 
+    public static ArrayList<Trip> getTripsForSearch(String originAirportCode, String destAirportCode,
+                                                    String departDate, String returnDate) {
+        return data._getTripsForSearch(originAirportCode, destAirportCode, departDate, returnDate);
+    }
+
+    private ArrayList<Trip> _getTripsForSearch(String originAirportCode, String destAirportCode,
+                                               String departDate, String returnDate){
+        ArrayList<Trip> matchList = new ArrayList<>();
+        for(Trip t : trips) {
+            if(t.getOutboundLeg().getOriginId().equals(originAirportCode) &&
+                t.getOutboundLeg().getDestinationId().equals(destAirportCode) &&
+                t.getOutboundLeg().getDepartureDate().equals(departDate) &&
+                t.getInboundLeg().getDepartureDate().equals(returnDate)) {
+                matchList.add(t);
+            }
+        }
+        return matchList;
+    }
+
     public static ArrayList<Trip> getTrips(){
         return data._getTrips();
     }
@@ -216,12 +236,23 @@ public class Singleton {
     }
 
     public static void addSavedTrip(Trip trip){
-        data._addTrip(trip);
+        data._addSavedTrip(trip);
     }
 
     private void _addSavedTrip(Trip trip){
         savedTrips.add(trip);
+        trip.setSaved(true);
         Log.d("ADD saved trip", trip.toString());
+    }
+
+    public static void removeSavedTrip(Trip trip){
+        data._removeSavedTrip(trip);
+    }
+
+    private void _removeSavedTrip(Trip trip){
+        savedTrips.remove(trip);
+        trip.setSaved(false);
+        Log.d("REMOVE saved trip", trip.toString());
     }
 
     public static ArrayList<Trip> getSavedTrips(){

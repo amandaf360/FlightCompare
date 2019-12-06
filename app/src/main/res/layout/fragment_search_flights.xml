@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/fragment_search_flights"
     android:layout_width="match_parent"
@@ -63,7 +64,7 @@
                             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="@string/airport">
+                            android:hint="@string/airport_code_hint">
 
                             <!-- "From" airport edit text -->
 
@@ -97,7 +98,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginHorizontal="20dp"
-                            android:hint="@string/airport">
+                            android:hint="@string/airport_code_hint">
 
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/to_airport_edit"
@@ -170,6 +171,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginHorizontal="20dp"
                             android:hint="@string/date_format">
+<!--                            app:errorEnabled="true"-->
                             <!--                            app:endIconContentDescription="Custom description"-->
                             <!--                            app:endIconDrawable="@drawable/ic_date"-->
                             <!--                            app:endIconMode="custom">-->

@@ -9,7 +9,7 @@
     <string name="search_flight">Search</string>
     <string name="dest_from">From</string>
     <string name="dest_to">To</string>
-    <string name="airport">Airport</string>
+    <string name="airport_code_hint">Airport Code</string>
     <string name="depart_date">Departure Date</string>
     <string name="return_date">Return Date</string>
     <string name="date_format">mm/dd/yyyy</string>
@@ -24,6 +24,9 @@
 
     <!-- Saved flights screen -->
     <string name="compare_question">Compare?</string>
+    <string name="saved_flights">Saved Flights</string>
+    <string name="no_saved_flights">You have no saved flights right now</string>
+    <string name="compare_flights_info">Select up to 3 flights to compare</string>
 
     <!-- Comparison screen -->
     <string name="price">PRICE</string>
