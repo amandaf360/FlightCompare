@@ -9,7 +9,7 @@
     android:layout_marginLeft="@dimen/mtrl_card_spacing"
     android:layout_marginTop="@dimen/mtrl_card_spacing"
     android:layout_marginRight="@dimen/mtrl_card_spacing"
-    android:minHeight="200dp"
+    android:minHeight="150dp"
     android:padding="10dp">
 
     <LinearLayout
@@ -56,10 +56,10 @@
 
                 <ImageView
                     android:id="@+id/depart_flight_airline_img"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
                     android:layout_gravity="center"
-                    android:paddingLeft="10dp"
+                    android:layout_marginLeft="10dp"
                     android:src="@drawable/ic_flights" />
 
                 <TextView
@@ -67,9 +67,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
-                    android:layout_weight="2"
+                    android:layout_weight="1.5"
                     android:text="11:37 AM - 2:30 PM"
-                    android:textAppearance="?attr/textAppearanceListItem" />
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small" />
 
                 <TextView
                     android:id="@+id/depart_duration_text"
@@ -78,24 +78,37 @@
                     android:layout_margin="10dp"
                     android:layout_weight="2"
                     android:text="1h 53m"
-                    android:textAppearance="?attr/textAppearanceListItem" />
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small" />
 
-                <TextView
-                    android:id="@+id/depart_price_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:layout_weight="2.5"
-                    android:text="$90"
-                    android:textAppearance="?attr/textAppearanceListItem" />
             </LinearLayout>
 
-            <View
-                android:id="@+id/divider"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginRight="10dp"
-                android:background="@android:color/darker_gray" />
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <View
+                    android:id="@+id/flight_results_divider"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_weight="1"
+                    android:background="@android:color/darker_gray" />
+
+                <TextView
+                    android:id="@+id/flight_results_price_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="6"
+                    android:gravity="center"
+                    android:text="$139"
+                    android:textAllCaps="false"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                    android:textColor="#4CAF50"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/return_text"
@@ -112,10 +125,10 @@
 
                 <ImageView
                     android:id="@+id/return_flight_airline_img"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
                     android:layout_gravity="center"
-                    android:paddingLeft="10dp"
+                    android:layout_marginLeft="10dp"
                     android:src="@drawable/ic_flights" />
 
                 <TextView
@@ -123,9 +136,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
-                    android:layout_weight="2"
+                    android:layout_weight="1.5"
                     android:text="9:37 AM - 2:30 PM"
-                    android:textAppearance="?attr/textAppearanceListItem" />
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small" />
 
                 <TextView
                     android:id="@+id/return_duration_text"
@@ -134,49 +147,41 @@
                     android:layout_margin="10dp"
                     android:layout_weight="2"
                     android:text="3h 53m"
-                    android:textAppearance="?attr/textAppearanceListItem" />
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small" />
 
-                <TextView
-                    android:id="@+id/return_price_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:layout_weight="2.5"
-                    android:text="$95"
-                    android:textAppearance="?attr/textAppearanceListItem" />
             </LinearLayout>
 
         </LinearLayout>
 
-<!--        <LinearLayout-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_gravity="center"-->
-<!--            android:layout_weight="7"-->
-<!--            android:orientation="vertical">-->
+        <!--        <LinearLayout-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_gravity="center"-->
+        <!--            android:layout_weight="7"-->
+        <!--            android:orientation="vertical">-->
 
-<!--            <TextView-->
-<!--                android:id="@+id/checkbox_text"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:text="@string/save_question" />-->
+        <!--            <TextView-->
+        <!--                android:id="@+id/checkbox_text"-->
+        <!--                android:layout_width="wrap_content"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:text="@string/save_question" />-->
 
-<!--            <CheckBox-->
-<!--                android:id="@+id/checkbox"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_gravity="center"-->
-<!--                android:layout_weight="1"-->
-<!--                android:gravity="start|center_horizontal"/>-->
-<!--&lt;!&ndash;            <CheckBox&ndash;&gt;-->
-<!--&lt;!&ndash;                android:id="@+id/saved_checkbox"&ndash;&gt;-->
-<!--&lt;!&ndash;                android:layout_width="wrap_content"&ndash;&gt;-->
-<!--&lt;!&ndash;                android:layout_height="wrap_content"&ndash;&gt;-->
-<!--&lt;!&ndash;                android:layout_gravity="center|right"&ndash;&gt;-->
-<!--&lt;!&ndash;                android:layout_weight="1">&ndash;&gt;-->
+        <!--            <CheckBox-->
+        <!--                android:id="@+id/checkbox"-->
+        <!--                android:layout_width="wrap_content"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:layout_gravity="center"-->
+        <!--                android:layout_weight="1"-->
+        <!--                android:gravity="start|center_horizontal"/>-->
+        <!--&lt;!&ndash;            <CheckBox&ndash;&gt;-->
+        <!--&lt;!&ndash;                android:id="@+id/saved_checkbox"&ndash;&gt;-->
+        <!--&lt;!&ndash;                android:layout_width="wrap_content"&ndash;&gt;-->
+        <!--&lt;!&ndash;                android:layout_height="wrap_content"&ndash;&gt;-->
+        <!--&lt;!&ndash;                android:layout_gravity="center|right"&ndash;&gt;-->
+        <!--&lt;!&ndash;                android:layout_weight="1">&ndash;&gt;-->
 
-<!--&lt;!&ndash;            </CheckBox>&ndash;&gt;-->
-<!--        </LinearLayout>-->
+        <!--&lt;!&ndash;            </CheckBox>&ndash;&gt;-->
+        <!--        </LinearLayout>-->
 
 
     </LinearLayout>

@@ -173,7 +173,7 @@
                 android:orientation="horizontal">
 
                 <View
-                    android:id="@+id/saved_flights_divider"
+                    android:id="@+id/flight_results_divider"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_marginStart="10dp"
@@ -181,7 +181,7 @@
                     android:background="@android:color/darker_gray" />
 
                 <TextView
-                    android:id="@+id/saved_flights_price_text"
+                    android:id="@+id/flight_results_price_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="6"

@@ -37,12 +37,12 @@ public class MySavedFlightsRecyclerViewAdapter extends RecyclerView.Adapter<MySa
             mImageView1 = v.findViewById(R.id.depart_flight_airline_img);
             mTextView1 = v.findViewById(R.id.depart_time_text);
             mTextView2 = v.findViewById(R.id.depart_duration_text);
-            mTextView3 = v.findViewById(R.id.depart_price_text);
+           // mTextView3 = v.findViewById(R.id.depart_price_text);
 
             mImageView2 = v.findViewById(R.id.return_flight_airline_img);
             mTextView4 = v.findViewById(R.id.return_time_text);
             mTextView5 = v.findViewById(R.id.return_duration_text);
-            mTextView6 = v.findViewById(R.id.return_price_text);
+            //mTextView6 = v.findViewById(R.id.return_price_text);
 
             mCheckBox = v.findViewById(R.id.checkbox);
         }

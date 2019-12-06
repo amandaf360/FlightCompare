@@ -109,7 +109,7 @@ public class SearchFlights extends Fragment {
                     }
                     else {
                         fromAirportGood = false;
-                        fromAirportEdit.setError("Need to enter 3 characters for airport code");
+                        //fromAirportEdit.setError("Need to enter 3 characters for airport code");
                     }
                 //}
 
@@ -119,14 +119,14 @@ public class SearchFlights extends Fragment {
                 }
                 else {
                     toAirportGood = false;
-                    toAirportEdit.setError("Need to enter 3 characters for airport code");
+                    //toAirportEdit.setError("Need to enter 3 characters for airport code");
                 }
 
 
                 // check to see if the depart date is good
                 if(departDateEdit.getText().length() > 10 || departDateEdit.getText().length() < 8) {
                     departDateGood = false;
-                    departDateEdit.setError("Need to enter the date in the correct format");
+                    //departDateEdit.setError("Need to enter the date in the correct format");
                 }
                 else {
                     try {
@@ -141,7 +141,7 @@ public class SearchFlights extends Fragment {
                         // Else if there's an exception, it doesn't
                         // Do whatever you want to do if it doesn't.
                         departDateGood = false;
-                        departDateEdit.setError("Need to enter valid date");
+                        //departDateEdit.setError("Need to enter valid date");
                     }
                 }
 
@@ -150,7 +150,7 @@ public class SearchFlights extends Fragment {
                 if(editable.equals(returnDateEdit)) {
                     if(returnDateEdit.getText().length() > 10 || returnDateEdit.getText().length() < 8) {
                         returnDateGood = false;
-                        returnDateEdit.setError("Need to enter the date in the correct format");
+                        //returnDateEdit.setError("Need to enter the date in the correct format");
                     }
                     else {
                         try {
@@ -165,7 +165,7 @@ public class SearchFlights extends Fragment {
                             // Else if there's an exception, it doesn't
                             // Do whatever you want to do if it doesn't.
                             returnDateGood = false;
-                            returnDateEdit.setError("Need to enter valid date");
+                            //returnDateEdit.setError("Need to enter valid date");
                         }
                     }
                 }
