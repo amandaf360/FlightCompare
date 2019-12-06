@@ -7,14 +7,16 @@
         "DestinationId": "SLC",
         "Carrier": "American Airlines",
         "DepartureDate": "2019-12-20T12:35:00",
-        "ArrivalDate": "2019-12-20T14:35:00"
+        "ArrivalDate": "2019-12-20T14:35:00",
+        "FlightDuration": "2h 0m"
       },
       "InboundLeg": {
         "OriginId": "SLC",
         "DestinationId": "LAX",
         "Carrier": "American Airlines",
         "DepartureDate": "2019-1-20T12:35:00",
-        "ArrivalDate": "2019-1-20T14:35:00"
+        "ArrivalDate": "2019-1-20T14:35:00",
+        "FlightDuration": "2h 0m"
       }
     },
     {
@@ -24,14 +26,16 @@
         "DestinationId": "SLC",
         "Carrier": "American Airlines",
         "DepartureDate": "2019-12-20T14:35:00",
-        "ArrivalDate": "2019-12-20T16:35:00"
+        "ArrivalDate": "2019-12-20T16:35:00",
+        "FlightDuration": "2h 0m"
       },
       "InboundLeg": {
         "OriginId": "SLC",
         "DestinationId": "LAX",
         "Carrier": "American Airlines",
         "DepartureDate": "2019-1-20T08:20:00",
-        "ArrivalDate": "2019-1-20T10:43:00"
+        "ArrivalDate": "2019-1-20T10:43:00",
+        "FlightDuration": "2h 23m"
       }
     },
     {
@@ -41,14 +45,16 @@
         "DestinationId": "SLC",
         "Carrier": "Delta Air Lines",
         "DepartureDate": "2019-12-20T11:43:00",
-        "ArrivalDate": "2019-12-20T13:20:00"
+        "ArrivalDate": "2019-12-20T13:20:00",
+        "FlightDuration": "1h 37m"
       },
       "InboundLeg": {
         "OriginId": "SLC",
         "DestinationId": "LAX",
         "Carrier": "Delta Air Lines",
         "DepartureDate": "2019-1-20T12:35:00",
-        "ArrivalDate": "2019-1-20T14:35:00"
+        "ArrivalDate": "2019-1-20T14:35:00",
+        "FlightDuration": "2h 0m"
       }
     },
     {
@@ -58,14 +64,16 @@
         "DestinationId": "SLC",
         "Carrier": "American Airlines",
         "DepartureDate": "2019-12-20T12:35:00",
-        "ArrivalDate": "2019-12-20T14:35:00"
+        "ArrivalDate": "2019-12-20T14:35:00",
+        "FlightDuration": "2h 0m"
       },
       "InboundLeg": {
         "OriginId": "SLC",
         "DestinationId": "LAX",
         "Carrier": "Delta Air Lines",
         "DepartureDate": "2019-1-20T18:35:00",
-        "ArrivalDate": "2019-1-20T19:55:00"
+        "ArrivalDate": "2019-1-20T19:55:00",
+        "FlightDuration": "2h 20m"
       }
     },
     {
@@ -75,14 +83,16 @@
         "DestinationId": "SLC",
         "Carrier": "American Airlines",
         "DepartureDate": "2019-12-20T12:35:00",
-        "ArrivalDate": "2019-12-20T14:35:00"
+        "ArrivalDate": "2019-12-20T14:35:00",
+        "FlightDuration": "2h 0m"
       },
       "InboundLeg": {
         "OriginId": "SLC",
         "DestinationId": "LAX",
         "Carrier": "American Airlines",
         "DepartureDate": "2019-1-20T12:35:00",
-        "ArrivalDate": "2019-1-20T14:35:00"
+        "ArrivalDate": "2019-1-20T14:35:00",
+        "FlightDuration": "2h 0m"
       }
     },
     {
@@ -92,7 +102,8 @@
         "DestinationId": "SLC",
         "Carrier": "American Airlines",
         "DepartureDate": "2019-12-20T12:35:00",
-        "ArrivalDate": "2019-12-20T14:35:00"
+        "ArrivalDate": "2019-12-20T14:35:00",
+        "FlightDuration": "2h 0m"
       },
       "InboundLeg": {}
     },
@@ -103,7 +114,8 @@
         "DestinationId": "SLC",
         "Carrier": "Delta Air Lines",
         "DepartureDate": "2019-12-20T11:43:00",
-        "ArrivalDate": "2019-12-20T13:20:00"
+        "ArrivalDate": "2019-12-20T13:20:00",
+        "FlightDuration": "2h 0m"
       },
       "InboundLeg": {}
     },
@@ -114,7 +126,8 @@
         "DestinationId": "SLC",
         "Carrier": "Southwest Airlines",
         "DepartureDate": "2019-12-20T13:17:00",
-        "ArrivalDate": "2019-12-20T15:25:00"
+        "ArrivalDate": "2019-12-20T15:25:00",
+        "FlightDuration": "2h 8m"
       },
       "InboundLeg": {}
     },
@@ -125,7 +138,8 @@
         "DestinationId": "SLC",
         "Carrier": "Southwest Airlines",
         "DepartureDate": "2019-12-20T06:10:00",
-        "ArrivalDate": "2019-12-20T07:55:00"
+        "ArrivalDate": "2019-12-20T07:55:00",
+        "FlightDuration": "1h 45m"
       },
       "InboundLeg": {}
     },
@@ -136,7 +150,8 @@
         "DestinationId": "SLC",
         "Carrier": "American Airlines",
         "DepartureDate": "2019-12-20T20:05:00",
-        "ArrivalDate": "2019-12-20T21:35:00"
+        "ArrivalDate": "2019-12-20T21:35:00",
+        "FlightDuration": "1h 30m"
       },
       "InboundLeg": {}
     }
