@@ -42,6 +42,8 @@ public class Singleton {
         comparators = new LinkedHashMap<>();
         trips = new ArrayList<>();
         airlines = new ArrayList<>();
+        savedTrips = new ArrayList<>();
+        comparedTrips = new ArrayList<>();
     }
 
     //*************//
