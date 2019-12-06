@@ -1,5 +1,7 @@
 package com.example.flightcompare.Data.JsonObjects;
 
+import android.widget.Filter;
+
 import java.util.Objects;
 
 public class FlightLeg {
@@ -8,13 +10,15 @@ public class FlightLeg {
     private String Carrier;
     private String DepartureDate;
     private String ArrivalDate;
+    private String FlightDuration;
 
-    public FlightLeg(String originId, String destinationId, String carrier, String departureDate, String arrivalDate) {
+    public FlightLeg(String originId, String destinationId, String carrier, String departureDate, String arrivalDate, String flightDuration) {
         OriginId = originId;
         DestinationId = destinationId;
         Carrier = carrier;
         DepartureDate = departureDate;
         ArrivalDate = arrivalDate;
+        FlightDuration = flightDuration;
     }
 
     public String getOriginId() {
@@ -57,6 +61,14 @@ public class FlightLeg {
         ArrivalDate = arrivalDate;
     }
 
+    public String getFlightDuration() {
+        return FlightDuration;
+    }
+
+    public void setFlightDuration(String flightDuration) {
+        FlightDuration = flightDuration;
+    }
+
     @Override
     public String toString() {
         return "FlightLeg{" +
@@ -65,6 +77,7 @@ public class FlightLeg {
                 ", Carrier='" + Carrier + '\'' +
                 ", DepartureDate='" + DepartureDate + '\'' +
                 ", ArrivalDate='" + ArrivalDate + '\'' +
+                ", FlightDuration='" + FlightDuration + '\'' +
                 '}';
     }
 
@@ -77,11 +90,12 @@ public class FlightLeg {
                 Objects.equals(DestinationId, flightLeg.DestinationId) &&
                 Objects.equals(Carrier, flightLeg.Carrier) &&
                 Objects.equals(DepartureDate, flightLeg.DepartureDate) &&
-                Objects.equals(ArrivalDate, flightLeg.ArrivalDate);
+                Objects.equals(ArrivalDate, flightLeg.ArrivalDate) &&
+                Objects.equals(FlightDuration, flightLeg.FlightDuration);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(OriginId, DestinationId, Carrier, DepartureDate, ArrivalDate);
+        return Objects.hash(OriginId, DestinationId, Carrier, DepartureDate, ArrivalDate, FlightDuration);
     }
 }
