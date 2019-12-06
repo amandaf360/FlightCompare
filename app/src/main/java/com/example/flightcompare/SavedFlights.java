@@ -1,98 +1,126 @@
 package com.example.flightcompare;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class SavedFlights extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+import com.example.flightcompare.Data.CollectionObjects.Airport;
+import com.example.flightcompare.Data.CollectionObjects.Flight;
+import com.example.flightcompare.FlightsTab.MyFlightResultRecyclerViewAdapter;
+import com.google.firebase.Timestamp;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+import java.util.ArrayList;
+import java.util.List;
+
+public class SavedFlights extends Fragment {
+    private RecyclerView mRecyclerView;
+    private RecyclerView.Adapter mAdapter;
+    private RecyclerView.LayoutManager mLayoutManager;
+    private List<Object> savedList;
+
+    // data members
+//    String fromAirport;
+//    String destAirport;
+//    String departDate;
+//    String returnDate;
+//    Boolean roundTrip;
 
     public SavedFlights() {
-        // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment SavedFlightsFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static SavedFlights newInstance(String param1, String param2) {
+    public static SavedFlights newInstance() {
         SavedFlights fragment = new SavedFlights();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
+//        Bundle bundle = new Bundle();
+//        bundle.putString("fromAirport", from);
+//        bundle.putString("toAirport", to);
+//        bundle.putString("departDate", departDate);
+//        bundle.putString("returnDate", returnDate);
+//        bundle.putBoolean("roundTrip", roundTrip);
+//        fragment.setArguments(bundle);
         return fragment;
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_saved_flights, container, false);
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
 
-
-
-
-    //------------------------------------------------------------//
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-//        if (context instanceof OnSearchFlightsSelectedListener) {
-//            mListener = (OnSearchFlightsSelectedListener) context;
-//        } else {
-//            throw new RuntimeException(context.toString()
-//                    + " must implement OnSearchFlightsSelectedListener");
+//        if (getArguments() != null) {
+//            fromAirport = getArguments().getString("fromAirport");
+//            destAirport = getArguments().getString("toAirport");
+//            departDate = getArguments().getString("departDate");
+//            returnDate = getArguments().getString("returnDate");
+//            roundTrip = getArguments().getBoolean("roundTrip");
 //        }
     }
 
     @Override
-    public void onDetach() {
-        super.onDetach();
-//        mListener = null;
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_saved_flights, container, false);
+
+//        searchAgainButton = view.findViewById(R.id.search_again_button);
+//        searchAgainButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                onSearchClicked();
+//            }
+//        });
+        mRecyclerView = view.findViewById(R.id.saved_flights_recycler_view);
+        savedList = new ArrayList<>();
+
+        // TODO: set the list of results by making an API call?
+        // will just add dummy data right now
+
+
+
+        mLayoutManager = new LinearLayoutManager(this.getContext());
+        ((LinearLayoutManager)mLayoutManager).setOrientation(LinearLayoutManager.VERTICAL);
+        mRecyclerView.setLayoutManager(mLayoutManager);
+
+        mAdapter = new MyFlightResultRecyclerViewAdapter(savedList);
+        mRecyclerView.setAdapter(mAdapter);
+
+        // Set the adapter
+//        if (view instanceof RecyclerView) {
+//            Context context = view.getContext();
+//            RecyclerView recyclerView = (RecyclerView) view;
+//            if (mColumnCount <= 1) {
+//                recyclerView.setLayoutManager(new LinearLayoutManager(context));
+//            } else {
+//                recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
+//            }
+//            recyclerView.setAdapter(new MyFlightResultRecyclerViewAdapter(DummyContent.ITEMS, mListener));
+//        }
+        return view;
     }
 
+    private void onSearchClicked() {
+        // TEMP STUFF
+        // Flight(String airline, Long price, Timestamp arrive_time, Timestamp depart_time,
+        // Airport from_location, Airport to_location, String flight_num,
+        //            / Long bag_num, Double flytime)
+        Airport airport = new Airport("Salt Lake City", "West", "USA", "SLC");
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnSearchFlightsSelectedListener {
-        // TODO: Update argument type and name
-        //void onFragmentInteraction(Uri uri);
-        //void printString();
+        Flight flight = new Flight("Delta", (long)90, Timestamp.now(), Timestamp.now(), airport, airport, "123", (long)1, 120.0);
+        Flight flight2 = new Flight("Delta", (long)90, Timestamp.now(), Timestamp.now(), airport, airport, "123", (long)1, 120.0);
+        ArrayList<Flight> pair = new ArrayList<>();
+        pair.add(flight);
+        pair.add(flight2);
+
+        savedList.add(pair);
+        mAdapter.notifyDataSetChanged();
+
+
+        // END OF TEMP STUFF
+//        searchAgainButton.setEnabled(false);
+//
+//        SearchFlights searchFlights = SearchFlights.newInstance();
+//        ((MainActivity) Objects.requireNonNull(getActivity())).loadFragment(searchFlights);
     }
 }
