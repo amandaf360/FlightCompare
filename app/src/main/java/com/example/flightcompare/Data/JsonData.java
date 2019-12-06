@@ -45,7 +45,7 @@ public class JsonData {
 
         for(int i = 0; i < flights.size(); i++){
             Log.d("JSON parsing flights", "Parsing object " + i + " " + flights.get(i).toString());
-            JsonObject object = flights.get(0).getAsJsonObject();
+            JsonObject object = flights.get(i).getAsJsonObject();
             String price = object.get("Price").getAsString();
             Log.d("JSON outbound", object.get("OutboundLeg").toString());
             Log.d("JSON inbound", object.get("InboundLeg").toString());
@@ -61,7 +61,7 @@ public class JsonData {
 
         for(int i = 0; i < flights.size(); i++){
             Log.d("JSON parsing airlines", "Parsing object " + i + " " + airlines.get(i).toString());
-            JsonObject object = airlines.get(0).getAsJsonObject();
+            JsonObject object = airlines.get(i).getAsJsonObject();
             String name = object.get("Name").getAsString();
             ArrayList<Integer> bagPrices = (ArrayList<Integer>) encoder.stringToObject(object.get("BagPrice").toString(), ArrayList.class);
             Airline airline = new Airline(name, bagPrices);
