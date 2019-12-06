@@ -236,7 +236,7 @@ public class Singleton {
     }
 
     public static void addSavedTrip(Trip trip){
-        data._addTrip(trip);
+        data._addSavedTrip(trip);
     }
 
     private void _addSavedTrip(Trip trip){

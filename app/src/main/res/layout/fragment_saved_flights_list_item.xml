@@ -99,8 +99,8 @@
                             android:id="@+id/saved_flights_depart_airport_text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="20dp"
-                            android:layout_marginRight="20dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
                             android:text="SLC"
                             android:textAppearance="@style/TextAppearance.AppCompat.Body2"
                             android:textSize="20sp" />
@@ -117,8 +117,8 @@
                             android:id="@+id/saved_flights_dest_airport_text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="20dp"
-                            android:layout_marginRight="20dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
                             android:text="LAX"
                             android:textAppearance="@style/TextAppearance.AppCompat.Body2"
                             android:textSize="20sp" />
@@ -225,8 +225,8 @@
                             android:id="@+id/saved_flights_return_from_airport_text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="20dp"
-                            android:layout_marginRight="20dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
                             android:text="LAX"
                             android:textAppearance="@style/TextAppearance.AppCompat.Body2"
                             android:textSize="20sp" />
@@ -243,8 +243,8 @@
                             android:id="@+id/saved_flights_return_to_airport_text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="20dp"
-                            android:layout_marginRight="20dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
                             android:text="SLC"
                             android:textAppearance="@style/TextAppearance.AppCompat.Body2"
                             android:textSize="20sp" />

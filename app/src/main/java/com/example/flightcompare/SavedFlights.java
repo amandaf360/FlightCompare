@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.example.flightcompare.Data.CollectionObjects.Airport;
 import com.example.flightcompare.Data.CollectionObjects.Flight;
+import com.example.flightcompare.Data.JsonObjects.Trip;
 import com.example.flightcompare.Data.Singleton;
 import com.example.flightcompare.FlightsTab.MyFlightResultRecyclerViewAdapter;
 import com.google.android.material.card.MaterialCardView;
@@ -28,7 +29,7 @@ public class SavedFlights extends Fragment {
 //    private RecyclerView mRecyclerView;
 //    private RecyclerView.Adapter mAdapter;
 //    private RecyclerView.LayoutManager mLayoutManager;
-    private ArrayList<Flight> savedList;
+    private ArrayList<Trip> savedList;
     private ArrayList<MaterialCardView> savedCards;
     LinearLayout cardContainer;
 
@@ -95,8 +96,18 @@ public class SavedFlights extends Fragment {
         selectSavedFlightsText = view.findViewById(R.id.textview_select_saved_flights);
         cardContainer = view.findViewById(R.id.savedCardContainer);
 
+        //resultsList = Singleton.getTripsForSearch(fromAirport, destAirport, departDate, returnDate);
+        ArrayList<Trip> resultsList = Singleton.getTrips();
+        System.out.println("Results list size: " + resultsList.size());
+
+        // save some of the flights
+        for(int i = 0; i < 3; i++) {
+            Singleton.addSavedTrip(resultsList.get(i));
+        }
+
         // get all saved flights
-        savedList = Singleton.getSavedFlights();
+        savedList = Singleton.getSavedTrips();
+        System.out.println("Saved list size: " + savedList.size());
 
         if(savedList.size() != 0) {
             noSavedFlightsText.setVisibility(View.INVISIBLE);
@@ -191,9 +202,10 @@ public class SavedFlights extends Fragment {
 //
 //        int price;
 
-        for(final Flight f : savedList) {
-            outgoingLegDepartureAirport.setText(f.getFrom_location().getAirport_code());
-            outgoingLegDestinationAirport.setText(f.getTo_location().getAirport_code());
+        for(final Trip t : savedList) {
+            System.out.println("ADDING A SAVED CARD");
+            outgoingLegDepartureAirport.setText(t.getOutboundLeg().getOriginId());
+            outgoingLegDestinationAirport.setText(t.getOutboundLeg().getDestinationId());
 //            outgoingLegAirline = f.getAirline();
 //            outgoingLegDepartureAirport = f.getFrom_location().getAirport_code();
 //            outgoingLegDestinationAirport = f.getTo_location().getAirport_code();
@@ -214,19 +226,22 @@ public class SavedFlights extends Fragment {
                 @Override
                 public void onClick(View view) {
                     // need to remove the flight from the saved list
-                    deleteFlight(view, f);
+                    deleteTrip(view, t);
                 }
             });
+            if(cardView.getParent() != null) {
+                ((ViewGroup)cardView.getParent()).removeView(cardView); // <- fix
+            }
             cardContainer.addView(cardView);
         }
 
     }
 
-    private void deleteFlight(View v, Flight f) {
+    private void deleteTrip(View v, Trip t) {
         // remove the flight from the view
         cardContainer.removeView(v);
         // need to actually remove it from the saved list though
-//        Singleton.removeSavedFlight(f);
+        Singleton.removeSavedTrip(t);
     }
 
 }

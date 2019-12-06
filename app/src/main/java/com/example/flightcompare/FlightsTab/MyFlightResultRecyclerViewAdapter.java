@@ -93,7 +93,7 @@ public class MyFlightResultRecyclerViewAdapter extends RecyclerView.Adapter<MyFl
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Trip trip = mItems.get(position);
-        boolean roundTrip = (trip.getInboundLeg() != null);
+        boolean roundTrip = (trip.getInboundLeg().getDepartureDate() != null);
 
         holder.departAirlineImage.setImageResource(R.drawable.delta_logo);
         // parse the time for the outbound leg
