@@ -4,11 +4,12 @@ import android.util.Log;
 
 import com.example.flightcompare.Data.CollectionObjects.Airport;
 import com.example.flightcompare.Data.CollectionObjects.Flight;
+import com.example.flightcompare.Data.JsonObjects.Airline;
+import com.example.flightcompare.Data.JsonObjects.Trip;
+import com.example.flightcompare.Data.SkyscannerObjects.Quote;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
-import java.util.List;
 
 public class Singleton {
     static Singleton data;
@@ -17,6 +18,9 @@ public class Singleton {
     private ArrayList<Flight> flights;
     private ArrayList<Flight> savedFlights;
     private ArrayList<Flight> comparedFlights;
+    private ArrayList<Trip> trips;
+    private ArrayList<Airline> airlines;
+    private ArrayList<Quote> searchedQuotes;
     private LinkedHashMap<String, Boolean> comparators;
 
     public static void init(){
@@ -32,6 +36,8 @@ public class Singleton {
         savedFlights = new ArrayList<>();
         comparedFlights = new ArrayList<>();
         comparators = new LinkedHashMap<>();
+        trips = new ArrayList<>();
+        airlines = new ArrayList<>();
     }
 
     //*************//
@@ -69,6 +75,24 @@ public class Singleton {
         return null;
     }
 
+    public static void addAirline(Airline airline){
+        data._addAirline(airline);
+    }
+
+    private void _addAirline(Airline airline){
+        airlines.add(airline);
+        Log.d("Singleton", "Airlines size: " + airlines.size());
+        Log.d("ADD trip", airline.toString());
+    }
+
+    public static ArrayList<Airline> getAirlines(){
+        return data._getAirlines();
+    }
+
+    private ArrayList<Airline> _getAirlines(){
+        return airlines;
+    }
+
     //*************//
     // FLIGHTS DATA//
     //*************//
@@ -82,6 +106,32 @@ public class Singleton {
         data._addComparedFlight(flight);
         Log.d("Singleton", "Flights size: " + flights.size());
         Log.d("ADD flight", flight.toString());
+    }
+
+    public static void addSearchedQuotes(Quote quote){
+        data._addSearchedQuotes(quote);
+    }
+
+    private void _addSearchedQuotes(Quote quote){
+        data.searchedQuotes.add(quote);
+    }
+
+    public static void addTrip(Trip trip){
+        data._addTrip(trip);
+    }
+
+    private void _addTrip(Trip trip){
+        trips.add(trip);
+        Log.d("Singleton", "Trips size: " + trips.size());
+        Log.d("ADD trip", trip.toString());
+    }
+
+    public static ArrayList<Trip> getTrips(){
+        return data._getTrips();
+    }
+
+    private ArrayList<Trip> _getTrips(){
+        return trips;
     }
 
     //*********************//

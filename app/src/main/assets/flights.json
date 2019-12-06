@@ -1,0 +1,144 @@
+{
+  "flights": [
+    {
+      "Price": "250",
+      "OutboundLeg": {
+        "OriginId": "LAX",
+        "DestinationId": "SLC",
+        "Carrier": "American Airlines",
+        "DepartureDate": "2019-12-20T12:35:00",
+        "ArrivalDate": "2019-12-20T14:35:00"
+      },
+      "InboundLeg": {
+        "OriginId": "SLC",
+        "DestinationId": "LAX",
+        "Carrier": "American Airlines",
+        "DepartureDate": "2019-1-20T12:35:00",
+        "ArrivalDate": "2019-1-20T14:35:00"
+      }
+    },
+    {
+      "Price": "220",
+      "OutboundLeg": {
+        "OriginId": "LAX",
+        "DestinationId": "SLC",
+        "Carrier": "American Airlines",
+        "DepartureDate": "2019-12-20T14:35:00",
+        "ArrivalDate": "2019-12-20T16:35:00"
+      },
+      "InboundLeg": {
+        "OriginId": "SLC",
+        "DestinationId": "LAX",
+        "Carrier": "American Airlines",
+        "DepartureDate": "2019-1-20T08:20:00",
+        "ArrivalDate": "2019-1-20T10:43:00"
+      }
+    },
+    {
+      "Price": "273",
+      "OutboundLeg": {
+        "OriginId": "LAX",
+        "DestinationId": "SLC",
+        "Carrier": "Delta Air Lines",
+        "DepartureDate": "2019-12-20T11:43:00",
+        "ArrivalDate": "2019-12-20T13:20:00"
+      },
+      "InboundLeg": {
+        "OriginId": "SLC",
+        "DestinationId": "LAX",
+        "Carrier": "Delta Air Lines",
+        "DepartureDate": "2019-1-20T12:35:00",
+        "ArrivalDate": "2019-1-20T14:35:00"
+      }
+    },
+    {
+      "Price": "180",
+      "OutboundLeg": {
+        "OriginId": "LAX",
+        "DestinationId": "SLC",
+        "Carrier": "American Airlines",
+        "DepartureDate": "2019-12-20T12:35:00",
+        "ArrivalDate": "2019-12-20T14:35:00"
+      },
+      "InboundLeg": {
+        "OriginId": "SLC",
+        "DestinationId": "LAX",
+        "Carrier": "Delta Air Lines",
+        "DepartureDate": "2019-1-20T18:35:00",
+        "ArrivalDate": "2019-1-20T19:55:00"
+      }
+    },
+    {
+      "Price": "190",
+      "OutboundLeg": {
+        "OriginId": "LAX",
+        "DestinationId": "SLC",
+        "Carrier": "American Airlines",
+        "DepartureDate": "2019-12-20T12:35:00",
+        "ArrivalDate": "2019-12-20T14:35:00"
+      },
+      "InboundLeg": {
+        "OriginId": "SLC",
+        "DestinationId": "LAX",
+        "Carrier": "American Airlines",
+        "DepartureDate": "2019-1-20T12:35:00",
+        "ArrivalDate": "2019-1-20T14:35:00"
+      }
+    },
+    {
+      "Price": "95",
+      "OutboundLeg": {
+        "OriginId": "LAX",
+        "DestinationId": "SLC",
+        "Carrier": "American Airlines",
+        "DepartureDate": "2019-12-20T12:35:00",
+        "ArrivalDate": "2019-12-20T14:35:00"
+      },
+      "InboundLeg": {}
+    },
+    {
+      "Price": "127",
+      "OutboundLeg": {
+        "OriginId": "LAX",
+        "DestinationId": "SLC",
+        "Carrier": "Delta Air Lines",
+        "DepartureDate": "2019-12-20T11:43:00",
+        "ArrivalDate": "2019-12-20T13:20:00"
+      },
+      "InboundLeg": {}
+    },
+    {
+      "Price": "127",
+      "OutboundLeg": {
+        "OriginId": "LAX",
+        "DestinationId": "SLC",
+        "Carrier": "Southwest Airlines",
+        "DepartureDate": "2019-12-20T13:17:00",
+        "ArrivalDate": "2019-12-20T15:25:00"
+      },
+      "InboundLeg": {}
+    },
+    {
+      "Price": "87",
+      "OutboundLeg": {
+        "OriginId": "LAX",
+        "DestinationId": "SLC",
+        "Carrier": "Southwest Airlines",
+        "DepartureDate": "2019-12-20T06:10:00",
+        "ArrivalDate": "2019-12-20T07:55:00"
+      },
+      "InboundLeg": {}
+    },
+    {
+      "Price": "107",
+      "OutboundLeg": {
+        "OriginId": "LAX",
+        "DestinationId": "SLC",
+        "Carrier": "American Airlines",
+        "DepartureDate": "2019-12-20T20:05:00",
+        "ArrivalDate": "2019-12-20T21:35:00"
+      },
+      "InboundLeg": {}
+    }
+  ]
+}

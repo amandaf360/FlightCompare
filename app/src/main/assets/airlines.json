@@ -1,0 +1,94 @@
+{
+  "airlines": [
+    {
+      "Name": "American Airlines",
+      "BagPrice": [
+        0,
+        50,
+        50,
+        50
+      ]
+    },
+    {
+      "Name": "Delta Air Lines",
+      "BagPrice": [
+        0,
+        50,
+        50,
+        50
+      ]
+    },
+    {
+      "Name": "Alaska Airlines",
+      "BagPrice": [
+        0,
+        50,
+        50,
+        50
+      ]
+    },
+    {
+      "Name": "Southwest Airlines",
+      "BagPrice": [
+        0,
+        0,
+        50,
+        50
+      ]
+    },
+    {
+      "Name": "Hawaiian Airlines",
+      "BagPrice": [
+        0,
+        0,
+        50,
+        50
+      ]
+    },
+    {
+      "Name": "Frontier Airlines",
+      "BagPrice": [
+        50,
+        50,
+        75,
+        75
+      ]
+    },
+    {
+      "Name": "Spirit Airlines",
+      "BagPrice": [
+        0,
+        40,
+        60,
+        75
+      ]
+    },
+    {
+      "Name": "JetBlue Airways",
+      "BagPrice": [
+        0,
+        25,
+        50,
+        50
+      ]
+    },
+    {
+      "Name": "United Airlines",
+      "BagPrice": [
+        0,
+        0,
+        75,
+        75
+      ]
+    },
+    {
+      "Name": "Allegiant Air",
+      "BagPrice": [
+        0,
+        40,
+        40,
+        40
+      ]
+    }
+  ]
+}

@@ -46,7 +46,7 @@ public class MyFlightResultRecyclerViewAdapter extends RecyclerView.Adapter<MyFl
             mTextView5 = v.findViewById(R.id.return_duration_text);
             mTextView6 = v.findViewById(R.id.return_price_text);
 
-            mCheckBox = v.findViewById(R.id.saved_checkbox);
+            //mCheckBox = v.findViewById(R.id.saved_checkbox);
         }
     }
 
