@@ -34,6 +34,7 @@ public class MyFlightResultRecyclerViewAdapter extends RecyclerView.Adapter<MyFl
         ImageButton faveButton;
         View divider;
         boolean favorited = false;
+
 //        CheckBox mCheckBox;
 
         ViewHolder(View v) {
@@ -97,14 +98,14 @@ public class MyFlightResultRecyclerViewAdapter extends RecyclerView.Adapter<MyFl
         holder.departAirlineImage.setImageResource(R.drawable.delta_logo);
         // parse the time for the outbound leg
         holder.departTimeTextView.setText(parseFlightTime(trip.getOutboundLeg()));
-//        holder.departDurationTextView.setText(trip.getOutboundLeg().);
+        holder.departDurationTextView.setText(trip.getOutboundLeg().getFlightDuration());
         holder.departDurationTextView.setText("1h 35m");
 
         if(roundTrip) {
             holder.returnAirlineImage.setImageResource(R.drawable.delta_logo);
             // parse the time for the inbound leg
             holder.returnTimeTextView.setText(parseFlightTime(trip.getInboundLeg()));
-//        holder.returnDurationTextView.setText(trip.getInboundLeg().);
+            holder.returnDurationTextView.setText(trip.getInboundLeg().getFlightDuration());
             holder.returnDurationTextView.setText("3h 5m");
             holder.divider.setVisibility(View.VISIBLE);
         }
@@ -112,6 +113,7 @@ public class MyFlightResultRecyclerViewAdapter extends RecyclerView.Adapter<MyFl
             holder.divider.setVisibility(View.INVISIBLE);
         }
         holder.tripPriceTextView.setText("$" + trip.getPrice());
+
         holder.bindFavoriteButton(mItems.get(position));
 
     }

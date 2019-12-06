@@ -6,11 +6,13 @@ public class Trip {
     private Integer Price;
     private FlightLeg OutboundLeg;
     private FlightLeg InboundLeg;
+    private boolean saved;
 
     public Trip(Integer price, FlightLeg outboundLeg, FlightLeg inboundLeg) {
         Price = price;
         OutboundLeg = outboundLeg;
         InboundLeg = inboundLeg;
+        saved = false;
     }
 
     public Integer getPrice() {
@@ -35,6 +37,14 @@ public class Trip {
 
     public void setInboundLeg(FlightLeg inboundLeg) {
         InboundLeg = inboundLeg;
+    }
+
+    public boolean isSaved() {
+        return saved;
+    }
+
+    public void setSaved(boolean saved) {
+        this.saved = saved;
     }
 
     @Override

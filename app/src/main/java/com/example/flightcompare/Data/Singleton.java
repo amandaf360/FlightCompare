@@ -241,6 +241,7 @@ public class Singleton {
 
     private void _addSavedTrip(Trip trip){
         savedTrips.add(trip);
+        trip.setSaved(true);
         Log.d("ADD saved trip", trip.toString());
     }
 
@@ -250,6 +251,7 @@ public class Singleton {
 
     private void _removeSavedTrip(Trip trip){
         savedTrips.remove(trip);
+        trip.setSaved(false);
         Log.d("REMOVE saved trip", trip.toString());
     }
 
