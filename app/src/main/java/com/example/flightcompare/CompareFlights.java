@@ -81,9 +81,7 @@ public class CompareFlights extends Fragment {
                         break;
                     case R.id.flytime:
                         break;
-                    case R.id.from:
-                        break;
-                    case R.id.to:
+                    case R.id.to_from:
                         break;
                     default:
                         Log.e("Comparator menu", "Not a valid menu item");

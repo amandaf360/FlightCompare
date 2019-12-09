@@ -35,6 +35,7 @@
     <string name="layovertime">LAYOVER TIME</string>
     <string name="from">FROM</string>
     <string name="to">TO</string>
+    <string name="to_from">DEST/ORIGIN</string>
 
     <!-- Comparison display values -->
     <string name="price_text">$%1$d</string>

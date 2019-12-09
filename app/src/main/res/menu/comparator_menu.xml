@@ -14,11 +14,8 @@
         <item android:id="@+id/layovertime"
             android:checked="true"
             android:title="@string/layovertime" />
-        <item android:id="@+id/from"
+        <item android:id="@+id/to_from"
             android:checked="true"
-            android:title="@string/from" />
-        <item android:id="@+id/to"
-            android:checked="true"
-            android:title="@string/to" />
+            android:title="@string/to_from" />
     </group>
 </menu>
