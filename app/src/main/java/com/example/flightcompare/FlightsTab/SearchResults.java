@@ -11,6 +11,7 @@ import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.flightcompare.Data.CollectionObjects.Airport;
 import com.example.flightcompare.Data.CollectionObjects.Flight;
@@ -101,17 +102,6 @@ public class SearchResults extends Fragment {
         mAdapter = new MyFlightResultRecyclerViewAdapter(resultsList);
         mRecyclerView.setAdapter(mAdapter);
 
-        // Set the adapter
-//        if (view instanceof RecyclerView) {
-//            Context context = view.getContext();
-//            RecyclerView recyclerView = (RecyclerView) view;
-//            if (mColumnCount <= 1) {
-//                recyclerView.setLayoutManager(new LinearLayoutManager(context));
-//            } else {
-//                recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
-//            }
-//            recyclerView.setAdapter(new MyFlightResultRecyclerViewAdapter(DummyContent.ITEMS, mListener));
-//        }
         return view;
     }
 
@@ -121,5 +111,4 @@ public class SearchResults extends Fragment {
         SearchFlights searchFlights = SearchFlights.newInstance();
         ((MainActivity) Objects.requireNonNull(getActivity())).loadFragment(searchFlights);
     }
-
 }

@@ -4,8 +4,6 @@ import android.content.Context;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,17 +11,14 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.example.flightcompare.Data.CollectionObjects.Airport;
-import com.example.flightcompare.Data.CollectionObjects.Flight;
 import com.example.flightcompare.Data.JsonObjects.Trip;
 import com.example.flightcompare.Data.Singleton;
-import com.example.flightcompare.FlightsTab.MyFlightResultRecyclerViewAdapter;
 import com.google.android.material.card.MaterialCardView;
-import com.google.firebase.Timestamp;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Objects;
 
 public class SavedFlights extends Fragment {
 //    private RecyclerView mRecyclerView;
@@ -31,60 +26,35 @@ public class SavedFlights extends Fragment {
 //    private RecyclerView.LayoutManager mLayoutManager;
     private ArrayList<Trip> savedList;
     private ArrayList<MaterialCardView> savedCards;
+//    private ArrayList<MaterialCardView> checkedCards;
     LinearLayout cardContainer;
+    private int cardsChecked;
 
     private TextView noSavedFlightsText;
     private TextView selectSavedFlightsText;
-
-    // data members
-//    String fromAirport;
-//    String destAirport;
-//    String departDate;
-//    String returnDate;
-//    Boolean roundTrip;
 
     public SavedFlights() {}
 
     public static SavedFlights newInstance() {
         SavedFlights fragment = new SavedFlights();
-//        Bundle bundle = new Bundle();
-//        bundle.putString("fromAirport", from);
-//        bundle.putString("toAirport", to);
-//        bundle.putString("departDate", departDate);
-//        bundle.putString("returnDate", returnDate);
-//        bundle.putBoolean("roundTrip", roundTrip);
-//        fragment.setArguments(bundle);
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-//        if (getArguments() != null) {
-//            fromAirport = getArguments().getString("fromAirport");
-//            destAirport = getArguments().getString("toAirport");
-//            departDate = getArguments().getString("departDate");
-//            returnDate = getArguments().getString("returnDate");
-//            roundTrip = getArguments().getBoolean("roundTrip");
-//        }
+        savedCards = new ArrayList<>();
+        cardsChecked = 0;
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-//        if (context instanceof OnCompareResultsSelectedListener) {
-//            mListener = (OnCompareResultsSelectedListener) context;
-//        } else {
-//            throw new RuntimeException(context.toString()
-//                    + " must implement OnCompareResultsSelectedListener");
-//        }
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
-//        mListener = null;
     }
 
     @Override
@@ -96,29 +66,17 @@ public class SavedFlights extends Fragment {
         selectSavedFlightsText = view.findViewById(R.id.textview_select_saved_flights);
         cardContainer = view.findViewById(R.id.savedCardContainer);
 
-        //resultsList = Singleton.getTripsForSearch(fromAirport, destAirport, departDate, returnDate);
         ArrayList<Trip> resultsList = Singleton.getTrips();
         System.out.println("Results list size: " + resultsList.size());
 
+        reInflateList();
         // save some of the flights
-        for(int i = 0; i < 3; i++) {
-            Singleton.addSavedTrip(resultsList.get(i));
-        }
+//        for(int i = 0; i < 3; i++) {
+//            Singleton.addSavedTrip(resultsList.get(i));
+//        }
 
         // get all saved flights
-        savedList = Singleton.getSavedTrips();
-        System.out.println("Saved list size: " + savedList.size());
 
-        if(savedList.size() != 0) {
-            noSavedFlightsText.setVisibility(View.INVISIBLE);
-            selectSavedFlightsText.setVisibility(View.VISIBLE);
-        }
-        else {
-            noSavedFlightsText.setVisibility(View.VISIBLE);
-            selectSavedFlightsText.setVisibility(View.INVISIBLE);
-        }
-
-        inflateSavedList();
 //        searchAgainButton = view.findViewById(R.id.search_again_button);
 //        searchAgainButton.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -151,23 +109,70 @@ public class SavedFlights extends Fragment {
         mRecyclerView.setAdapter(mAdapter);
          */
 
-        // Set the adapter
-//        if (view instanceof RecyclerView) {
-//            Context context = view.getContext();
-//            RecyclerView recyclerView = (RecyclerView) view;
-//            if (mColumnCount <= 1) {
-//                recyclerView.setLayoutManager(new LinearLayoutManager(context));
-//            } else {
-//                recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
-//            }
-//            recyclerView.setAdapter(new MyFlightResultRecyclerViewAdapter(DummyContent.ITEMS, mListener));
-//        }
         return view;
     }
 
+    public void checkForMaxCardsSelected() {
+        if(cardsChecked == 3) {
+            for(MaterialCardView m : savedCards) {
+                if(!m.isChecked()) {
+                    m.setCheckable(false);
+                }
+            }
+        }
+        else if(cardsChecked < 3) {
+            for(MaterialCardView m : savedCards) {
+                m.setCheckable(true);
+            }
+        }
+    }
+
+    public void reInflateList() {
+        savedList = Singleton.getSavedTrips();
+        System.out.println("Saved list size: " + savedList.size());
+        for(Trip t : savedList) {
+            System.out.println(t.toString());
+        }
+
+        if(savedList.size() != 0) {
+            noSavedFlightsText.setVisibility(View.INVISIBLE);
+            selectSavedFlightsText.setVisibility(View.VISIBLE);
+        }
+        else {
+            noSavedFlightsText.setVisibility(View.VISIBLE);
+            selectSavedFlightsText.setVisibility(View.INVISIBLE);
+        }
+
+        inflateSavedList();
+    }
+
     public void inflateSavedList() {
+        cardContainer.removeAllViews();
+        for(Trip t : savedList) {
+            inflateTripCard(t);
+        }
+    }
+
+    public void inflateTripCard(final Trip t) {
         LayoutInflater inflater = LayoutInflater.from(cardContainer.getContext());
-        MaterialCardView cardView = (MaterialCardView) inflater.inflate(R.layout.fragment_saved_flights_list_item, cardContainer,false);
+        final MaterialCardView cardView = (MaterialCardView) inflater.inflate(R.layout.saved_flights_list_item, cardContainer,false);
+
+        cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                System.out.println("CLICKED");
+                if(cardView.isChecked()) {
+                    cardView.setChecked(false);
+                    cardsChecked--;
+                }
+                else if(cardsChecked < 3) {
+                    cardView.setChecked(true);
+                    cardsChecked++;
+                    Singleton.addComparedTrip(t);
+                }
+                checkForMaxCardsSelected();
+            }
+        });
 
         ImageButton removeSavedButton = cardView.findViewById(R.id.remove_saved_button);
 //        TextView outgoingLegAirline = cardView.findViewById(R.id.depart_flight_airline_img);
@@ -184,7 +189,7 @@ public class SavedFlights extends Fragment {
         TextView incomingLegDuration;
         TextView incomingLegDate;
 
-        TextView price;
+        TextView price = cardView.findViewById(R.id.saved_flights_price_text);
 
 //        String outgoingLegAirline;
 //        String outgoingLegDepartureAirport;
@@ -202,10 +207,9 @@ public class SavedFlights extends Fragment {
 //
 //        int price;
 
-        for(final Trip t : savedList) {
-            System.out.println("ADDING A SAVED CARD");
-            outgoingLegDepartureAirport.setText(t.getOutboundLeg().getOriginId());
-            outgoingLegDestinationAirport.setText(t.getOutboundLeg().getDestinationId());
+        System.out.println("ADDING A SAVED CARD");
+        outgoingLegDepartureAirport.setText(t.getOutboundLeg().getOriginId());
+        outgoingLegDestinationAirport.setText(t.getOutboundLeg().getDestinationId());
 //            outgoingLegAirline = f.getAirline();
 //            outgoingLegDepartureAirport = f.getFrom_location().getAirport_code();
 //            outgoingLegDestinationAirport = f.getTo_location().getAirport_code();
@@ -220,21 +224,26 @@ public class SavedFlights extends Fragment {
 //            incomingLegDuration = f.getFlytime().toString();
 ////            incomingLegDate = f.getDate().toString();
 //
-//            price = f.getPrice().intValue();
+        price.setText("$" + t.getPrice().toString());
 
-            removeSavedButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    // need to remove the flight from the saved list
-                    deleteTrip(view, t);
-                }
-            });
-            if(cardView.getParent() != null) {
-                ((ViewGroup)cardView.getParent()).removeView(cardView); // <- fix
+        removeSavedButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // need to remove the flight from the saved list
+                deleteTrip(view, t);
             }
-            cardContainer.addView(cardView);
-        }
-
+        });
+//            if(cardView.getParent() != null) {
+//                System.out.println("PARENT: " + cardView.getParent());
+//                ((ViewGroup)cardView.getParent()).removeView(cardView); // <- fix
+//                System.out.println("ERROR HERE");
+//
+//            }
+//            else {
+//                System.out.println("PARENT: " + cardView.getParent());
+//            }
+        savedCards.add(cardView);
+        cardContainer.addView(cardView);
     }
 
     private void deleteTrip(View v, Trip t) {
@@ -242,6 +251,7 @@ public class SavedFlights extends Fragment {
         cardContainer.removeView(v);
         // need to actually remove it from the saved list though
         Singleton.removeSavedTrip(t);
+        reInflateList();
     }
 
 }

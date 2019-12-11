@@ -10,13 +10,16 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.flightcompare.Data.CollectionObjects.Flight;
 import com.example.flightcompare.Data.JsonObjects.FlightLeg;
 import com.example.flightcompare.Data.JsonObjects.Trip;
+import com.example.flightcompare.Data.Singleton;
 import com.example.flightcompare.R;
 
-import java.util.ArrayList;
 import java.util.List;
+
+interface OnItemClickListener {
+    void onItemClicked(Trip trip);
+}
 
 public class MyFlightResultRecyclerViewAdapter extends RecyclerView.Adapter<MyFlightResultRecyclerViewAdapter.ViewHolder> {
 
@@ -54,16 +57,18 @@ public class MyFlightResultRecyclerViewAdapter extends RecyclerView.Adapter<MyFl
 //            mCheckBox = v.findViewById(R.id.checkbox);
         }
 
-        void bindFavoriteButton(final Object item) {
-            favorited = !favorited;
+        void bindFavoriteButton(final Trip trip) {
+            favorited = trip.isSaved();
             faveButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     if(favorited) {
                         faveButton.setImageResource(R.drawable.ic_favorite_border_light_grey_24dp);
+                        Singleton.removeSavedTrip(trip);
                     }
                     else {
                         faveButton.setImageResource(R.drawable.ic_favorite_full_24dp);
+                        Singleton.addSavedTrip(trip);
                     }
                    // favoriteButton.setSelected(!btnextra.isPressed());
     //                if (favoriteButton.isPressed()) {
@@ -75,7 +80,6 @@ public class MyFlightResultRecyclerViewAdapter extends RecyclerView.Adapter<MyFl
                 }
             });
         }
-
     }
 
     public MyFlightResultRecyclerViewAdapter(List<Trip> lines) {
@@ -85,7 +89,7 @@ public class MyFlightResultRecyclerViewAdapter extends RecyclerView.Adapter<MyFl
     @Override
     public MyFlightResultRecyclerViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_flightresult_list_item, parent, false);
+                .inflate(R.layout.flightresult_list_item, parent, false);
         context = parent.getContext();
         return new ViewHolder(itemView);
     }
@@ -167,7 +171,7 @@ public class MyFlightResultRecyclerViewAdapter extends RecyclerView.Adapter<MyFl
 //    @Override
 //    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 //        View view = LayoutInflater.from(parent.getContext())
-//                .inflate(R.layout.fragment_flightresult_list_item, parent, false);
+//                .inflate(R.layout.flightresult_list_item, parent, false);
 //        return new ViewHolder(view);
 //    }
 //

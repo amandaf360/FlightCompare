@@ -38,7 +38,7 @@
         android:scrollbars="vertical"
         app:layoutManager="LinearLayoutManager"
         tools:context=".FlightsTab.SearchResults"
-        tools:listitem="@layout/fragment_flightresult_list_item" />
+        tools:listitem="@layout/flightresult_list_item" />
 
     <!--    </LinearLayout>-->
 </LinearLayout>

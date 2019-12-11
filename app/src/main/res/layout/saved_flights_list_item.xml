@@ -8,6 +8,8 @@
     android:layout_marginLeft="@dimen/mtrl_card_spacing"
     android:layout_marginTop="@dimen/mtrl_card_spacing"
     android:layout_marginRight="@dimen/mtrl_card_spacing"
+    android:clickable="true"
+    android:focusable="true"
     android:checkable="true"
     android:minHeight="150dp"
     android:padding="10dp">
@@ -181,7 +183,7 @@
                     android:background="@android:color/darker_gray" />
 
                 <TextView
-                    android:id="@+id/flight_results_price_text"
+                    android:id="@+id/saved_flights_price_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="6"

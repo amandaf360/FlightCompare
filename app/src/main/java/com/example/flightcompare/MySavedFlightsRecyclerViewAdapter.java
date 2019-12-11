@@ -55,7 +55,7 @@ public class MySavedFlightsRecyclerViewAdapter extends RecyclerView.Adapter<MySa
     @Override
     public MySavedFlightsRecyclerViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_flightresult_list_item, parent, false);
+                .inflate(R.layout.flightresult_list_item, parent, false);
         context = parent.getContext();
         return new ViewHolder(itemView);
     }
@@ -156,7 +156,7 @@ public class MySavedFlightsRecyclerViewAdapter extends RecyclerView.Adapter<MySa
 //    @Override
 //    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 //        View view = LayoutInflater.from(parent.getContext())
-//                .inflate(R.layout.fragment_flightresult_list_item, parent, false);
+//                .inflate(R.layout.flightresult_list_item, parent, false);
 //        return new ViewHolder(view);
 //    }
 //

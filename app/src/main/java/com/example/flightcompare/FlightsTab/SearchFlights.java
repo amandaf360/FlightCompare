@@ -57,6 +57,8 @@ public class SearchFlights extends Fragment {
         departDateEdit = v.findViewById(R.id.depart_date_edit);
         returnDateEdit = v.findViewById(R.id.return_date_edit);
         roundtripRadio = v.findViewById(R.id.roundtrip_radio);
+        // initialize round trip to being checked
+        roundtripRadio.setChecked(true);
         onewayRadio = v.findViewById(R.id.oneway_radio);
         searchButton = v.findViewById(R.id.search_button);
         searchButton.setOnClickListener(new View.OnClickListener() {
