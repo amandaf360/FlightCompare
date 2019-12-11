@@ -213,7 +213,6 @@ public class Singleton {
 
     private void _addTrip(Trip trip){
         trips.add(trip);
-        _addComparedTrip(trip);
         Log.d("Singleton", "Trips size: " + trips.size());
         Log.d("ADD trip", trip.toString());
     }
@@ -306,8 +305,12 @@ public class Singleton {
     }
 
     private boolean _addComparedTrip(Trip trip){
-        comparedTrips.add(trip);
-        Log.d("ADD compared trip", trip.toString());
+        if(comparedFlights.size() < 3) {
+            comparedTrips.add(trip);
+            Log.d("ADD compared trip", trip.toString());
+            return true;
+        }
+        Log.d("ADD compared trip", "Compared trips full: " + comparedTrips.size());
         return false;
     }
 

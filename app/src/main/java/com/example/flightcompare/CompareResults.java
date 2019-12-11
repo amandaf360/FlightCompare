@@ -1,5 +1,6 @@
 package com.example.flightcompare;
 
+import android.content.ClipData;
 import android.content.Context;
 import android.os.Bundle;
 
@@ -9,6 +10,7 @@ import androidx.fragment.app.Fragment;
 
 import android.util.Log;
 import android.util.Pair;
+import android.view.DragEvent;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -356,7 +358,46 @@ public class CompareResults extends Fragment {
 
     private void inflateRoundComparatorCard(String labelText, Pair<String, String> data1, Pair<String, String> data2, Pair<String, String> data3){
         LayoutInflater inflater = LayoutInflater.from(cardContainer.getContext());
-        MaterialCardView cardView = (MaterialCardView) inflater.inflate(R.layout.comparator_card_round, cardContainer,false);
+        final MaterialCardView cardView = (MaterialCardView) inflater.inflate(R.layout.comparator_card_round, cardContainer,false);
+        cardView.setOnDragListener(new View.OnDragListener() {
+            @Override
+            public boolean onDrag(View v, DragEvent event) {
+                Log.d("Dragging", "OnDrag");
+                final int action = event.getAction();
+                switch(action) {
+                    case DragEvent.ACTION_DRAG_STARTED:
+                        Log.d("Dragging", "Drag started");
+                        break;
+                    case DragEvent.ACTION_DRAG_EXITED:
+                        Log.d("Dragging", "Drag exited");
+                        break;
+                    case DragEvent.ACTION_DRAG_ENTERED:
+                        Log.d("Dragging", "Drag entered");
+                        break;
+                    case DragEvent.ACTION_DROP:
+                        Log.d("Dragging", "Drag dropped");
+                        break;
+                    case DragEvent.ACTION_DRAG_ENDED:
+                        Log.d("Dragging", "Drag ended");
+                        break;
+                    default:
+                        Log.d("Dragging", "hit default");
+                        break;
+                }
+                return true;
+            }
+        });
+        cardView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                Log.d("Dragging", "OnLongClick");
+                ClipData data = ClipData.newPlainText("Dragging", "start now");
+                View.DragShadowBuilder shadow = new View.DragShadowBuilder(cardView);
+                v.startDrag(data, shadow, null, 0);
+                return false;
+            }
+        });
+
         cardViewMap.put(labelText, cardView);
         TextView label = cardView.findViewById(R.id.comparatorLabel);
         TextView comparison1 = cardView.findViewById(R.id.comparison1);
@@ -450,7 +491,7 @@ public class CompareResults extends Fragment {
 
     private void inflateAllCards(){
         List<Trip> comparedTrips = Singleton.getComparedTrips();
-        Log.d("Inflate all cards", "Enter");
+        Log.d("Inflate all cards", "comparedTrips size: " + comparedTrips.size());
 
         String labelString;
         for(Map.Entry<String, Boolean> e : Singleton.getComparators().entrySet()){
