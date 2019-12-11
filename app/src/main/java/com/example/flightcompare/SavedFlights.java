@@ -21,12 +21,12 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public class SavedFlights extends Fragment {
-//    private RecyclerView mRecyclerView;
+    public final int MAX_TO_COMPARE = 2;
+    //    private RecyclerView mRecyclerView;
 //    private RecyclerView.Adapter mAdapter;
 //    private RecyclerView.LayoutManager mLayoutManager;
     private ArrayList<Trip> savedList;
     private ArrayList<MaterialCardView> savedCards;
-//    private ArrayList<MaterialCardView> checkedCards;
     LinearLayout cardContainer;
     private int cardsChecked;
 
@@ -71,19 +71,9 @@ public class SavedFlights extends Fragment {
 
         reInflateList();
         // save some of the flights
-//        for(int i = 0; i < 3; i++) {
-//            Singleton.addSavedTrip(resultsList.get(i));
-//        }
-
-        // get all saved flights
-
-//        searchAgainButton = view.findViewById(R.id.search_again_button);
-//        searchAgainButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                onSearchClicked();
-//            }
-//        });
+        for(int i = 0; i < 3; i++) {
+            Singleton.addSavedTrip(resultsList.get(i));
+        }
 
         /* RECYCLER VIEW STUFF
         noSavedFlightsText = view.findViewById(R.id.textview_no_saved_flights);
@@ -112,15 +102,25 @@ public class SavedFlights extends Fragment {
         return view;
     }
 
+    public boolean initCheckedCard(Trip t) {
+        ArrayList<Trip> toCompare = Singleton.getComparedTrips();
+        for(Trip trip : toCompare) {
+            if(t.equals(trip)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public void checkForMaxCardsSelected() {
-        if(cardsChecked == 3) {
+        if(cardsChecked == MAX_TO_COMPARE) {
             for(MaterialCardView m : savedCards) {
                 if(!m.isChecked()) {
                     m.setCheckable(false);
                 }
             }
         }
-        else if(cardsChecked < 3) {
+        else if(cardsChecked < MAX_TO_COMPARE) {
             for(MaterialCardView m : savedCards) {
                 m.setCheckable(true);
             }
@@ -148,6 +148,7 @@ public class SavedFlights extends Fragment {
 
     public void inflateSavedList() {
         cardContainer.removeAllViews();
+        savedCards.clear();
         for(Trip t : savedList) {
             inflateTripCard(t);
         }
@@ -157,6 +158,7 @@ public class SavedFlights extends Fragment {
         LayoutInflater inflater = LayoutInflater.from(cardContainer.getContext());
         final MaterialCardView cardView = (MaterialCardView) inflater.inflate(R.layout.saved_flights_list_item, cardContainer,false);
 
+        cardView.setChecked(initCheckedCard(t));
         cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -164,11 +166,19 @@ public class SavedFlights extends Fragment {
                 if(cardView.isChecked()) {
                     cardView.setChecked(false);
                     cardsChecked--;
+                    Singleton.removeComparedTrip(t);
                 }
-                else if(cardsChecked < 3) {
+                else if(cardsChecked < MAX_TO_COMPARE) {
                     cardView.setChecked(true);
                     cardsChecked++;
                     Singleton.addComparedTrip(t);
+                }
+                else {
+                    Context context = Objects.requireNonNull(getActivity()).getApplicationContext();
+                    int duration = Toast.LENGTH_LONG;
+
+                    Toast toast = Toast.makeText(context, "Can only select up to 3", duration);
+                    toast.show();
                 }
                 checkForMaxCardsSelected();
             }
@@ -230,27 +240,24 @@ public class SavedFlights extends Fragment {
             @Override
             public void onClick(View view) {
                 // need to remove the flight from the saved list
-                deleteTrip(view, t);
+                deleteTrip(view, t, cardView);
             }
         });
-//            if(cardView.getParent() != null) {
-//                System.out.println("PARENT: " + cardView.getParent());
-//                ((ViewGroup)cardView.getParent()).removeView(cardView); // <- fix
-//                System.out.println("ERROR HERE");
-//
-//            }
-//            else {
-//                System.out.println("PARENT: " + cardView.getParent());
-//            }
         savedCards.add(cardView);
         cardContainer.addView(cardView);
     }
 
-    private void deleteTrip(View v, Trip t) {
+    private void deleteTrip(View v, Trip t, MaterialCardView cardView) {
         // remove the flight from the view
         cardContainer.removeView(v);
         // need to actually remove it from the saved list though
         Singleton.removeSavedTrip(t);
+        // and if it was checked, remove from the compare list
+        if(cardView.isChecked()) {
+            Singleton.removeComparedTrip(t);
+            cardsChecked--;
+            checkForMaxCardsSelected();
+        }
         reInflateList();
     }
 

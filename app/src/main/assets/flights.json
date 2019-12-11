@@ -154,6 +154,30 @@
         "FlightDuration": "1h 30m"
       },
       "InboundLeg": {}
+    },
+    {
+      "Price": "97",
+      "OutboundLeg": {
+        "OriginId": "SLC",
+        "DestinationId": "SFO",
+        "Carrier": "Delta",
+        "DepartureDate": "2019-12-20T8:05:00",
+        "ArrivalDate": "2019-12-20T8:30:00",
+        "FlightDuration": "1h 25m"
+      },
+      "InboundLeg": {}
+    },
+    {
+      "Price": "110",
+      "OutboundLeg": {
+        "OriginId": "SFO",
+        "DestinationId": "SLC",
+        "Carrier": "American Airlines",
+        "DepartureDate": "2019-12-20T14:35:00",
+        "ArrivalDate": "2019-12-20T16:46:00",
+        "FlightDuration": "1h 11m"
+      },
+      "InboundLeg": {}
     }
   ]
 }

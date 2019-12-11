@@ -49,20 +49,8 @@ public class MainActivity extends AppCompatActivity implements SearchFlights.OnS
         data.queryAirports();
         data.queryFlights();
 
-        // start by loading the "search for flights" fragment
-//        if (savedInstanceState == null) {
-//            LoginFragment loginFragment = new LoginFragment();
-//            getSupportFragmentManager().beginTransaction()
-//                    .replace(R.id.frame, loginFragment)
-//                    .commit();
-//        }
-
         toolbar = getSupportActionBar();
-//        setSupportActionBar(toolbar);
-//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_top);
-//        TextView mTitle = (TextView) toolbar.findViewById(R.id.toolbar_title);
-//
-//        setSupportActionBar(toolbar);
+
         // load the search for flights fragment by default
         toolbar.setTitle("Search for Flights");
         loadFragment(SearchFlights.newInstance());

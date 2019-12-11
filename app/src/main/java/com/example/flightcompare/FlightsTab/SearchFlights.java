@@ -18,7 +18,9 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.text.SimpleDateFormat;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Objects;
 
 public class SearchFlights extends Fragment {
@@ -34,11 +36,16 @@ public class SearchFlights extends Fragment {
 
     MaterialButton searchButton;
 
+    static Map<String, String> airportCodes;
+
 
     public SearchFlights() {}
 
     public static SearchFlights newInstance() {
         SearchFlights fragment = new SearchFlights();
+        airportCodes = new HashMap<>();
+        airportCodes.put("Salt Lake City", "SLC");
+
         return fragment;
     }
 

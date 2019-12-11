@@ -268,12 +268,18 @@ public class Singleton {
     }
 
     private boolean _addComparedTrip(Trip trip){
-        if(savedTrips.size() < 3) {
-            savedTrips.add(trip);
-            Log.d("ADD saved trip", trip.toString());
-            return true;
-        }
-        Log.d("Saved trips full", trip.toString());
+        comparedTrips.add(trip);
+        Log.d("ADD compared trip", trip.toString());
+        return false;
+    }
+
+    public static boolean removeComparedTrip(Trip trip){
+        return data._removeComparedTrip(trip);
+    }
+
+    private boolean _removeComparedTrip(Trip trip){
+        comparedTrips.remove(trip);
+        Log.d("REMOVE compared trip", trip.toString());
         return false;
     }
 
