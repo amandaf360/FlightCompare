@@ -100,10 +100,6 @@ public class CompareResults extends Fragment {
         delete2 = v.findViewById(R.id.delete2);
         delete3 = v.findViewById(R.id.delete3);
 
-        delete1.setImageResource(R.drawable.ic_delete_black_24dp);
-        delete2.setImageResource(R.drawable.ic_delete_black_24dp);
-        delete3.setImageResource(R.drawable.ic_delete_black_24dp);
-
         airlineLabel1 = v.findViewById(R.id.airline1);
         airlineLabel2 = v.findViewById(R.id.airline2);
         airlineLabel3 = v.findViewById(R.id.airline3);
@@ -168,6 +164,26 @@ public class CompareResults extends Fragment {
             }
         });
 
+        delete1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        delete2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        delete3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
         return v;
     }
 
@@ -216,9 +232,14 @@ public class CompareResults extends Fragment {
                         item.setChecked(!item.isChecked());
                         Singleton.setComparators(getString(R.string.price), item.isChecked());
                         if(item.isChecked()) {
-                            data1 = getString(R.string.price_text, comparedTrips.get(0).getPrice());
-                            data2 = getString(R.string.price_text, comparedTrips.get(1).getPrice());
-                            data3 = getString(R.string.price_text, comparedTrips.get(2).getPrice());
+                            switch (comparedTrips.size()){
+                                case 3:
+                                    data3 = getString(R.string.price_text, comparedTrips.get(2).getPrice());
+                                case 2:
+                                    data2 = getString(R.string.price_text, comparedTrips.get(1).getPrice());
+                                case 1:
+                                    data1 = getString(R.string.price_text, comparedTrips.get(0).getPrice());
+                            }
                             inflateRoundComparatorCard(getString(R.string.price), new Pair<>(data1, data1a),
                                                                 new Pair<>(data2, data2a),
                                                                 new Pair<>(data3, data3a));

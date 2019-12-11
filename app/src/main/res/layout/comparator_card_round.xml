@@ -89,6 +89,14 @@
                     android:textAlignment="center" />
             </LinearLayout>
 
+            <View
+                android:id="@+id/divider2"
+                android:layout_width="1dp"
+                android:layout_height="35dp"
+                android:layout_gravity="center"
+                android:background="@android:color/darker_gray"
+                android:paddingBottom="10dp" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -113,6 +121,13 @@
                     android:text="airline2a"
                     android:textAlignment="center" />
             </LinearLayout>
+
+            <View
+                android:id="@+id/divider3"
+                android:layout_width="1dp"
+                android:layout_height="35dp"
+                android:layout_gravity="center"
+                android:background="@android:color/darker_gray" />
 
             <LinearLayout
                 android:layout_width="match_parent"
