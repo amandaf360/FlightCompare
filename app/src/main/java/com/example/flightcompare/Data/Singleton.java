@@ -225,11 +225,6 @@ public class Singleton {
 
     private ArrayList<Trip> _getTripsForSearch(String originAirportCode, String destAirportCode,
                                                String departDate, String returnDate) {
-        System.out.println("ORIGIN: " + originAirportCode);
-        System.out.println("DEST: " + destAirportCode);
-        System.out.println("DEPART DATE: " + parseDate(departDate));
-//        System.out.println("RETURN DATE: " + parseDate(returnDate));
-
         ArrayList<Trip> matchList = new ArrayList<>();
         ArrayList<Trip> trips = getTrips();
         System.out.println("Trips size: " + trips.size());
@@ -237,17 +232,13 @@ public class Singleton {
             // first check the from/to
             if(t.getOutboundLeg().getOriginId().equals(originAirportCode) &&
                 t.getOutboundLeg().getDestinationId().equals(destAirportCode)) {
-                System.out.println("CODES MATCH");
                 // check departure date
                 String departureDate = t.getOutboundLeg().getDepartureDate();
                 if(parseDate(departDate).equals(departureDate.substring(0, departureDate.indexOf("T")))) {
-                    System.out.println("DEPART DATE MATCHES");
                     // check return date
                     if(returnDate.length() > 0) {
                         String returningDate = t.getInboundLeg().getDepartureDate();
-                        System.out.println("RETURNING DATE: " + returningDate);
                         if(returningDate != null && parseDate(returnDate).equals(returningDate.substring(0, returningDate.indexOf("T")))) {
-                            System.out.println("RETURN DATE MATCHES");
                             matchList.add(t);
                         }
                     }

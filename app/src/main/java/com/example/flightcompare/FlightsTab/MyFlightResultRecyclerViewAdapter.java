@@ -21,12 +21,14 @@ import java.util.List;
 //    void onItemClicked(Trip trip);
 //}
 
-public class MyFlightResultRecyclerViewAdapter extends RecyclerView.Adapter<MyFlightResultRecyclerViewAdapter.ViewHolder> {
+public class MyFlightResultRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
+    private final int ROUNDTRIP = 0;
+    private final int ONEWAY = 1;
     private final List<Trip> mItems;
     private Context context;
 
-    class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolderRoundTrip extends RecyclerView.ViewHolder {
         ImageView departAirlineImage;
         TextView departTimeTextView;
         TextView departDurationTextView;
@@ -38,9 +40,7 @@ public class MyFlightResultRecyclerViewAdapter extends RecyclerView.Adapter<MyFl
         View divider;
         boolean favorited = false;
 
-//        CheckBox mCheckBox;
-
-        ViewHolder(View v) {
+        public ViewHolderRoundTrip(View v) {
             super(v);
             departAirlineImage = v.findViewById(R.id.depart_flight_airline_img);
             departTimeTextView = v.findViewById(R.id.depart_time_text);
@@ -54,7 +54,44 @@ public class MyFlightResultRecyclerViewAdapter extends RecyclerView.Adapter<MyFl
             divider = v.findViewById(R.id.flight_results_divider);
 
             faveButton = v.findViewById(R.id.favoriteButton);
-//            mCheckBox = v.findViewById(R.id.checkbox);
+        }
+
+        void bindFavoriteButton(final Trip trip) {
+            faveButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    System.out.println("SAVED BUTTON CLICKED");
+                    favorited = trip.isSaved();
+                    if(favorited) {
+                        faveButton.setImageResource(R.drawable.ic_favorite_border_light_grey_24dp);
+                        Singleton.removeSavedTrip(trip);
+                    }
+                    else {
+                        faveButton.setImageResource(R.drawable.ic_favorite_full_24dp);
+                        Singleton.addSavedTrip(trip);
+                    }
+                }
+            });
+        }
+    }
+
+    class ViewHolderOneWay extends RecyclerView.ViewHolder {
+        ImageView departAirlineImage;
+        TextView departTimeTextView;
+        TextView departDurationTextView;
+        TextView tripPriceTextView;
+        ImageButton faveButton;
+        boolean favorited = false;
+
+        public ViewHolderOneWay(View v) {
+            super(v);
+            departAirlineImage = v.findViewById(R.id.depart_flight_airline_img);
+            departTimeTextView = v.findViewById(R.id.depart_time_text);
+            departDurationTextView = v.findViewById(R.id.depart_duration_text);
+
+            tripPriceTextView = v.findViewById(R.id.flight_results_price_text);
+
+            faveButton = v.findViewById(R.id.favoriteButton);
         }
 
         void bindFavoriteButton(final Trip trip) {
@@ -81,39 +118,90 @@ public class MyFlightResultRecyclerViewAdapter extends RecyclerView.Adapter<MyFl
     }
 
     @Override
-    public MyFlightResultRecyclerViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.flightresult_list_item, parent, false);
-        context = parent.getContext();
-        return new ViewHolder(itemView);
+    public int getItemViewType(int position) {
+        // Just as an example, return 0 or 1 depending on position
+        // Note that unlike in ListView adapters, types don't have to be contiguous
+        FlightLeg flightLeg = mItems.get(position).getInboundLeg();
+        if(flightLeg.getDepartureDate() == null) {
+            return ONEWAY;
+        }
+        else {
+            return ROUNDTRIP;
+        }
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        context = parent.getContext();
+        View itemView = LayoutInflater.from(context)
+                .inflate(R.layout.flightresult_list_item, parent, false);;
+        switch (viewType) {
+            case 0:
+                itemView = LayoutInflater.from(context)
+                        .inflate(R.layout.flightresult_list_item, parent, false);
+                return new ViewHolderRoundTrip(itemView);
+            case 1:
+                itemView = LayoutInflater.from(context)
+                        .inflate(R.layout.flightresult_list_item_one_way, parent, false);
+                return new ViewHolderOneWay(itemView);
+        }
+        // just because I need a return statement
+        return new ViewHolderOneWay(itemView);
+    }
+
+    @Override
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+        int type = holder.getItemViewType();
         Trip trip = mItems.get(position);
-        boolean roundTrip = (trip.getInboundLeg().getDepartureDate() != null);
 
-        holder.departAirlineImage.setImageResource(R.drawable.delta_logo);
-        // parse the time for the outbound leg
-        holder.departTimeTextView.setText(parseFlightTime(trip.getOutboundLeg()));
-        holder.departDurationTextView.setText(trip.getOutboundLeg().getFlightDuration());
-        holder.departDurationTextView.setText("1h 35m");
+        if(type == ROUNDTRIP) {
+            ViewHolderRoundTrip viewHolderRoundTrip = (ViewHolderRoundTrip)holder;
 
-        if(roundTrip) {
-            holder.returnAirlineImage.setImageResource(R.drawable.delta_logo);
+            // set the favorite button
+            if(trip.isSaved()) {
+                viewHolderRoundTrip.faveButton.setImageResource(R.drawable.ic_favorite_full_24dp);
+            }
+            else {
+                viewHolderRoundTrip.faveButton.setImageResource(R.drawable.ic_favorite_border_light_grey_24dp);
+            }
+
+            viewHolderRoundTrip.departAirlineImage.setImageResource(Singleton.getAirlineImage(trip.getOutboundLeg().getCarrier()));
+            // parse the time for the outbound leg
+            viewHolderRoundTrip.departTimeTextView.setText(parseFlightTime(trip.getOutboundLeg()));
+            viewHolderRoundTrip.departDurationTextView.setText(trip.getOutboundLeg().getFlightDuration());
+
+            viewHolderRoundTrip.returnAirlineImage.setImageResource(Singleton.getAirlineImage(trip.getInboundLeg().getCarrier()));
             // parse the time for the inbound leg
-            holder.returnTimeTextView.setText(parseFlightTime(trip.getInboundLeg()));
-            holder.returnDurationTextView.setText(trip.getInboundLeg().getFlightDuration());
-            holder.returnDurationTextView.setText("3h 5m");
-            holder.divider.setVisibility(View.VISIBLE);
-        }
-        else {
-            holder.divider.setVisibility(View.INVISIBLE);
-        }
-        holder.tripPriceTextView.setText("$" + trip.getPrice());
+            viewHolderRoundTrip.returnTimeTextView.setText(parseFlightTime(trip.getInboundLeg()));
+            viewHolderRoundTrip.returnDurationTextView.setText(trip.getInboundLeg().getFlightDuration());
+            viewHolderRoundTrip.divider.setVisibility(View.VISIBLE);
 
-        holder.bindFavoriteButton(mItems.get(position));
+            String priceFormatted = "$" + trip.getPrice();
+            viewHolderRoundTrip.tripPriceTextView.setText(priceFormatted);
 
+            viewHolderRoundTrip.bindFavoriteButton(mItems.get(position));
+        }
+        else if(type == ONEWAY) {
+            ViewHolderOneWay viewHolderOneWay = (ViewHolderOneWay)holder;
+
+            // set the favorite button
+            if(trip.isSaved()) {
+                viewHolderOneWay.faveButton.setImageResource(R.drawable.ic_favorite_full_24dp);
+            }
+            else {
+                viewHolderOneWay.faveButton.setImageResource(R.drawable.ic_favorite_border_light_grey_24dp);
+            }
+
+            viewHolderOneWay.departAirlineImage.setImageResource(Singleton.getAirlineImage(trip.getOutboundLeg().getCarrier()));
+            // parse the time for the outbound leg
+            viewHolderOneWay.departTimeTextView.setText(parseFlightTime(trip.getOutboundLeg()));
+            viewHolderOneWay.departDurationTextView.setText(trip.getOutboundLeg().getFlightDuration());
+
+            String priceFormatted = "$" + trip.getPrice();
+            viewHolderOneWay.tripPriceTextView.setText(priceFormatted);
+
+            viewHolderOneWay.bindFavoriteButton(mItems.get(position));
+        }
     }
 
     @Override
@@ -140,7 +228,7 @@ public class MyFlightResultRecyclerViewAdapter extends RecyclerView.Adapter<MyFl
         String returnDate = flightLeg.getArrivalDate();
         //yyyy-mm-ddThh:mm:ss
         Integer hourOut = Integer.parseInt(departDate.substring(11, departDate.indexOf(":")));
-        Integer minOut = Integer.parseInt(departDate.substring(departDate.indexOf(":") + 1, departDate.indexOf(":", departDate.indexOf(":") + 1)));
+        String minOut = departDate.substring(departDate.indexOf(":") + 1, departDate.indexOf(":", departDate.indexOf(":") + 1));
         boolean outPM = (hourOut > 12);
         Integer hourIn = Integer.parseInt(returnDate.substring(11, departDate.indexOf(":")));
         Integer minIn = Integer.parseInt(returnDate.substring(departDate.indexOf(":") + 1, departDate.indexOf(":", departDate.indexOf(":") + 1)));
@@ -148,11 +236,6 @@ public class MyFlightResultRecyclerViewAdapter extends RecyclerView.Adapter<MyFl
         return ((hourOut > 12 ? hourOut - 12 : hourOut) + ":" + minOut + (outPM ? "PM" : "AM") +
                 " - " + (hourIn > 12 ? hourIn - 12 : hourIn) + ":" + minIn + (inPM ? "PM" : "AM"));
     }
-
-
-
-
-
 
 //
 //

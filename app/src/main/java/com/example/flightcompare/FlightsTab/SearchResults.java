@@ -33,7 +33,6 @@ public class SearchResults extends Fragment {
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private List<Trip> resultsList;
-    private int countSaved;
 
     private TextView noSearchResultsText;
 
@@ -72,7 +71,6 @@ public class SearchResults extends Fragment {
             returnDate = getArguments().getString("returnDate");
             roundTrip = getArguments().getBoolean("roundTrip");
         }
-        countSaved = 3;
     }
 
     @Override
@@ -97,12 +95,6 @@ public class SearchResults extends Fragment {
         }
         else {
             noSearchResultsText.setVisibility(View.INVISIBLE);
-        }
-//        resultsList = Singleton.getTrips();
-
-        // save some of the flights
-        for(int i = 0; i < resultsList.size(); i++) {
-            Singleton.addSavedTrip(resultsList.get(i));
         }
 
         mLayoutManager = new LinearLayoutManager(this.getContext());

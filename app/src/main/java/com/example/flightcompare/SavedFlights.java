@@ -76,10 +76,6 @@ public class SavedFlights extends Fragment {
         System.out.println("Results list size: " + resultsList.size());
 
         reInflateList();
-        // save some of the flights
-        for(int i = 0; i < 3; i++) {
-            Singleton.addSavedTrip(resultsList.get(i));
-        }
 
         /* RECYCLER VIEW STUFF
         noSavedFlightsText = view.findViewById(R.id.textview_no_saved_flights);
