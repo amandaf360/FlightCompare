@@ -53,8 +53,16 @@ public class CompareResults extends Fragment {
     ImageView logo1;
     ImageView logo2;
     ImageView logo3;
+
+    ImageView delete1;
+    ImageView delete2;
+    ImageView delete3;
     HashMap<String, MaterialCardView> cardViewMap;
     HashMap<String, Integer> logoMap;
+
+    TextView airlineLabel1;
+    TextView airlineLabel2;
+    TextView airlineLabel3;
 
     public CompareResults() {}
 
@@ -88,6 +96,18 @@ public class CompareResults extends Fragment {
         logo2 = v.findViewById(R.id.logo2);
         logo3 = v.findViewById(R.id.logo3);
 
+        delete1 = v.findViewById(R.id.delete1);
+        delete2 = v.findViewById(R.id.delete2);
+        delete3 = v.findViewById(R.id.delete3);
+
+        delete1.setImageResource(R.drawable.ic_delete_black_24dp);
+        delete2.setImageResource(R.drawable.ic_delete_black_24dp);
+        delete3.setImageResource(R.drawable.ic_delete_black_24dp);
+
+        airlineLabel1 = v.findViewById(R.id.airline1);
+        airlineLabel2 = v.findViewById(R.id.airline2);
+        airlineLabel3 = v.findViewById(R.id.airline3);
+
         Trip trip1 = null;
         Trip trip2 = null;
         Trip trip3 = null;
@@ -102,21 +122,36 @@ public class CompareResults extends Fragment {
         }
 
         if(trip1 != null) {
-            logo1.setImageResource(logoMap.get(getString(R.string.hawaiian)));
+            String carrierName = trip1.getOutboundLeg().getCarrier();
+            logo1.setImageResource(Singleton.getAirlineImage(carrierName));
+            airlineLabel1.setText(carrierName);
+            delete1.setVisibility(View.VISIBLE);
         }else {
-            logo1.setImageResource(R.drawable.ic_home_black_24dp);
+            logo1.setImageResource(R.drawable.select_text);
+            airlineLabel2.setText("");
+            delete1.setVisibility(View.INVISIBLE);
         }
 
         if(trip2 != null) {
-            logo2.setImageResource(logoMap.get(getString(R.string.hawaiian)));
+            String carrierName = trip2.getOutboundLeg().getCarrier();
+            logo2.setImageResource(Singleton.getAirlineImage(carrierName));
+            airlineLabel2.setText(carrierName);
+            delete2.setVisibility(View.VISIBLE);
         }else {
-            logo2.setImageResource(R.drawable.ic_home_black_24dp);
+            logo2.setImageResource(R.drawable.select_text);
+            airlineLabel2.setText("");
+            delete2.setVisibility(View.INVISIBLE);
         }
 
         if(trip3 != null) {
-            logo3.setImageResource(logoMap.get(getString(R.string.hawaiian)));
+            String carrierName = trip3.getOutboundLeg().getCarrier();
+            logo3.setImageResource(Singleton.getAirlineImage(carrierName));
+            airlineLabel3.setText(carrierName);
+            delete3.setVisibility(View.VISIBLE);
         }else {
-            logo3.setImageResource(R.drawable.ic_home_black_24dp);
+            logo3.setImageResource(R.drawable.select_text);
+            airlineLabel3.setText("");
+            delete3.setVisibility(View.INVISIBLE);
         }
 
         Singleton.setComparators(getString(R.string.price), true);
@@ -420,7 +455,8 @@ public class CompareResults extends Fragment {
         Log.d("Inflate card d3", "data: " + data3.first);
         Log.d("Inflate card d3", "data: " + data3.second);
         if(data1.first == null){
-            comparison1.setText("SELECT FLIGHT");
+            comparison1.setText("-");
+            comparison1a.setLayoutParams(invisiParam);
         }
         else{
             comparison1.setText(data1.first);
@@ -438,7 +474,8 @@ public class CompareResults extends Fragment {
         }
 
         if(data2.first == null){
-            comparison2.setText("SELECT FLIGHT");
+            comparison2.setText("-");
+            comparison2a.setLayoutParams(invisiParam);
         }
         else{
             comparison2.setText(data2.first);
@@ -456,7 +493,8 @@ public class CompareResults extends Fragment {
         }
 
         if(data3.first == null){
-            comparison3.setText("SELECT FLIGHT");
+            comparison3.setText("-");
+            comparison3a.setLayoutParams(invisiParam);
         }
         else{
             comparison3.setText(data3.first);
