@@ -7,10 +7,13 @@ import com.example.flightcompare.Data.CollectionObjects.Flight;
 import com.example.flightcompare.Data.JsonObjects.Airline;
 import com.example.flightcompare.Data.JsonObjects.Trip;
 import com.example.flightcompare.Data.SkyscannerObjects.Quote;
+import com.example.flightcompare.R;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.Map;
 
 public class Singleton {
     static Singleton data;
@@ -27,6 +30,7 @@ public class Singleton {
     private ArrayList<Trip> searchedTrips;
     private ArrayList<Trip> savedTrips;
     private ArrayList<Trip> comparedTrips;
+    private Map<String, Integer> airlineImages;
 
     public static void init(){
         if(data == null){
@@ -45,6 +49,12 @@ public class Singleton {
         airlines = new ArrayList<>();
         savedTrips = new ArrayList<>();
         comparedTrips = new ArrayList<>();
+
+        // init airline images map
+        airlineImages = new HashMap<>();
+        airlineImages.put("American Airlines", R.drawable.aa_logo);
+        airlineImages.put("Delta Air Lines", R.drawable.delta_logo);
+        airlineImages.put("Hawaiian Airlines", R.drawable.hawaii_logo);
     }
 
     //*************//
@@ -214,15 +224,43 @@ public class Singleton {
     }
 
     private ArrayList<Trip> _getTripsForSearch(String originAirportCode, String destAirportCode,
-                                               String departDate, String returnDate){
+                                               String departDate, String returnDate) {
+        System.out.println("ORIGIN: " + originAirportCode);
+        System.out.println("DEST: " + destAirportCode);
+        System.out.println("DEPART DATE: " + parseDate(departDate));
+//        System.out.println("RETURN DATE: " + parseDate(returnDate));
+
         ArrayList<Trip> matchList = new ArrayList<>();
+        ArrayList<Trip> trips = getTrips();
+        System.out.println("Trips size: " + trips.size());
         for(Trip t : trips) {
+            // first check the from/to
             if(t.getOutboundLeg().getOriginId().equals(originAirportCode) &&
-                t.getOutboundLeg().getDestinationId().equals(destAirportCode) &&
-                t.getOutboundLeg().getDepartureDate().equals(departDate) &&
-                t.getInboundLeg().getDepartureDate().equals(returnDate)) {
-                matchList.add(t);
+                t.getOutboundLeg().getDestinationId().equals(destAirportCode)) {
+                System.out.println("CODES MATCH");
+                // check departure date
+                String departureDate = t.getOutboundLeg().getDepartureDate();
+                if(parseDate(departDate).equals(departureDate.substring(0, departureDate.indexOf("T")))) {
+                    System.out.println("DEPART DATE MATCHES");
+                    // check return date
+                    if(returnDate.length() > 0) {
+                        String returningDate = t.getInboundLeg().getDepartureDate();
+                        System.out.println("RETURNING DATE: " + returningDate);
+                        if(returningDate != null && parseDate(returnDate).equals(returningDate.substring(0, returningDate.indexOf("T")))) {
+                            System.out.println("RETURN DATE MATCHES");
+                            matchList.add(t);
+                        }
+                    }
+                    // check to see if it's only a one-way flight
+                    else if(t.getInboundLeg().getDepartureDate() == null){
+                        matchList.add(t);
+                    }
+                }
             }
+        }
+
+        for(Trip t : matchList) {
+            System.out.println(t.toString());
         }
         return matchList;
     }
@@ -284,10 +322,37 @@ public class Singleton {
     }
 
     public static ArrayList<Trip> getComparedTrips(){
-        return data._getSavedTrips();
+        return data._getComparedTrips();
     }
 
     private ArrayList<Trip> _getComparedTrips(){
-        return savedTrips;
+        return comparedTrips;
+    }
+
+    private String parseDate(String date) {
+        String day;
+        String month;
+        String year;
+        int beginIndex = 0;
+        int currentSpot = date.indexOf("/");
+
+        System.out.println(date);
+        month = date.substring(beginIndex, currentSpot);
+        beginIndex = currentSpot + 1;
+        currentSpot = date.indexOf("/", beginIndex);
+        day = date.substring(beginIndex, currentSpot);
+        beginIndex = currentSpot + 1;
+        year = date.substring(beginIndex);
+
+        return(year + "-" + month + "-" + day);
+
+    }
+
+    public static Integer getAirlineImage(String airline){
+        return data._getAirlineImage(airline);
+    }
+
+    private Integer _getAirlineImage(String airline){
+        return airlineImages.get(airline);
     }
 }

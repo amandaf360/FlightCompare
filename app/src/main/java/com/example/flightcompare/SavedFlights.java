@@ -9,10 +9,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.flightcompare.Data.CollectionObjects.Flight;
+import com.example.flightcompare.Data.JsonObjects.FlightLeg;
 import com.example.flightcompare.Data.JsonObjects.Trip;
 import com.example.flightcompare.Data.Singleton;
 import com.google.android.material.card.MaterialCardView;
@@ -32,6 +35,7 @@ public class SavedFlights extends Fragment {
 
     private TextView noSavedFlightsText;
     private TextView selectSavedFlightsText;
+    View divider;
 
     public SavedFlights() {}
 
@@ -65,6 +69,7 @@ public class SavedFlights extends Fragment {
         noSavedFlightsText = view.findViewById(R.id.textview_no_saved_flights);
         selectSavedFlightsText = view.findViewById(R.id.textview_select_saved_flights);
         cardContainer = view.findViewById(R.id.savedCardContainer);
+        divider = view.findViewById(R.id.saved_flights_divider);
 
         ArrayList<Trip> resultsList = Singleton.getTrips();
         System.out.println("Results list size: " + resultsList.size());
@@ -184,57 +189,62 @@ public class SavedFlights extends Fragment {
             }
         });
 
+        FlightLeg outboundLeg = t.getOutboundLeg();
+        FlightLeg inboundLeg = t.getInboundLeg();
+
         ImageButton removeSavedButton = cardView.findViewById(R.id.remove_saved_button);
-//        TextView outgoingLegAirline = cardView.findViewById(R.id.depart_flight_airline_img);
+
+        ImageView outgoingLegAirlineImage = cardView.findViewById(R.id.saved_flights_depart_flight_airline_img);
         TextView outgoingLegDepartureAirport = cardView.findViewById(R.id.saved_flights_depart_airport_text);
         TextView outgoingLegDestinationAirport = cardView.findViewById(R.id.saved_flights_dest_airport_text);
-        TextView outgoingLegDepartTime;
-        TextView outgoingLegDuration;
-        TextView outgoingLegDate;
+        TextView outgoingLegDepartTime = cardView.findViewById(R.id.saved_flights_depart_time_text);
+        TextView outgoingLegDuration = cardView.findViewById(R.id.saved_flights_depart_duration_text);
+        TextView outgoingLegDate = cardView.findViewById(R.id.saved_flights_depart_date_text);
 
-        TextView incomingLegAirline;
-        TextView incomingLegDepartureAirport;
-        TextView incomingLegDestinationAirport;
-        TextView incomingLegDepartTime;
-        TextView incomingLegDuration;
-        TextView incomingLegDate;
+        ImageView incomingLegAirlineImage = cardView.findViewById(R.id.saved_flights_return_flight_airline_img);
+        TextView incomingLegDepartureAirport = cardView.findViewById(R.id.saved_flights_return_from_airport_text);
+        TextView incomingLegDestinationAirport = cardView.findViewById(R.id.saved_flights_return_to_airport_text);
+        TextView incomingLegDepartTime = cardView.findViewById(R.id.saved_flights_return_time_text);
+        TextView incomingLegDuration = cardView.findViewById(R.id.saved_flights_return_duration_text);
+        TextView incomingLegDate = cardView.findViewById(R.id.saved_flights_return_date_text);
 
         TextView price = cardView.findViewById(R.id.saved_flights_price_text);
-
-//        String outgoingLegAirline;
-//        String outgoingLegDepartureAirport;
-//        String outgoingLegDestinationAirport;
-//        String outgoingLegDepartTime;
-//        String outgoingLegDuration;
-//        String outgoingLegDate;
-//
-//        String incomingLegAirline;
 //        String incomingLegDepartureAirport;
 //        String incomingLegDestinationAirport;
 //        String incomingLegDepartTime;
 //        String incomingLegDuration;
 //        String incomingLegDate;
-//
-//        int price;
 
         System.out.println("ADDING A SAVED CARD");
-        outgoingLegDepartureAirport.setText(t.getOutboundLeg().getOriginId());
-        outgoingLegDestinationAirport.setText(t.getOutboundLeg().getDestinationId());
-//            outgoingLegAirline = f.getAirline();
-//            outgoingLegDepartureAirport = f.getFrom_location().getAirport_code();
-//            outgoingLegDestinationAirport = f.getTo_location().getAirport_code();
-//            outgoingLegDepartTime = f.getDepart_time().toString();
-//            outgoingLegDuration = f.getFlytime().toString();
-////            outgoingLegDate = f.getDate().toString();
-//
-//            incomingLegAirline = f.getAirline();
-//            incomingLegDepartureAirport = f.getFrom_location().getAirport_code();
-//            incomingLegDestinationAirport = f.getTo_location().getAirport_code();
-//            incomingLegDepartTime = f.getDepart_time().toString();
-//            incomingLegDuration = f.getFlytime().toString();
-////            incomingLegDate = f.getDate().toString();
-//
-        price.setText("$" + t.getPrice().toString());
+        System.out.println("OUTBOUND LEG CARRIER: " + outboundLeg.getCarrier());
+        outgoingLegAirlineImage.setImageResource(Singleton.getAirlineImage(outboundLeg.getCarrier()));
+        outgoingLegDepartureAirport.setText(outboundLeg.getOriginId());
+        outgoingLegDestinationAirport.setText(outboundLeg.getDestinationId());
+        outgoingLegDepartTime.setText(parseFlightTime(outboundLeg));
+        outgoingLegDuration.setText(outboundLeg.getFlightDuration());
+        outgoingLegDate.setText(parseDate(outboundLeg));
+
+        // first see if it's a one way flight or not
+        if(inboundLeg.getDepartureDate() == null) {
+            cardView.removeView(incomingLegAirlineImage);
+            cardView.removeView(incomingLegDepartureAirport);
+            cardView.removeView(incomingLegDestinationAirport);
+            cardView.removeView(incomingLegDepartTime);
+            cardView.removeView(incomingLegDuration);
+            cardView.removeView(incomingLegDate);
+            cardView.removeView(divider);
+        }
+        else {
+            incomingLegAirlineImage.setImageResource(Singleton.getAirlineImage(inboundLeg.getCarrier()));
+            outgoingLegDepartureAirport.setText(inboundLeg.getOriginId());
+            outgoingLegDestinationAirport.setText(inboundLeg.getDestinationId());
+            outgoingLegDepartTime.setText(parseFlightTime(inboundLeg));
+            outgoingLegDuration.setText(inboundLeg.getFlightDuration());
+            outgoingLegDate.setText(parseDate(inboundLeg));
+        }
+
+        String priceText = "$" + t.getPrice().toString();
+        price.setText(priceText);
 
         removeSavedButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -259,6 +269,29 @@ public class SavedFlights extends Fragment {
             checkForMaxCardsSelected();
         }
         reInflateList();
+    }
+
+    private String parseDate(FlightLeg flightLeg) {
+        String departDate = flightLeg.getDepartureDate();
+        //yyyy-mm-ddThh:mm:ss
+        Integer year = Integer.parseInt(departDate.substring(0, 3));
+        Integer month = Integer.parseInt(departDate.substring(5, 6));
+        Integer day = Integer.parseInt(departDate.substring(8, 9));
+        return (month.toString() + "/" + day.toString() + "/" + year.toString());
+    }
+
+    private String parseFlightTime(FlightLeg flightLeg) {
+        String departDate = flightLeg.getDepartureDate();
+        String returnDate = flightLeg.getArrivalDate();
+        //yyyy-mm-ddThh:mm:ss
+        Integer hourOut = Integer.parseInt(departDate.substring(11, departDate.indexOf(":")));
+        Integer minOut = Integer.parseInt(departDate.substring(departDate.indexOf(":") + 1, departDate.indexOf(":", departDate.indexOf(":") + 1)));
+        boolean outPM = (hourOut > 12);
+        Integer hourIn = Integer.parseInt(returnDate.substring(11, departDate.indexOf(":")));
+        Integer minIn = Integer.parseInt(returnDate.substring(departDate.indexOf(":") + 1, departDate.indexOf(":", departDate.indexOf(":") + 1)));
+        boolean inPM = (hourIn > 12);
+        return ((hourOut > 12 ? hourOut - 12 : hourOut) + ":" + minOut + (outPM ? "PM" : "AM") +
+                " - " + (hourIn > 12 ? hourIn - 12 : hourIn) + ":" + minIn + (inPM ? "PM" : "AM"));
     }
 
 }

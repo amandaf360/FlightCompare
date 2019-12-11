@@ -87,11 +87,11 @@ public class SearchResults extends Fragment {
         mRecyclerView = view.findViewById(R.id.flight_results_recycler_view);
         resultsList = new ArrayList<>();
 
-        //resultsList = Singleton.getTripsForSearch(fromAirport, destAirport, departDate, returnDate);
-        resultsList = Singleton.getTrips();
+        resultsList = Singleton.getTripsForSearch(fromAirport, destAirport, departDate, returnDate);
+//        resultsList = Singleton.getTrips();
 
         // save some of the flights
-        for(int i = 0; i < countSaved; i++) {
+        for(int i = 0; i < resultsList.size(); i++) {
             Singleton.addSavedTrip(resultsList.get(i));
         }
 

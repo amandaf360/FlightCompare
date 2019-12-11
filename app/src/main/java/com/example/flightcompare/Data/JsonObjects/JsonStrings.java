@@ -130,7 +130,7 @@ public class JsonStrings {
             "      \"OutboundLeg\": {\n" +
             "        \"OriginId\": \"LAX\",\n" +
             "        \"DestinationId\": \"SLC\",\n" +
-            "        \"Carrier\": \"Southwest Airlines\",\n" +
+            "        \"Carrier\": \"Hawaiian Airlines\",\n" +
             "        \"DepartureDate\": \"2019-12-20T13:17:00\",\n" +
             "        \"ArrivalDate\": \"2019-12-20T15:25:00\",\n" +
             "        \"FlightDuration\": \"2h 8m\"\n" +
@@ -142,7 +142,7 @@ public class JsonStrings {
             "      \"OutboundLeg\": {\n" +
             "        \"OriginId\": \"LAX\",\n" +
             "        \"DestinationId\": \"SLC\",\n" +
-            "        \"Carrier\": \"Southwest Airlines\",\n" +
+            "        \"Carrier\": \"Hawaiian Airlines\",\n" +
             "        \"DepartureDate\": \"2019-12-20T06:10:00\",\n" +
             "        \"ArrivalDate\": \"2019-12-20T07:55:00\",\n" +
             "        \"FlightDuration\": \"1h 45m\"\n" +
@@ -158,6 +158,30 @@ public class JsonStrings {
             "        \"DepartureDate\": \"2019-12-20T20:05:00\",\n" +
             "        \"ArrivalDate\": \"2019-12-20T21:35:00\",\n" +
             "        \"FlightDuration\": \"1h 30m\"\n" +
+            "      },\n" +
+            "      \"InboundLeg\": {}\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"Price\": \"97\",\n" +
+            "      \"OutboundLeg\": {\n" +
+            "        \"OriginId\": \"SLC\",\n" +
+            "        \"DestinationId\": \"SFO\",\n" +
+            "        \"Carrier\": \"Delta Air Lines\",\n" +
+            "        \"DepartureDate\": \"2019-12-20T8:05:00\",\n" +
+            "        \"ArrivalDate\": \"2019-12-20T8:30:00\",\n" +
+            "        \"FlightDuration\": \"1h 25m\"\n" +
+            "      },\n" +
+            "      \"InboundLeg\": {}\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"Price\": \"110\",\n" +
+            "      \"OutboundLeg\": {\n" +
+            "        \"OriginId\": \"SFO\",\n" +
+            "        \"DestinationId\": \"SLC\",\n" +
+            "        \"Carrier\": \"American Airlines\",\n" +
+            "        \"DepartureDate\": \"2019-12-20T14:35:00\",\n" +
+            "        \"ArrivalDate\": \"2019-12-20T16:46:00\",\n" +
+            "        \"FlightDuration\": \"1h 11m\"\n" +
             "      },\n" +
             "      \"InboundLeg\": {}\n" +
             "    }\n" +

@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
+import com.example.flightcompare.Data.Singleton;
 import com.example.flightcompare.MainActivity;
 import com.example.flightcompare.R;
 import com.google.android.material.button.MaterialButton;
@@ -45,7 +46,8 @@ public class SearchFlights extends Fragment {
         SearchFlights fragment = new SearchFlights();
         airportCodes = new HashMap<>();
         airportCodes.put("Salt Lake City", "SLC");
-
+        airportCodes.put("Los Angeles", "LAX");
+        airportCodes.put("San Francisco", "SFO");
         return fragment;
     }
 
@@ -64,8 +66,6 @@ public class SearchFlights extends Fragment {
         departDateEdit = v.findViewById(R.id.depart_date_edit);
         returnDateEdit = v.findViewById(R.id.return_date_edit);
         roundtripRadio = v.findViewById(R.id.roundtrip_radio);
-        // initialize round trip to being checked
-        roundtripRadio.setChecked(true);
         onewayRadio = v.findViewById(R.id.oneway_radio);
         searchButton = v.findViewById(R.id.search_button);
         searchButton.setOnClickListener(new View.OnClickListener() {
@@ -75,8 +75,15 @@ public class SearchFlights extends Fragment {
             }
         });
 
-        RadioGroup tripButtonsGroup = v.findViewById(R.id.radio_group);
+        // START TEST
+        fromAirportEdit.setText("Los Angeles");
+        toAirportEdit.setText("Salt Lake City");
+        departDateEdit.setText("12/20/2019");
+        returnDateEdit.setText("12/20/2019");
+        // END TEST
 
+        RadioGroup tripButtonsGroup = v.findViewById(R.id.radio_group);
+        tripButtonsGroup.check(R.id.roundtrip_radio);
 
         searchButton.setEnabled(false);
 
@@ -247,9 +254,10 @@ public class SearchFlights extends Fragment {
     private void onSearchClicked() {
         searchButton.setEnabled(false);
 
-        SearchResults searchResults = SearchResults.newInstance(fromAirportEdit.getText().toString(),
-                toAirportEdit.getText().toString(), departDateEdit.getText().toString(),
-                returnDateEdit.getText().toString(), roundtripRadio.isChecked());
+        String returnDate = (roundtripRadio.isChecked() ? returnDateEdit.getText().toString() : "");
+        SearchResults searchResults = SearchResults.newInstance(airportCodes.get(fromAirportEdit.getText().toString()),
+                airportCodes.get(toAirportEdit.getText().toString()), departDateEdit.getText().toString(),
+                returnDate, roundtripRadio.isChecked());
 
         ((MainActivity) Objects.requireNonNull(getActivity())).loadFragment(searchResults);
     }

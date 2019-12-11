@@ -59,7 +59,7 @@ public class JsonData {
 
         JsonArray airlines = airlineJson.getAsJsonArray("airlines");
 
-        for(int i = 0; i < flights.size(); i++){
+        for(int i = 0; i < airlines.size(); i++){
             Log.d("JSON parsing airlines", "Parsing object " + i + " " + airlines.get(i).toString());
             JsonObject object = airlines.get(i).getAsJsonObject();
             String name = object.get("Name").getAsString();
