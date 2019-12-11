@@ -11,6 +11,7 @@ import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.flightcompare.Data.CollectionObjects.Airport;
@@ -33,6 +34,8 @@ public class SearchResults extends Fragment {
     private RecyclerView.LayoutManager mLayoutManager;
     private List<Trip> resultsList;
     private int countSaved;
+
+    private TextView noSearchResultsText;
 
     MaterialButton searchAgainButton;
 
@@ -84,10 +87,17 @@ public class SearchResults extends Fragment {
                 onSearchClicked();
             }
         });
+        noSearchResultsText = view.findViewById(R.id.textview_no_search_results);
         mRecyclerView = view.findViewById(R.id.flight_results_recycler_view);
         resultsList = new ArrayList<>();
 
         resultsList = Singleton.getTripsForSearch(fromAirport, destAirport, departDate, returnDate);
+        if(resultsList.size() == 0) {
+            noSearchResultsText.setVisibility(View.VISIBLE);
+        }
+        else {
+            noSearchResultsText.setVisibility(View.INVISIBLE);
+        }
 //        resultsList = Singleton.getTrips();
 
         // save some of the flights

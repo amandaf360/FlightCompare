@@ -11,6 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.flightcompare.Data.Singleton;
 import com.example.flightcompare.MainActivity;
@@ -79,11 +81,11 @@ public class SearchFlights extends Fragment {
         fromAirportEdit.setText("Los Angeles");
         toAirportEdit.setText("Salt Lake City");
         departDateEdit.setText("12/20/2019");
-        returnDateEdit.setText("12/20/2019");
+        returnDateEdit.setText("1/20/2019");
         // END TEST
 
         RadioGroup tripButtonsGroup = v.findViewById(R.id.radio_group);
-        tripButtonsGroup.check(R.id.roundtrip_radio);
+        tripButtonsGroup.clearCheck();
 
         searchButton.setEnabled(false);
 
@@ -109,6 +111,7 @@ public class SearchFlights extends Fragment {
 
             @Override
             public void afterTextChanged(Editable editable) {
+                System.out.println("AFTER TEXT CHANGED");
                 // if oneway, disable the "return date" field
                 if(onewayRadio.isChecked()) {
                     returnDateEdit.setEnabled(false);
@@ -120,7 +123,7 @@ public class SearchFlights extends Fragment {
                 // check to see if the from airport is good
                     // needs to have a length of 3 for the airport code
                 //if(editable.equals(fromAirportEdit)) {
-                    if(fromAirportEdit.getText().toString().length() == 3) {
+                    if(fromAirportEdit.getText().toString().length() > 0) {
                         fromAirportGood = true;
                     }
                     else {
@@ -130,7 +133,7 @@ public class SearchFlights extends Fragment {
                 //}
 
                 // check to see if the to airport is good
-                if(toAirportEdit.getText().toString().length() == 3) {
+                if(toAirportEdit.getText().toString().length() > 0) {
                     toAirportGood = true;
                 }
                 else {
@@ -163,7 +166,7 @@ public class SearchFlights extends Fragment {
 
 
                 // check to see if the return date is good
-                if(editable.equals(returnDateEdit)) {
+//                if(editable.equals(returnDateEdit)) {
                     if(returnDateEdit.getText().length() > 10 || returnDateEdit.getText().length() < 8) {
                         returnDateGood = false;
                         //returnDateEdit.setError("Need to enter the date in the correct format");
@@ -184,7 +187,13 @@ public class SearchFlights extends Fragment {
                             //returnDateEdit.setError("Need to enter valid date");
                         }
                     }
-                }
+//                }
+
+                System.out.println("fromAirportGood: " + fromAirportGood);
+                System.out.println("toAirportGood: " + toAirportGood);
+                System.out.println("departDateGood: " + departDateGood);
+                System.out.println("returnDateGood: " + returnDateGood);
+
 
                 // check to see if all fields are filled out
                 if(fromAirportGood && toAirportGood && departDateGood) {
@@ -255,11 +264,30 @@ public class SearchFlights extends Fragment {
         searchButton.setEnabled(false);
 
         String returnDate = (roundtripRadio.isChecked() ? returnDateEdit.getText().toString() : "");
-        SearchResults searchResults = SearchResults.newInstance(airportCodes.get(fromAirportEdit.getText().toString()),
-                airportCodes.get(toAirportEdit.getText().toString()), departDateEdit.getText().toString(),
-                returnDate, roundtripRadio.isChecked());
+        String fromAirportCode = airportCodes.get(fromAirportEdit.getText().toString());
+        String toAirportCode = airportCodes.get(toAirportEdit.getText().toString());
 
-        ((MainActivity) Objects.requireNonNull(getActivity())).loadFragment(searchResults);
+        if(fromAirportCode == null) {
+            Context context = Objects.requireNonNull(getActivity()).getApplicationContext();
+            int duration = Toast.LENGTH_LONG;
+
+            Toast toast = Toast.makeText(context, "Invalid departure city name", duration);
+            toast.show();
+        }
+        if(toAirportCode == null) {
+            Context context = Objects.requireNonNull(getActivity()).getApplicationContext();
+            int duration = Toast.LENGTH_LONG;
+
+            Toast toast = Toast.makeText(context, "Invalid destination city name", duration);
+            toast.show();
+        }
+
+        if(fromAirportCode != null && toAirportCode != null) {
+            SearchResults searchResults = SearchResults.newInstance(fromAirportCode, toAirportCode,
+                    departDateEdit.getText().toString(), returnDate, roundtripRadio.isChecked());
+
+            ((MainActivity) Objects.requireNonNull(getActivity())).loadFragment(searchResults);
+        }
     }
 
     private void returnSearchResult() {

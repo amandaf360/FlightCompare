@@ -17,9 +17,9 @@ import com.example.flightcompare.R;
 
 import java.util.List;
 
-interface OnItemClickListener {
-    void onItemClicked(Trip trip);
-}
+//interface OnItemClickListener {
+//    void onItemClicked(Trip trip);
+//}
 
 public class MyFlightResultRecyclerViewAdapter extends RecyclerView.Adapter<MyFlightResultRecyclerViewAdapter.ViewHolder> {
 
@@ -58,10 +58,11 @@ public class MyFlightResultRecyclerViewAdapter extends RecyclerView.Adapter<MyFl
         }
 
         void bindFavoriteButton(final Trip trip) {
-            favorited = trip.isSaved();
             faveButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    System.out.println("SAVED BUTTON CLICKED");
+                    favorited = trip.isSaved();
                     if(favorited) {
                         faveButton.setImageResource(R.drawable.ic_favorite_border_light_grey_24dp);
                         Singleton.removeSavedTrip(trip);
@@ -70,13 +71,6 @@ public class MyFlightResultRecyclerViewAdapter extends RecyclerView.Adapter<MyFl
                         faveButton.setImageResource(R.drawable.ic_favorite_full_24dp);
                         Singleton.addSavedTrip(trip);
                     }
-                   // favoriteButton.setSelected(!btnextra.isPressed());
-    //                if (favoriteButton.isPressed()) {
-    //                    favoriteButton.setImageResource(R.drawable.yourImage);
-    //                }
-    //                else {
-    //                    favoriteButton.setImageResource(R.drawable.fav);
-    //                }
                 }
             });
         }
@@ -135,9 +129,9 @@ public class MyFlightResultRecyclerViewAdapter extends RecyclerView.Adapter<MyFl
     private String parseDate(FlightLeg flightLeg) {
         String departDate = flightLeg.getDepartureDate();
         //yyyy-mm-ddThh:mm:ss
-        Integer year = Integer.parseInt(departDate.substring(0, 3));
-        Integer month = Integer.parseInt(departDate.substring(5, 6));
-        Integer day = Integer.parseInt(departDate.substring(8, 9));
+        Integer year = Integer.parseInt(departDate.substring(0, 4));
+        Integer month = Integer.parseInt(departDate.substring(5, 7));
+        Integer day = Integer.parseInt(departDate.substring(8, 10));
         return (month.toString() + "/" + day.toString() + "/" + year.toString());
     }
 

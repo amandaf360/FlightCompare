@@ -22,6 +22,7 @@
     <string name="depart_flight">Departure Flight:</string>
     <string name="return_flight">Returning Flight:</string>
     <string name="save_question">Save?</string>
+    <string name="no_search_results">There are no results for your search.</string>
 
     <!-- Saved flights screen -->
     <string name="compare_question">Compare?</string>

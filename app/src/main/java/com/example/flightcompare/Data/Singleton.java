@@ -148,7 +148,7 @@ public class Singleton {
         return data._addComparedFlight(flight);
     }
 
-    private boolean _addComparedFlight(Flight flight){
+    private boolean _addComparedFlight(Flight flight) {
         if(comparedFlights.size() < 3) {
             comparedFlights.add(flight);
             return true;

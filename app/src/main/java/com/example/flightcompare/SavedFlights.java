@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.renderscript.ScriptIntrinsicYuvToRGB;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,7 +25,7 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public class SavedFlights extends Fragment {
-    public final int MAX_TO_COMPARE = 2;
+    public final int MAX_TO_COMPARE = 3;
     //    private RecyclerView mRecyclerView;
 //    private RecyclerView.Adapter mAdapter;
 //    private RecyclerView.LayoutManager mLayoutManager;
@@ -109,6 +110,7 @@ public class SavedFlights extends Fragment {
 
     public boolean initCheckedCard(Trip t) {
         ArrayList<Trip> toCompare = Singleton.getComparedTrips();
+        System.out.println("Compared trips size: " + toCompare.size());
         for(Trip trip : toCompare) {
             if(t.equals(trip)) {
                 return true;
@@ -161,7 +163,19 @@ public class SavedFlights extends Fragment {
 
     public void inflateTripCard(final Trip t) {
         LayoutInflater inflater = LayoutInflater.from(cardContainer.getContext());
-        final MaterialCardView cardView = (MaterialCardView) inflater.inflate(R.layout.saved_flights_list_item, cardContainer,false);
+        final MaterialCardView cardView;
+        boolean oneway = false;
+        // see if the flight is one way or not
+        FlightLeg outboundLeg = t.getOutboundLeg();
+        FlightLeg inboundLeg = t.getInboundLeg();
+        if(inboundLeg.getDepartureDate() == null) {
+            oneway = true;
+            System.out.println("\tONE WAY FLIGHT");
+            cardView = (MaterialCardView) inflater.inflate(R.layout.saved_flights_list_item_one_way, cardContainer,false);
+        }
+        else {
+            cardView = (MaterialCardView) inflater.inflate(R.layout.saved_flights_list_item, cardContainer,false);
+        }
 
         cardView.setChecked(initCheckedCard(t));
         cardView.setOnClickListener(new View.OnClickListener() {
@@ -188,10 +202,6 @@ public class SavedFlights extends Fragment {
                 checkForMaxCardsSelected();
             }
         });
-
-        FlightLeg outboundLeg = t.getOutboundLeg();
-        FlightLeg inboundLeg = t.getInboundLeg();
-
         ImageButton removeSavedButton = cardView.findViewById(R.id.remove_saved_button);
 
         ImageView outgoingLegAirlineImage = cardView.findViewById(R.id.saved_flights_depart_flight_airline_img);
@@ -201,47 +211,31 @@ public class SavedFlights extends Fragment {
         TextView outgoingLegDuration = cardView.findViewById(R.id.saved_flights_depart_duration_text);
         TextView outgoingLegDate = cardView.findViewById(R.id.saved_flights_depart_date_text);
 
-        ImageView incomingLegAirlineImage = cardView.findViewById(R.id.saved_flights_return_flight_airline_img);
-        TextView incomingLegDepartureAirport = cardView.findViewById(R.id.saved_flights_return_from_airport_text);
-        TextView incomingLegDestinationAirport = cardView.findViewById(R.id.saved_flights_return_to_airport_text);
-        TextView incomingLegDepartTime = cardView.findViewById(R.id.saved_flights_return_time_text);
-        TextView incomingLegDuration = cardView.findViewById(R.id.saved_flights_return_duration_text);
-        TextView incomingLegDate = cardView.findViewById(R.id.saved_flights_return_date_text);
+        if(!oneway) {
+            ImageView incomingLegAirlineImage = cardView.findViewById(R.id.saved_flights_return_flight_airline_img);
+            TextView incomingLegDepartureAirport = cardView.findViewById(R.id.saved_flights_return_from_airport_text);
+            TextView incomingLegDestinationAirport = cardView.findViewById(R.id.saved_flights_return_to_airport_text);
+            TextView incomingLegDepartTime = cardView.findViewById(R.id.saved_flights_return_time_text);
+            TextView incomingLegDuration = cardView.findViewById(R.id.saved_flights_return_duration_text);
+            TextView incomingLegDate = cardView.findViewById(R.id.saved_flights_return_date_text);
+
+            incomingLegAirlineImage.setImageResource(Singleton.getAirlineImage(inboundLeg.getCarrier()));
+            incomingLegDepartureAirport.setText(inboundLeg.getOriginId());
+            incomingLegDestinationAirport.setText(inboundLeg.getDestinationId());
+            incomingLegDepartTime.setText(parseFlightTime(inboundLeg));
+            incomingLegDuration.setText(inboundLeg.getFlightDuration());
+            incomingLegDate.setText(parseDate(inboundLeg));
+        }
 
         TextView price = cardView.findViewById(R.id.saved_flights_price_text);
-//        String incomingLegDepartureAirport;
-//        String incomingLegDestinationAirport;
-//        String incomingLegDepartTime;
-//        String incomingLegDuration;
-//        String incomingLegDate;
 
         System.out.println("ADDING A SAVED CARD");
-        System.out.println("OUTBOUND LEG CARRIER: " + outboundLeg.getCarrier());
         outgoingLegAirlineImage.setImageResource(Singleton.getAirlineImage(outboundLeg.getCarrier()));
         outgoingLegDepartureAirport.setText(outboundLeg.getOriginId());
         outgoingLegDestinationAirport.setText(outboundLeg.getDestinationId());
         outgoingLegDepartTime.setText(parseFlightTime(outboundLeg));
         outgoingLegDuration.setText(outboundLeg.getFlightDuration());
         outgoingLegDate.setText(parseDate(outboundLeg));
-
-        // first see if it's a one way flight or not
-        if(inboundLeg.getDepartureDate() == null) {
-            cardView.removeView(incomingLegAirlineImage);
-            cardView.removeView(incomingLegDepartureAirport);
-            cardView.removeView(incomingLegDestinationAirport);
-            cardView.removeView(incomingLegDepartTime);
-            cardView.removeView(incomingLegDuration);
-            cardView.removeView(incomingLegDate);
-            cardView.removeView(divider);
-        }
-        else {
-            incomingLegAirlineImage.setImageResource(Singleton.getAirlineImage(inboundLeg.getCarrier()));
-            outgoingLegDepartureAirport.setText(inboundLeg.getOriginId());
-            outgoingLegDestinationAirport.setText(inboundLeg.getDestinationId());
-            outgoingLegDepartTime.setText(parseFlightTime(inboundLeg));
-            outgoingLegDuration.setText(inboundLeg.getFlightDuration());
-            outgoingLegDate.setText(parseDate(inboundLeg));
-        }
 
         String priceText = "$" + t.getPrice().toString();
         price.setText(priceText);
@@ -274,9 +268,9 @@ public class SavedFlights extends Fragment {
     private String parseDate(FlightLeg flightLeg) {
         String departDate = flightLeg.getDepartureDate();
         //yyyy-mm-ddThh:mm:ss
-        Integer year = Integer.parseInt(departDate.substring(0, 3));
-        Integer month = Integer.parseInt(departDate.substring(5, 6));
-        Integer day = Integer.parseInt(departDate.substring(8, 9));
+        Integer year = Integer.parseInt(departDate.substring(0, departDate.indexOf("-")));
+        Integer month = Integer.parseInt(departDate.substring(departDate.indexOf("-") + 1, departDate.indexOf("-", departDate.indexOf("-") + 1)));
+        Integer day = Integer.parseInt(departDate.substring(departDate.indexOf("-", departDate.indexOf("-") + 1), departDate.indexOf("T")));
         return (month.toString() + "/" + day.toString() + "/" + year.toString());
     }
 
@@ -285,7 +279,7 @@ public class SavedFlights extends Fragment {
         String returnDate = flightLeg.getArrivalDate();
         //yyyy-mm-ddThh:mm:ss
         Integer hourOut = Integer.parseInt(departDate.substring(11, departDate.indexOf(":")));
-        Integer minOut = Integer.parseInt(departDate.substring(departDate.indexOf(":") + 1, departDate.indexOf(":", departDate.indexOf(":") + 1)));
+        String minOut = departDate.substring(departDate.indexOf(":") + 1, departDate.indexOf(":", departDate.indexOf(":") + 1));
         boolean outPM = (hourOut > 12);
         Integer hourIn = Integer.parseInt(returnDate.substring(11, departDate.indexOf(":")));
         Integer minIn = Integer.parseInt(returnDate.substring(departDate.indexOf(":") + 1, departDate.indexOf(":", departDate.indexOf(":") + 1)));
