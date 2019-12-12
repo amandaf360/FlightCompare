@@ -218,9 +218,7 @@ public class SavedFlights extends Fragment {
             incomingLegDepartTime.setText(parseFlightTime(inboundLeg));
             incomingLegDuration.setText(inboundLeg.getFlightDuration());
             incomingLegDate.setText(parseDate(inboundLeg));
-//            String incomingFlightNum = Singleton.getFlightNumPrefix(inboundLeg.getCarrier()) + " " +
-//                    inboundLeg.get
-//            incomingLegFlightNum.setText();
+            incomingLegFlightNum.setText(inboundLeg.getFlightNumber());
         }
 
         TextView price = cardView.findViewById(R.id.saved_flights_price_text);
@@ -231,9 +229,7 @@ public class SavedFlights extends Fragment {
         outgoingLegDepartTime.setText(parseFlightTime(outboundLeg));
         outgoingLegDuration.setText(outboundLeg.getFlightDuration());
         outgoingLegDate.setText(parseDate(outboundLeg));
-        //            String incomingFlightNum = Singleton.getFlightNumPrefix(inboundLeg.getCarrier()) + " " +
-//                    inboundLeg.get
-//            incomingLegFlightNum.setText();
+        outgoingLegFlightNum.setText(outboundLeg.getFlightNumber());
 
         String priceText = "$" + t.getPrice().toString();
         price.setText(priceText);

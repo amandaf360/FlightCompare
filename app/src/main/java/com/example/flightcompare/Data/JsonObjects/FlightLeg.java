@@ -2,6 +2,9 @@ package com.example.flightcompare.Data.JsonObjects;
 
 import android.widget.Filter;
 
+import com.example.flightcompare.Data.Singleton;
+
+import java.util.Locale;
 import java.util.Objects;
 
 public class FlightLeg {
@@ -11,6 +14,7 @@ public class FlightLeg {
     private String DepartureDate;
     private String ArrivalDate;
     private String FlightDuration;
+    private String FlightNumber;
 
     public FlightLeg(String originId, String destinationId, String carrier, String departureDate, String arrivalDate, String flightDuration) {
         OriginId = originId;
@@ -19,6 +23,8 @@ public class FlightLeg {
         DepartureDate = departureDate;
         ArrivalDate = arrivalDate;
         FlightDuration = flightDuration;
+        setFlightNumber(generateRandomFlightNumber());
+        System.out.println(getFlightNumber());
     }
 
     public String getOriginId() {
@@ -69,6 +75,21 @@ public class FlightLeg {
         FlightDuration = flightDuration;
     }
 
+    public String getFlightNumber() {
+        return FlightNumber;
+    }
+
+    public void setFlightNumber(String flightNumber) {
+        FlightNumber = flightNumber;
+    }
+
+    public String generateRandomFlightNumber() {
+        String prefix = Singleton.getFlightNumPrefix(getCarrier());
+
+        int randomNum = (int)(Math.random() * ((1000 - 1) + 1)) + 1;
+        return(prefix + " " + String.format(Locale.US, "%03d", randomNum));
+    }
+
     @Override
     public String toString() {
         return "FlightLeg{" +
@@ -78,6 +99,7 @@ public class FlightLeg {
                 ", DepartureDate='" + DepartureDate + '\'' +
                 ", ArrivalDate='" + ArrivalDate + '\'' +
                 ", FlightDuration='" + FlightDuration + '\'' +
+                ", FlightNumber='" + FlightNumber + '\'' +
                 '}';
     }
 

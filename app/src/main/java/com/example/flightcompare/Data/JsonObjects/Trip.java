@@ -11,7 +11,9 @@ public class Trip {
     public Trip(Integer price, FlightLeg outboundLeg, FlightLeg inboundLeg) {
         Price = price;
         OutboundLeg = outboundLeg;
+        outboundLeg.setFlightNumber(outboundLeg.generateRandomFlightNumber());
         InboundLeg = inboundLeg;
+        inboundLeg.setFlightNumber(inboundLeg.generateRandomFlightNumber());
         saved = false;
     }
 
