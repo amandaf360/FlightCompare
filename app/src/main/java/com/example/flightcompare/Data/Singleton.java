@@ -309,7 +309,7 @@ public class Singleton {
     }
 
     private boolean _addComparedTrip(Trip trip){
-        if(comparedFlights.size() < 3) {
+        if(comparedTrips.size() < 3) {
             comparedTrips.add(trip);
             Log.d("ADD compared trip", trip.toString());
             return true;
