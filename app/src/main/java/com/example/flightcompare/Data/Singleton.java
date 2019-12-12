@@ -55,6 +55,12 @@ public class Singleton {
         airlineImages.put("American Airlines", R.drawable.aa_logo);
         airlineImages.put("Delta Air Lines", R.drawable.delta_logo);
         airlineImages.put("Hawaiian Airlines", R.drawable.hawaii_logo);
+
+        comparators.put("PRICE", true);
+        comparators.put("FLYTIME", true);
+        comparators.put("BAGS", true);
+        comparators.put("LAYOVER TIME", true);
+        comparators.put("DEST/ORIGIN", true);
     }
 
     //*************//

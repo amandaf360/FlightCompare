@@ -7,6 +7,7 @@ import android.os.Bundle;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.util.Log;
 import android.util.Pair;
@@ -36,6 +37,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import static android.view.View.VISIBLE;
 import static androidx.constraintlayout.widget.Constraints.TAG;
 
 /**
@@ -100,10 +102,6 @@ public class CompareResults extends Fragment {
         delete2 = v.findViewById(R.id.delete2);
         delete3 = v.findViewById(R.id.delete3);
 
-        delete1.setImageResource(R.drawable.ic_delete_black_24dp);
-        delete2.setImageResource(R.drawable.ic_delete_black_24dp);
-        delete3.setImageResource(R.drawable.ic_delete_black_24dp);
-
         airlineLabel1 = v.findViewById(R.id.airline1);
         airlineLabel2 = v.findViewById(R.id.airline2);
         airlineLabel3 = v.findViewById(R.id.airline3);
@@ -154,11 +152,6 @@ public class CompareResults extends Fragment {
             delete3.setVisibility(View.INVISIBLE);
         }
 
-        Singleton.setComparators(getString(R.string.price), true);
-        Singleton.setComparators(getString(R.string.flytime), true);
-        Singleton.setComparators(getString(R.string.bags), true);
-        Singleton.setComparators(getString(R.string.layovertime), true);
-        Singleton.setComparators(getString(R.string.to_from), true);
         inflateAllCards();
         compareByBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -168,6 +161,36 @@ public class CompareResults extends Fragment {
             }
         });
 
+        final Fragment compareFragment = this;
+        delete1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(v.getVisibility() == VISIBLE){
+                    Singleton.removeComparedTrip(Singleton.getComparedTrips().get(0));
+                    getFragmentManager().beginTransaction().detach(compareFragment).attach(compareFragment).commit();
+                }
+            }
+        });
+
+        delete2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(v.getVisibility() == VISIBLE){
+                    Singleton.removeComparedTrip(Singleton.getComparedTrips().get(1));
+                    getFragmentManager().beginTransaction().detach(compareFragment).attach(compareFragment).commit();
+                }
+            }
+        });
+
+        delete3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(v.getVisibility() == VISIBLE){
+                    Singleton.removeComparedTrip(Singleton.getComparedTrips().get(2));
+                    getFragmentManager().beginTransaction().detach(compareFragment).attach(compareFragment).commit();
+                }
+            }
+        });
         return v;
     }
 
@@ -201,6 +224,7 @@ public class CompareResults extends Fragment {
             Log.d("Comparators!", e.getKey() + " " + e.getValue());
         }
 
+        final Fragment compareFragment = this;
         popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
@@ -216,9 +240,14 @@ public class CompareResults extends Fragment {
                         item.setChecked(!item.isChecked());
                         Singleton.setComparators(getString(R.string.price), item.isChecked());
                         if(item.isChecked()) {
-                            data1 = getString(R.string.price_text, comparedTrips.get(0).getPrice());
-                            data2 = getString(R.string.price_text, comparedTrips.get(1).getPrice());
-                            data3 = getString(R.string.price_text, comparedTrips.get(2).getPrice());
+                            switch (comparedTrips.size()){
+                                case 3:
+                                    data3 = getString(R.string.price_text, comparedTrips.get(2).getPrice());
+                                case 2:
+                                    data2 = getString(R.string.price_text, comparedTrips.get(1).getPrice());
+                                case 1:
+                                    data1 = getString(R.string.price_text, comparedTrips.get(0).getPrice());
+                            }
                             inflateRoundComparatorCard(getString(R.string.price), new Pair<>(data1, data1a),
                                                                 new Pair<>(data2, data2a),
                                                                 new Pair<>(data3, data3a));
@@ -318,8 +347,8 @@ public class CompareResults extends Fragment {
                                     }
                             }
                             inflateRoundComparatorCard(getString(R.string.to_from), new Pair<>(data1, data1a),
-                                                                                    new Pair<>(data2, data2a),
-                                                                                    new Pair<>(data3, data3a));
+                                                                      new Pair<>(data2, data2a),
+                                                                      new Pair<>(data3, data3a));
                                                                         }
                         else{
                             deleteCard(cardViewMap.get(getString(R.string.to_from)));
@@ -328,7 +357,9 @@ public class CompareResults extends Fragment {
                     default:
                         Log.e("Comparator menu", "Not a valid menu item");
                 }
-
+                // Not ideal to reload, could be faster
+                // getFragmentManager().beginTransaction().detach(compareFragment).attach(compareFragment).commit();
+                reloadAllCards();
                 item.setShowAsAction(MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW);
                 item.setActionView(new View(getContext()));
                 item.setOnActionExpandListener(new MenuItem.OnActionExpandListener() {
@@ -347,48 +378,6 @@ public class CompareResults extends Fragment {
             }
         });
         popup.show();
-    }
-
-    private void inflateComparatorCard(String labelText, String data1, String data2, String data3){
-        LayoutInflater inflater = LayoutInflater.from(cardContainer.getContext());
-        MaterialCardView cardView = (MaterialCardView) inflater.inflate(R.layout.comparator_card, cardContainer,false);
-        cardViewMap.put(labelText, cardView);
-        TextView label = cardView.findViewById(R.id.comparatorLabel);
-        TextView comparison1 = cardView.findViewById(R.id.comparison1);
-        TextView comparison2 = cardView.findViewById(R.id.comparison2);
-        TextView comparison3 = cardView.findViewById(R.id.comparison3);
-
-        if(data1 == null){
-            comparison1.setText("SELECT FLIGHT");
-        }
-        else{
-            comparison1.setText(data1);
-        }
-
-        if(data2 == null){
-            comparison2.setText("SELECT FLIGHT");
-        }
-        else{
-            comparison2.setText(data2);
-        }
-
-        if(data3 == null){
-            comparison3.setText("SELECT FLIGHT");
-        }
-        else{
-            comparison3.setText(data3);
-        }
-
-        label.setText(labelText);
-
-        cardView.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                return false;
-            }
-        });
-
-        cardContainer.addView(cardView);
     }
 
     private void inflateRoundComparatorCard(String labelText, Pair<String, String> data1, Pair<String, String> data2, Pair<String, String> data3){
@@ -533,107 +522,123 @@ public class CompareResults extends Fragment {
 
         String labelString;
         for(Map.Entry<String, Boolean> e : Singleton.getComparators().entrySet()){
+            Log.d("Comparators", "Entry: " + e.toString());
             String data1 = null;
             String data2 = null;
             String data3 = null;
             String data1a = null;
             String data2a = null;
             String data3a = null;
-            switch (e.getKey()){
-                case "PRICE":
-                    labelString = getString(R.string.price);
-                    switch (comparedTrips.size()){
-                        case 3:
-                            data3 = getString(R.string.price_text, comparedTrips.get(2).getPrice());
-                            data3a = "empty";
-                        case 2:
-                            data2 = getString(R.string.price_text, comparedTrips.get(1).getPrice());
-                            data2a = "empty";
-                        case 1:
-                            data1 = getString(R.string.price_text, comparedTrips.get(0).getPrice());
-                            data1a = "empty";
-                    }
-                    break;
-                case "FLYTIME":
-                    labelString = getString(R.string.flytime);
-                    switch (comparedTrips.size()){
-                        case 3:
-                            data3 = comparedTrips.get(2).getOutboundLeg().getFlightDuration();
-                            if(comparedTrips.get(2).getInboundLeg() != null){
-                                data3a = comparedTrips.get(2).getInboundLeg().getFlightDuration();
-                            }
-                        case 2:
-                            data2 = comparedTrips.get(1).getOutboundLeg().getFlightDuration();
-                            if(comparedTrips.get(1).getInboundLeg() != null){
-                                data2a = comparedTrips.get(1).getInboundLeg().getFlightDuration();
-                            }
-                        case 1:
-                            data1 = comparedTrips.get(0).getOutboundLeg().getFlightDuration();
-                            if(comparedTrips.get(0).getInboundLeg() != null){
-                                data1a = comparedTrips.get(0).getInboundLeg().getFlightDuration();
-                            }
-                    }
-                    break;
-                case "BAGS":
-                    labelString = getString(R.string.bags);
-                    switch (comparedTrips.size()){
-                        case 3:
-                            data3 = "4, $50";
-                            data3a = "4, $50";
-                        case 2:
-                            data2 = "3, $50";
-                            data2a = "3, $50";
-                        case 1:
-                            data1 = "1, $50";
-                            data1a = "3, $50";
-                    }
-                    break;
-                case "LAYOVER TIME":
-                    labelString = getString(R.string.layovertime);
-                    switch (comparedTrips.size()){
-                        case 3:
-                            data3 = "1";
-                            data3a = "1";
-                        case 2:
-                            data2 = "2";
-                            data2a = "2";
-                        case 1:
-                            data1 = "3";
-                            data1a = "3";
-                    }
-                    break;
-                case "DEST/ORIGIN":
-                    labelString = getString(R.string.to_from);
-                    switch (comparedTrips.size()){
-                        case 3:
-                            data3 = comparedTrips.get(2).getOutboundLeg().getDestinationId();
-                            if(comparedTrips.get(2).getInboundLeg() != null){
-                                data3a = comparedTrips.get(2).getOutboundLeg().getOriginId();
-                            }
-                        case 2:
-                            data2 = comparedTrips.get(1).getOutboundLeg().getDestinationId();
-                            if(comparedTrips.get(1).getInboundLeg() != null){
-                                data2a = comparedTrips.get(1).getOutboundLeg().getOriginId();
-                            }
-                        case 1:
-                            data1 = comparedTrips.get(0).getOutboundLeg().getDestinationId();
-                            if(comparedTrips.get(0).getInboundLeg() != null){
-                                data1a = comparedTrips.get(0).getOutboundLeg().getOriginId();
-                            }
-                    }
-                    break;
-                default:
-                    Log.e(TAG, "Not a valid menu item");
-                    labelString = "NOT AN ITEM";
-                    data1 = "INVALID";
-                    data2 = "INVALID";
-                    data3 = "INVALID";
+            if(e.getValue()) {
+                switch (e.getKey()) {
+                    case "PRICE":
+                        labelString = getString(R.string.price);
+                        switch (comparedTrips.size()) {
+                            case 3:
+                                data3 = getString(R.string.price_text, comparedTrips.get(2).getPrice());
+                                data3a = "empty";
+                            case 2:
+                                data2 = getString(R.string.price_text, comparedTrips.get(1).getPrice());
+                                data2a = "empty";
+                            case 1:
+                                data1 = getString(R.string.price_text, comparedTrips.get(0).getPrice());
+                                data1a = "empty";
+                        }
+                        break;
+                    case "FLYTIME":
+                        labelString = getString(R.string.flytime);
+                        switch (comparedTrips.size()) {
+                            case 3:
+                                data3 = comparedTrips.get(2).getOutboundLeg().getFlightDuration();
+                                if (comparedTrips.get(2).getInboundLeg() != null) {
+                                    data3a = comparedTrips.get(2).getInboundLeg().getFlightDuration();
+                                }
+                            case 2:
+                                data2 = comparedTrips.get(1).getOutboundLeg().getFlightDuration();
+                                if (comparedTrips.get(1).getInboundLeg() != null) {
+                                    data2a = comparedTrips.get(1).getInboundLeg().getFlightDuration();
+                                }
+                            case 1:
+                                data1 = comparedTrips.get(0).getOutboundLeg().getFlightDuration();
+                                if (comparedTrips.get(0).getInboundLeg() != null) {
+                                    data1a = comparedTrips.get(0).getInboundLeg().getFlightDuration();
+                                }
+                        }
+                        break;
+                    case "BAGS":
+                        labelString = getString(R.string.bags);
+                        switch (comparedTrips.size()) {
+                            case 3:
+                                data3 = "4, $50";
+                                data3a = "4, $50";
+                            case 2:
+                                data2 = "3, $50";
+                                data2a = "3, $50";
+                            case 1:
+                                data1 = "1, $50";
+                                data1a = "3, $50";
+                        }
+                        break;
+                    case "LAYOVER TIME":
+                        labelString = getString(R.string.layovertime);
+                        switch (comparedTrips.size()) {
+                            case 3:
+                                data3 = "1";
+                                data3a = "1";
+                            case 2:
+                                data2 = "2";
+                                data2a = "2";
+                            case 1:
+                                data1 = "3";
+                                data1a = "3";
+                        }
+                        break;
+                    case "DEST/ORIGIN":
+                        labelString = getString(R.string.to_from);
+                        switch (comparedTrips.size()) {
+                            case 3:
+                                data3 = comparedTrips.get(2).getOutboundLeg().getDestinationId();
+                                if (comparedTrips.get(2).getInboundLeg() != null) {
+                                    data3a = comparedTrips.get(2).getOutboundLeg().getOriginId();
+                                }
+                            case 2:
+                                data2 = comparedTrips.get(1).getOutboundLeg().getDestinationId();
+                                if (comparedTrips.get(1).getInboundLeg() != null) {
+                                    data2a = comparedTrips.get(1).getOutboundLeg().getOriginId();
+                                }
+                            case 1:
+                                data1 = comparedTrips.get(0).getOutboundLeg().getDestinationId();
+                                if (comparedTrips.get(0).getInboundLeg() != null) {
+                                    data1a = comparedTrips.get(0).getOutboundLeg().getOriginId();
+                                }
+                        }
+                        break;
+                    default:
+                        Log.e(TAG, "Not a valid menu item");
+                        labelString = "NOT AN ITEM";
+                        data1 = "INVALID";
+                        data2 = "INVALID";
+                        data3 = "INVALID";
+                }
+                Log.d("Inflate all cards", "End and inflate " + comparedTrips.size());
+                inflateRoundComparatorCard(labelString, new Pair<>(data1, data1a),
+                        new Pair<>(data2, data2a),
+                        new Pair<>(data3, data3a));
             }
-            Log.d("Inflate all cards", "End and inflate " + comparedTrips.size());
-            inflateRoundComparatorCard(labelString, new Pair<>(data1, data1a),
-                                                    new Pair<>(data2, data2a),
-                                                    new Pair<>(data3, data3a));
         }
+    }
+
+    public void deleteAllCards(){
+        for(Map.Entry<String, Boolean> e : Singleton.getComparators().entrySet()) {
+            if(e.getValue()){
+                deleteCard(cardViewMap.get(e.getKey()));
+            }
+        }
+    }
+
+    public void reloadAllCards(){
+        deleteAllCards();
+        inflateAllCards();
     }
 
     /**
