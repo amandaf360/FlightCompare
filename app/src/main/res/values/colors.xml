@@ -15,9 +15,12 @@
     <color name="lightBlue">#00B2CA</color>
     <color name="aqua">#7DCFB6</color>
     <color name="accentOrange">#F79256</color>
+    <color name="accentLight">#F0F3BD</color>
     <color name="darkGrey">#484848</color>
     <color name="lightGrey">#ACACAC</color>
     <color name="white">#FFFFFF</color>
+    <color name="darkBlue">#05668D</color>
+    <color name="metallicSeaweed">#028090</color>
 <!--        colorPrimary	        The color displayed most frequently across your app’s screens and components.	#6200EE
             colorPrimaryVariant	    A tonal variation of the primary color.	#3700B3
             colorOnPrimary	        A color that passes accessibility guidelines for text/iconography when drawn on top of the primary color.	#FFFFFF
