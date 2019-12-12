@@ -67,6 +67,10 @@ public class CompareResults extends Fragment {
     TextView airlineLabel2;
     TextView airlineLabel3;
 
+    TextView flightnum1;
+    TextView flightnum2;
+    TextView flightnum3;
+
     public CompareResults() {}
 
     public static CompareResults newInstance() {
@@ -107,6 +111,10 @@ public class CompareResults extends Fragment {
         airlineLabel2 = v.findViewById(R.id.airline2);
         airlineLabel3 = v.findViewById(R.id.airline3);
 
+        flightnum1 = v.findViewById(R.id.flightnum1);
+        flightnum2 = v.findViewById(R.id.flightnum2);
+        flightnum3 = v.findViewById(R.id.flightnum3);
+
         Trip trip1 = null;
         Trip trip2 = null;
         Trip trip3 = null;
@@ -126,6 +134,14 @@ public class CompareResults extends Fragment {
             String carrierName = trip1.getOutboundLeg().getCarrier();
             logo1.setImageResource(Singleton.getAirlineImage(carrierName));
             airlineLabel1.setText(carrierName);
+
+            String returnFlightNum = "";
+            if(trip1.getInboundLeg().getCarrier() != null){
+                returnFlightNum = "/" + trip1.getInboundLeg().getFlightNumber();
+            }
+            String flightNum = trip1.getOutboundLeg().getFlightNumber() + returnFlightNum;
+
+            flightnum1.setText(flightNum);
             delete1.setVisibility(View.VISIBLE);
         }else {
 //            logo1.setOnClickListener(new View.OnClickListener() {
@@ -140,6 +156,7 @@ public class CompareResults extends Fragment {
 //            airlineLabel1.setText("SELECT FLIGHT");
             logo1.setImageResource(R.drawable.select_text);
             airlineLabel1.setText("");
+            flightnum1.setText("");
             delete1.setVisibility(View.INVISIBLE);
         }
 
@@ -147,6 +164,14 @@ public class CompareResults extends Fragment {
             String carrierName = trip2.getOutboundLeg().getCarrier();
             logo2.setImageResource(Singleton.getAirlineImage(carrierName));
             airlineLabel2.setText(carrierName);
+
+            String returnFlightNum = "";
+            if(trip2.getInboundLeg().getCarrier() != null){
+                returnFlightNum = "/" + trip2.getInboundLeg().getFlightNumber();
+            }
+            String flightNum = trip2.getOutboundLeg().getFlightNumber() + returnFlightNum;
+
+            flightnum2.setText(flightNum);
             delete2.setVisibility(View.VISIBLE);
         }else {
 //            logo2.setImageResource(R.drawable.ic_add_24px);
@@ -161,6 +186,7 @@ public class CompareResults extends Fragment {
 //            airlineLabel2.setText("SELECT FLIGHT");
             logo2.setImageResource(R.drawable.select_text);
             airlineLabel2.setText("");
+            flightnum2.setText("");
             delete2.setVisibility(View.INVISIBLE);
         }
 
@@ -168,6 +194,14 @@ public class CompareResults extends Fragment {
             String carrierName = trip3.getOutboundLeg().getCarrier();
             logo3.setImageResource(Singleton.getAirlineImage(carrierName));
             airlineLabel3.setText(carrierName);
+
+            String returnFlightNum = "";
+            if(trip3.getInboundLeg().getCarrier() != null){
+                returnFlightNum = "/" + trip3.getInboundLeg().getFlightNumber();
+            }
+            String flightNum = trip3.getOutboundLeg().getFlightNumber() + returnFlightNum;
+
+            flightnum3.setText(flightNum);
             delete3.setVisibility(View.VISIBLE);
         }else {
 //            logo3.setOnClickListener(new View.OnClickListener() {
@@ -183,6 +217,7 @@ public class CompareResults extends Fragment {
 //            airlineLabel3.setText("SELECT FLIGHT");
             logo3.setImageResource(R.drawable.select_text);
             airlineLabel3.setText("");
+            flightnum3.setText("");
             delete3.setVisibility(View.INVISIBLE);
         }
 
@@ -617,7 +652,7 @@ public class CompareResults extends Fragment {
                         switch (comparedTrips.size()) {
                             case 3:
                                 data3 = "Direct";
-                                if(comparedTrips.get(2).getInboundLeg() == null) {
+                                if(comparedTrips.get(2).getInboundLeg().getOriginId() == null) {
                                     data3a = "empty";
                                 }
                                 else{
@@ -625,7 +660,7 @@ public class CompareResults extends Fragment {
                                 }
                             case 2:
                                 data2 = "Direct";
-                                if(comparedTrips.get(1).getInboundLeg() == null) {
+                                if(comparedTrips.get(1).getInboundLeg().getOriginId() == null) {
                                     data2a = "empty";
                                 }
                                 else{
@@ -633,7 +668,7 @@ public class CompareResults extends Fragment {
                                 }
                             case 1:
                                 data1 = "Direct";
-                                if(comparedTrips.get(0).getInboundLeg() == null) {
+                                if(comparedTrips.get(0).getInboundLeg().getOriginId() == null) {
                                     data1a = "empty";
                                 }
                                 else{
