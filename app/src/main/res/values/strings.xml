@@ -31,9 +31,10 @@
     <string name="compare_flights_info">Select up to 3 flights to compare</string>
 
     <!-- Comparison screen -->
+    <string name="how_to_compare">Select flights from your saved flights to compare</string>
     <string name="price">PRICE</string>
     <string name="flytime">FLYTIME</string>
-    <string name="bags">BAGS</string>
+    <string name="bags">CHECKED BAGS</string>
     <string name="layovertime">LAYOVER TIME</string>
     <string name="from">FROM</string>
     <string name="to">TO</string>

@@ -315,11 +315,11 @@ public class CompareResults extends Fragment {
                         if(item.isChecked()) {
                             switch (comparedTrips.size()){
                                 case 3:
-                                    data3 = "1";
+                                    data3 = "Direct";
                                 case 2:
-                                    data2 = "2";
+                                    data2 = "Direct";
                                 case 1:
-                                    data1 = "3";
+                                    data1 = "Direct";
                             }
                             inflateRoundComparatorCard(getString(R.string.layovertime), new Pair<>(data1, data1a),
                                                                                 new Pair<>(data2, data2a),
@@ -598,32 +598,32 @@ public class CompareResults extends Fragment {
                                 }
                         }
                         break;
-                    case "BAGS":
+                    case "CHECKED BAGS":
                         labelString = getString(R.string.bags);
                         switch (comparedTrips.size()) {
                             case 3:
-                                data3 = "4, $50";
-                                data3a = "4, $50";
+                                data3 = Singleton.getBagString(comparedTrips.get(2).getOutboundLeg().getCarrier());
+                                data3a = null;
                             case 2:
-                                data2 = "3, $50";
-                                data2a = "3, $50";
+                                data2 = Singleton.getBagString(comparedTrips.get(1).getOutboundLeg().getCarrier());;
+                                data2a = null;
                             case 1:
-                                data1 = "1, $50";
-                                data1a = "3, $50";
+                                data1 = Singleton.getBagString(comparedTrips.get(0).getOutboundLeg().getCarrier());;
+                                data1a = null;
                         }
                         break;
                     case "LAYOVER TIME":
                         labelString = getString(R.string.layovertime);
                         switch (comparedTrips.size()) {
                             case 3:
-                                data3 = "1";
-                                data3a = "1";
+                                data3 = "Direct";
+                                data3a = null;
                             case 2:
-                                data2 = "2";
-                                data2a = "2";
+                                data2 = "Direct";
+                                data2a = null;
                             case 1:
-                                data1 = "3";
-                                data1a = "3";
+                                data1 = "Direct";
+                                data1a = null;
                         }
                         break;
                     case "DEST/ORIGIN":

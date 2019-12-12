@@ -71,10 +71,10 @@ public class SearchFlights extends Fragment {
         });
 
         // START TEST
-        fromAirportEdit.setText("Los Angeles");
-        toAirportEdit.setText("Salt Lake City");
-        departDateEdit.setText("12/20/2019");
-        returnDateEdit.setText("1/20/2019");
+//        fromAirportEdit.setText("Los Angeles");
+//        toAirportEdit.setText("Salt Lake City");
+//        departDateEdit.setText("12/20/2019");
+//        returnDateEdit.setText("1/20/2019");
         // END TEST
 
         RadioGroup tripButtonsGroup = v.findViewById(R.id.radio_group);

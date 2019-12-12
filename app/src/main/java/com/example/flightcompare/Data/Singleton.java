@@ -33,6 +33,7 @@ public class Singleton {
     private Map<String, Integer> airlineImages;
     private Map<String, String> flightNumPrefix;
     private Map<String, String> airportCodes;
+    private Map<String, String> bagData;
 
     private ArrayList<String> searchData;
 
@@ -73,9 +74,15 @@ public class Singleton {
         airportCodes.put("Los Angeles", "LAX");
         airportCodes.put("San Francisco", "SFO");
 
+        // init bag data
+        bagData = new HashMap<>();
+        bagData.put("American Airlines", "1 - $30\n2 - $40\n3 - $150\n4+ - $200");
+        bagData.put("Delta Air Lines", "1 - $30\n2 - $40\n3 - $150\n4+ - $200");
+        bagData.put("Hawaiian Airlines", "1 - $30\n2 - $40\n3+ - $100");
+
         comparators.put("PRICE", true);
         comparators.put("FLYTIME", true);
-        comparators.put("BAGS", true);
+        comparators.put("CHECKED BAGS", true);
         comparators.put("LAYOVER TIME", true);
         comparators.put("DEST/ORIGIN", true);
     }
@@ -395,6 +402,14 @@ public class Singleton {
 
     private String _getFlightNumPrefix(String airline){
         return flightNumPrefix.get(airline);
+    }
+
+    public static String getBagString(String airline){
+        return data._getBagString(airline);
+    }
+
+    private String _getBagString(String airline){
+        return bagData.get(airline);
     }
 
     public static ArrayList<String> getSearchData(){
