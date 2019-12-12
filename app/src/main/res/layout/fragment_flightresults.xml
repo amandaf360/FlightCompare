@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:gravity="top|center"
     android:orientation="vertical"
-    android:paddingBottom="90dp"
+    android:paddingBottom="50dp"
     tools:context=".FlightsTab.SearchResults">
 
     <!--    <LinearLayout-->
@@ -23,7 +23,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="start"
-        android:layout_margin="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:backgroundTint="@color/accentOrange"
         android:text="@string/search_again"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent" />
@@ -33,10 +36,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/mtrl_card_spacing"
-        android:textStyle="italic"
-        android:paddingTop="10dp"
         android:text="@string/no_search_results"
-        android:textSize="12sp" />
+        android:textSize="12sp"
+        android:textStyle="italic" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/flight_results_recycler_view"

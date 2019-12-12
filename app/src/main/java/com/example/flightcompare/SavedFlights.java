@@ -225,7 +225,6 @@ public class SavedFlights extends Fragment {
 
         TextView price = cardView.findViewById(R.id.saved_flights_price_text);
 
-        System.out.println("ADDING A SAVED CARD");
         outgoingLegAirlineImage.setImageResource(Singleton.getAirlineImage(outboundLeg.getCarrier()));
         outgoingLegDepartureAirport.setText(outboundLeg.getOriginId());
         outgoingLegDestinationAirport.setText(outboundLeg.getDestinationId());
@@ -269,7 +268,7 @@ public class SavedFlights extends Fragment {
         //yyyy-mm-ddThh:mm:ss
         Integer year = Integer.parseInt(departDate.substring(0, departDate.indexOf("-")));
         Integer month = Integer.parseInt(departDate.substring(departDate.indexOf("-") + 1, departDate.indexOf("-", departDate.indexOf("-") + 1)));
-        Integer day = Integer.parseInt(departDate.substring(departDate.indexOf("-", departDate.indexOf("-") + 1), departDate.indexOf("T")));
+        Integer day = Integer.parseInt(departDate.substring(departDate.indexOf("-", departDate.indexOf("-") + 1) + 1, departDate.indexOf("T")));
         return (month.toString() + "/" + day.toString() + "/" + year.toString());
     }
 
