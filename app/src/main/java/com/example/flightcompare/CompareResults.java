@@ -2,6 +2,7 @@ package com.example.flightcompare;
 
 import android.content.ClipData;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.widget.PopupMenu;
@@ -119,14 +120,26 @@ public class CompareResults extends Fragment {
             Log.d("Compared Trips not full", ex.getMessage());
         }
 
+        final Fragment compareFragment = this;
+
         if(trip1 != null) {
             String carrierName = trip1.getOutboundLeg().getCarrier();
             logo1.setImageResource(Singleton.getAirlineImage(carrierName));
             airlineLabel1.setText(carrierName);
             delete1.setVisibility(View.VISIBLE);
         }else {
+//            logo1.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    Log.d("Add flight", "Click 1");
+//                    SavedFlights saveFragment= new SavedFlights();
+//                    getFragmentManager().beginTransaction().detach(compareFragment).attach(saveFragment).commit();
+//                }
+//            });
+//            logo1.setImageResource(R.drawable.ic_add_24px);
+//            airlineLabel1.setText("SELECT FLIGHT");
             logo1.setImageResource(R.drawable.select_text);
-            airlineLabel2.setText("");
+            airlineLabel1.setText("");
             delete1.setVisibility(View.INVISIBLE);
         }
 
@@ -136,6 +149,16 @@ public class CompareResults extends Fragment {
             airlineLabel2.setText(carrierName);
             delete2.setVisibility(View.VISIBLE);
         }else {
+//            logo2.setImageResource(R.drawable.ic_add_24px);
+//            logo2.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    Log.d("Add flight", "Click 2");
+//                    SavedFlights saveFragment= new SavedFlights();
+//                    getFragmentManager().beginTransaction().detach(compareFragment).attach(saveFragment).commit();
+//                }
+//            });
+//            airlineLabel2.setText("SELECT FLIGHT");
             logo2.setImageResource(R.drawable.select_text);
             airlineLabel2.setText("");
             delete2.setVisibility(View.INVISIBLE);
@@ -147,6 +170,17 @@ public class CompareResults extends Fragment {
             airlineLabel3.setText(carrierName);
             delete3.setVisibility(View.VISIBLE);
         }else {
+//            logo3.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    Log.d("Add flight", "Click 3");
+//                    SavedFlights saveFragment= new SavedFlights();
+//                    getFragmentManager().beginTransaction().detach(compareFragment).attach(saveFragment).commit();
+//
+//                }
+//            });
+//            logo3.setImageResource(R.drawable.ic_add_24px);
+//            airlineLabel3.setText("SELECT FLIGHT");
             logo3.setImageResource(R.drawable.select_text);
             airlineLabel3.setText("");
             delete3.setVisibility(View.INVISIBLE);
@@ -161,7 +195,6 @@ public class CompareResults extends Fragment {
             }
         });
 
-        final Fragment compareFragment = this;
         delete1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
