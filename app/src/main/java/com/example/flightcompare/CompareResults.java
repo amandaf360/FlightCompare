@@ -617,13 +617,28 @@ public class CompareResults extends Fragment {
                         switch (comparedTrips.size()) {
                             case 3:
                                 data3 = "Direct";
-                                data3a = null;
+                                if(comparedTrips.get(2).getInboundLeg() == null) {
+                                    data3a = "empty";
+                                }
+                                else{
+                                    data3a = "Direct";
+                                }
                             case 2:
                                 data2 = "Direct";
-                                data2a = null;
+                                if(comparedTrips.get(1).getInboundLeg() == null) {
+                                    data2a = "empty";
+                                }
+                                else{
+                                    data2a = "Direct";
+                                }
                             case 1:
                                 data1 = "Direct";
-                                data1a = null;
+                                if(comparedTrips.get(0).getInboundLeg() == null) {
+                                    data1a = "empty";
+                                }
+                                else{
+                                    data1a = "Direct";
+                                }
                         }
                         break;
                     case "DEST/ORIGIN":
