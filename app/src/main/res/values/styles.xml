@@ -10,14 +10,18 @@
 
     <style name="Theme.MyApp" parent="Theme.MaterialComponents.Light">
         <!-- ... -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorPrimary">@color/lightBlue</item>
+        <item name="colorPrimaryDark">@color/metallicSeaweed</item>
         <item name="colorAccent">@color/accentOrange</item>
-<!--        colorPrimary	The color displayed most frequently across your app’s screens and components.	#6200EE
-colorPrimaryVariant	A tonal variation of the primary color.	#3700B3
-colorOnPrimary	A color that passes accessibility guidelines for text/iconography when drawn on top of the primary color.	#FFFFFF
-colorSecondary	The secondary branding color for the app, usually an accented complement to the primary branding color.	#03DAC6
-colorSecondaryVariant	A tonal variation of the secondary color.	#018786
-colorOnSecondary	A color that passes accessibility guidelines for text/iconography when drawn on top of the secondary color.	#000000-->
+        <item name="colorSecondary">@color/colorPrimary</item>
+        <item name="colorSecondaryVariant">@color/colorPrimaryDark</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorOnSecondary">@color/white</item>
+<!--        colorPrimary	        The color displayed most frequently across your app’s screens and components.	#6200EE
+            colorPrimaryVariant	    A tonal variation of the primary color.	#3700B3
+            colorOnPrimary	        A color that passes accessibility guidelines for text/iconography when drawn on top of the primary color.	#FFFFFF
+            colorSecondary	        The secondary branding color for the app, usually an accented complement to the primary branding color.	#03DAC6
+            colorSecondaryVariant	A tonal variation of the secondary color.	#018786
+            colorOnSecondary	    A color that passes accessibility guidelines for text/iconography when drawn on top of the secondary color.	#000000-->
     </style>
 </resources>

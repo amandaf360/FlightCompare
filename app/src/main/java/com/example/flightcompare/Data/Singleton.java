@@ -31,6 +31,7 @@ public class Singleton {
     private ArrayList<Trip> savedTrips;
     private ArrayList<Trip> comparedTrips;
     private Map<String, Integer> airlineImages;
+    private Map<String, String> flightNumPrefix;
 
     public static void init(){
         if(data == null){
@@ -55,6 +56,12 @@ public class Singleton {
         airlineImages.put("American Airlines", R.drawable.aa_logo);
         airlineImages.put("Delta Air Lines", R.drawable.delta_logo);
         airlineImages.put("Hawaiian Airlines", R.drawable.hawaii_logo);
+
+        // init airline flight prefixes
+        flightNumPrefix = new HashMap<>();
+        flightNumPrefix.put("American Airlines", "AA");
+        flightNumPrefix.put("Delta Air Lines", "DL");
+        flightNumPrefix.put("Hawaiian Airlines", "HA");
 
         comparators.put("PRICE", true);
         comparators.put("FLYTIME", true);
@@ -354,5 +361,13 @@ public class Singleton {
 
     private Integer _getAirlineImage(String airline){
         return airlineImages.get(airline);
+    }
+
+    public static String getFlightNumPrefix(String airline){
+        return data._getFlightNumPrefix(airline);
+    }
+
+    private String _getFlightNumPrefix(String airline){
+        return flightNumPrefix.get(airline);
     }
 }

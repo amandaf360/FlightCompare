@@ -5,8 +5,6 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
-import android.renderscript.ScriptIntrinsicYuvToRGB;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +14,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.flightcompare.Data.CollectionObjects.Flight;
 import com.example.flightcompare.Data.JsonObjects.FlightLeg;
 import com.example.flightcompare.Data.JsonObjects.Trip;
 import com.example.flightcompare.Data.Singleton;
@@ -35,8 +32,7 @@ public class SavedFlights extends Fragment {
     LinearLayout cardContainer;
     private int cardsChecked;
 
-    private TextView noSavedFlightsText;
-    private TextView selectSavedFlightsText;
+    private TextView savedFlightsText;
     View divider;
 
     public SavedFlights() {}
@@ -68,8 +64,7 @@ public class SavedFlights extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_saved_flights, container, false);
 
-        noSavedFlightsText = view.findViewById(R.id.textview_no_saved_flights);
-        selectSavedFlightsText = view.findViewById(R.id.textview_select_saved_flights);
+        savedFlightsText = view.findViewById(R.id.textview_saved_flights);
         cardContainer = view.findViewById(R.id.savedCardContainer);
         divider = view.findViewById(R.id.saved_flights_divider);
 
@@ -139,12 +134,10 @@ public class SavedFlights extends Fragment {
         }
 
         if(savedList.size() != 0) {
-            noSavedFlightsText.setVisibility(View.INVISIBLE);
-            selectSavedFlightsText.setVisibility(View.VISIBLE);
+            savedFlightsText.setText(R.string.compare_flights_info);
         }
         else {
-            noSavedFlightsText.setVisibility(View.VISIBLE);
-            selectSavedFlightsText.setVisibility(View.INVISIBLE);
+            savedFlightsText.setText(R.string.no_saved_flights);
         }
 
         inflateSavedList();
@@ -207,6 +200,7 @@ public class SavedFlights extends Fragment {
         TextView outgoingLegDepartTime = cardView.findViewById(R.id.saved_flights_depart_time_text);
         TextView outgoingLegDuration = cardView.findViewById(R.id.saved_flights_depart_duration_text);
         TextView outgoingLegDate = cardView.findViewById(R.id.saved_flights_depart_date_text);
+        TextView outgoingLegFlightNum = cardView.findViewById(R.id.saved_flights_depart_flight_number_text);
 
         if(!oneway) {
             ImageView incomingLegAirlineImage = cardView.findViewById(R.id.saved_flights_return_flight_airline_img);
@@ -215,6 +209,8 @@ public class SavedFlights extends Fragment {
             TextView incomingLegDepartTime = cardView.findViewById(R.id.saved_flights_return_time_text);
             TextView incomingLegDuration = cardView.findViewById(R.id.saved_flights_return_duration_text);
             TextView incomingLegDate = cardView.findViewById(R.id.saved_flights_return_date_text);
+            TextView incomingLegFlightNum = cardView.findViewById(R.id.saved_flights_return_flight_number_text);
+
 
             incomingLegAirlineImage.setImageResource(Singleton.getAirlineImage(inboundLeg.getCarrier()));
             incomingLegDepartureAirport.setText(inboundLeg.getOriginId());
@@ -222,6 +218,9 @@ public class SavedFlights extends Fragment {
             incomingLegDepartTime.setText(parseFlightTime(inboundLeg));
             incomingLegDuration.setText(inboundLeg.getFlightDuration());
             incomingLegDate.setText(parseDate(inboundLeg));
+//            String incomingFlightNum = Singleton.getFlightNumPrefix(inboundLeg.getCarrier()) + " " +
+//                    inboundLeg.get
+//            incomingLegFlightNum.setText();
         }
 
         TextView price = cardView.findViewById(R.id.saved_flights_price_text);
@@ -233,6 +232,9 @@ public class SavedFlights extends Fragment {
         outgoingLegDepartTime.setText(parseFlightTime(outboundLeg));
         outgoingLegDuration.setText(outboundLeg.getFlightDuration());
         outgoingLegDate.setText(parseDate(outboundLeg));
+        //            String incomingFlightNum = Singleton.getFlightNumPrefix(inboundLeg.getCarrier()) + " " +
+//                    inboundLeg.get
+//            incomingLegFlightNum.setText();
 
         String priceText = "$" + t.getPrice().toString();
         price.setText(priceText);

@@ -88,11 +88,10 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_marginStart="24dp"
                     android:layout_marginTop="5dp"
                     android:layout_marginEnd="24dp"
-                    android:layout_marginBottom="10dp"
                     android:orientation="horizontal">
 
 
@@ -109,10 +108,22 @@
                         android:id="@+id/saved_flights_depart_duration_text"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1.25"
+                        android:layout_weight="1"
                         android:gravity="center"
                         android:text="1h 35m"
                         android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="24dp"
+                    android:layout_marginBottom="10dp"
+                    android:orientation="horizontal">
+
 
                     <TextView
                         android:id="@+id/saved_flights_depart_date_text"
@@ -122,6 +133,16 @@
                         android:gravity="center"
                         android:text="1/20/2020"
                         android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+
+                    <TextView
+                        android:id="@+id/saved_flights_depart_flight_number_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="FL 123"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+
                 </LinearLayout>
             </LinearLayout>
 
@@ -233,10 +254,20 @@
                         android:id="@+id/saved_flights_return_duration_text"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1.25"
+                        android:layout_weight="1"
                         android:gravity="center"
                         android:text="1h 35m"
                         android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="24dp"
+                    android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/saved_flights_return_date_text"
@@ -244,9 +275,19 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:text="1/24/2020"
+                        android:text="1h 35m"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+
+                    <TextView
+                        android:id="@+id/saved_flights_return_flight_number_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="FL 123"
                         android:textAppearance="@style/TextAppearance.AppCompat.Small" />
                 </LinearLayout>
+
             </LinearLayout>
 
             <ImageButton
