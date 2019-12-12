@@ -32,6 +32,9 @@ public class Singleton {
     private ArrayList<Trip> comparedTrips;
     private Map<String, Integer> airlineImages;
     private Map<String, String> flightNumPrefix;
+    private Map<String, String> airportCodes;
+
+    private ArrayList<String> searchData;
 
     public static void init(){
         if(data == null){
@@ -50,6 +53,7 @@ public class Singleton {
         airlines = new ArrayList<>();
         savedTrips = new ArrayList<>();
         comparedTrips = new ArrayList<>();
+        searchData = new ArrayList<>();
 
         // init airline images map
         airlineImages = new HashMap<>();
@@ -62,6 +66,12 @@ public class Singleton {
         flightNumPrefix.put("American Airlines", "AA");
         flightNumPrefix.put("Delta Air Lines", "DL");
         flightNumPrefix.put("Hawaiian Airlines", "HA");
+
+        // init airport codes
+        airportCodes = new HashMap<>();
+        airportCodes.put("Salt Lake City", "SLC");
+        airportCodes.put("Los Angeles", "LAX");
+        airportCodes.put("San Francisco", "SFO");
 
         comparators.put("PRICE", true);
         comparators.put("FLYTIME", true);
@@ -237,19 +247,28 @@ public class Singleton {
 
     private ArrayList<Trip> _getTripsForSearch(String originAirportCode, String destAirportCode,
                                                String departDate, String returnDate) {
+        System.out.println("GETTING TRIPS FOR SEARCH");
+        setSearchData(originAirportCode, destAirportCode, departDate, returnDate);
         ArrayList<Trip> matchList = new ArrayList<>();
         ArrayList<Trip> trips = getTrips();
         System.out.println("Trips size: " + trips.size());
         for(Trip t : trips) {
             // first check the from/to
+            System.out.println("outbound leg id: " + t.getOutboundLeg().getOriginId());
+            System.out.println("outbound leg search: " + originAirportCode);
+            System.out.println("dest leg id: " + t.getInboundLeg().getOriginId());
+            System.out.println("dest leg search: " + destAirportCode);
             if(t.getOutboundLeg().getOriginId().equals(originAirportCode) &&
                 t.getOutboundLeg().getDestinationId().equals(destAirportCode)) {
+                System.out.println("FROM/TO MATCH");
                 // check departure date
                 String departureDate = t.getOutboundLeg().getDepartureDate();
                 if(parseDate(departDate).equals(departureDate.substring(0, departureDate.indexOf("T")))) {
+                    System.out.println("DEPART DATE MATCHES");
                     // check return date
                     if(returnDate.length() > 0) {
                         String returningDate = t.getInboundLeg().getDepartureDate();
+                        System.out.println("RETURNING DATE MATCHES");
                         if(returningDate != null && parseDate(returnDate).equals(returningDate.substring(0, returningDate.indexOf("T")))) {
                             matchList.add(t);
                         }
@@ -343,7 +362,6 @@ public class Singleton {
         int beginIndex = 0;
         int currentSpot = date.indexOf("/");
 
-        System.out.println(date);
         month = date.substring(beginIndex, currentSpot);
         beginIndex = currentSpot + 1;
         currentSpot = date.indexOf("/", beginIndex);
@@ -363,11 +381,48 @@ public class Singleton {
         return airlineImages.get(airline);
     }
 
+    public static String getAirportCode(String airline) {
+        return data._getAirportCode(airline);
+    }
+
+    public String _getAirportCode(String airline) {
+        return airportCodes.get(airline);
+    }
+
     public static String getFlightNumPrefix(String airline){
         return data._getFlightNumPrefix(airline);
     }
 
     private String _getFlightNumPrefix(String airline){
         return flightNumPrefix.get(airline);
+    }
+
+    public static ArrayList<String> getSearchData(){
+        return data._getSearchData();
+    }
+
+    private ArrayList<String> _getSearchData(){
+        return searchData;
+    }
+
+    public static void setSearchData(String originAirportCode, String destAirportCode,
+                                     String departDate, String returnDate){
+        data._setSearchData(originAirportCode, destAirportCode, departDate, returnDate);
+    }
+
+    private void _setSearchData(String originAirportCode, String destAirportCode,
+                                String departDate, String returnDate){
+        searchData.add(originAirportCode);
+        searchData.add(destAirportCode);
+        searchData.add(departDate);
+        searchData.add(returnDate);
+    }
+
+    public static void clearSearchData() {
+        data._clearSearchData();
+    }
+
+    private void _clearSearchData() {
+        searchData.clear();
     }
 }

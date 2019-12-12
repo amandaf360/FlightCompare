@@ -39,17 +39,10 @@ public class SearchFlights extends Fragment {
 
     MaterialButton searchButton;
 
-    static Map<String, String> airportCodes;
-
-
     public SearchFlights() {}
 
     public static SearchFlights newInstance() {
         SearchFlights fragment = new SearchFlights();
-        airportCodes = new HashMap<>();
-        airportCodes.put("Salt Lake City", "SLC");
-        airportCodes.put("Los Angeles", "LAX");
-        airportCodes.put("San Francisco", "SFO");
         return fragment;
     }
 
@@ -264,8 +257,8 @@ public class SearchFlights extends Fragment {
         searchButton.setEnabled(false);
 
         String returnDate = (roundtripRadio.isChecked() ? returnDateEdit.getText().toString() : "");
-        String fromAirportCode = airportCodes.get(fromAirportEdit.getText().toString());
-        String toAirportCode = airportCodes.get(toAirportEdit.getText().toString());
+        String fromAirportCode = Singleton.getAirportCode(fromAirportEdit.getText().toString());
+        String toAirportCode = Singleton.getAirportCode(toAirportEdit.getText().toString());
 
         if(fromAirportCode == null) {
             Context context = Objects.requireNonNull(getActivity()).getApplicationContext();

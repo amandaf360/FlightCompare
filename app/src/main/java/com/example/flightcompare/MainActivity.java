@@ -9,6 +9,7 @@ import com.example.flightcompare.Data.FirestoreData;
 import com.example.flightcompare.Data.JsonData;
 import com.example.flightcompare.Data.Singleton;
 import com.example.flightcompare.Data.SkyscannerData;
+import com.example.flightcompare.FlightsTab.SearchResults;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -69,7 +70,16 @@ public class MainActivity extends AppCompatActivity implements SearchFlights.OnS
                 case R.id.navigation_flights:
                     // need to figure out which fragment to show (flights or search)
                     toolbar.setTitle("Search for Flights");
-                    fragment = SearchFlights.newInstance();
+                    // see if there has already been a search
+                    if(Singleton.getSearchData().size() != 0) {
+                        ArrayList<String> searchData = Singleton.getSearchData();
+
+                        fragment = SearchResults.newInstance(searchData.get(0), searchData.get(1),
+                                searchData.get(2), searchData.get(3), searchData.get(3).length() > 0);
+                    }
+                    else {
+                        fragment = SearchFlights.newInstance();
+                    }
                     loadFragment(fragment);
                     return true;
                 case R.id.navigation_saved:

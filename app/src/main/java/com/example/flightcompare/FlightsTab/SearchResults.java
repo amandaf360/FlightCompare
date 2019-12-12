@@ -50,6 +50,7 @@ public class SearchResults extends Fragment {
 
     public static SearchResults newInstance(String from, String to, String departDate, String returnDate, Boolean roundTrip) {
         SearchResults fragment = new SearchResults();
+        System.out.println("FROM: " + from);
         Bundle bundle = new Bundle();
         bundle.putString("fromAirport", from);
         bundle.putString("toAirport", to);
@@ -109,6 +110,8 @@ public class SearchResults extends Fragment {
 
     private void onSearchClicked() {
         searchAgainButton.setEnabled(false);
+        // clear search data in model
+        Singleton.clearSearchData();
 
         SearchFlights searchFlights = SearchFlights.newInstance();
         ((MainActivity) Objects.requireNonNull(getActivity())).loadFragment(searchFlights);
