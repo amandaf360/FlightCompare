@@ -66,7 +66,7 @@ public class JsonStrings {
             "      }\n" +
             "    },\n" +
             "    {\n" +
-            "      \"Price\": \"180\",\n" +
+            "      \"Price\": \"210\",\n" +
             "      \"OutboundLeg\": {\n" +
             "        \"OriginId\": \"SLC\",\n" +
             "        \"DestinationId\": \"LAX\",\n" +
@@ -223,8 +223,8 @@ public class JsonStrings {
             "        \"OriginId\": \"LAX\",\n" +
             "        \"DestinationId\": \"SLC\",\n" +
             "        \"Carrier\": \"American Airlines\",\n" +
-            "        \"DepartureDate\": \"2020-1-20T20:05:00\",\n" +
-            "        \"ArrivalDate\": \"2020-1-20T22:35:00\",\n" +
+            "        \"DepartureDate\": \"2020-1-20T2:05:00\",\n" +
+            "        \"ArrivalDate\": \"2020-1-20T4:35:00\",\n" +
             "        \"FlightDuration\": \"1h 30m\"\n" +
             "      },\n" +
             "      \"InboundLeg\": {}\n" +

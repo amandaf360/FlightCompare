@@ -70,9 +70,9 @@ public class Singleton {
 
         // init airport codes
         airportCodes = new HashMap<>();
-        airportCodes.put("Salt Lake City", "SLC");
-        airportCodes.put("Los Angeles", "LAX");
-        airportCodes.put("San Francisco", "SFO");
+        airportCodes.put("salt lake city", "SLC");
+        airportCodes.put("los angeles", "LAX");
+        airportCodes.put("san francisco", "SFO");
 
         // init bag data
         bagData = new HashMap<>();
@@ -254,28 +254,19 @@ public class Singleton {
 
     private ArrayList<Trip> _getTripsForSearch(String originAirportCode, String destAirportCode,
                                                String departDate, String returnDate) {
-        System.out.println("GETTING TRIPS FOR SEARCH");
         setSearchData(originAirportCode, destAirportCode, departDate, returnDate);
         ArrayList<Trip> matchList = new ArrayList<>();
         ArrayList<Trip> trips = getTrips();
-        System.out.println("Trips size: " + trips.size());
         for(Trip t : trips) {
             // first check the from/to
-            System.out.println("outbound leg id: " + t.getOutboundLeg().getOriginId());
-            System.out.println("outbound leg search: " + originAirportCode);
-            System.out.println("dest leg id: " + t.getInboundLeg().getOriginId());
-            System.out.println("dest leg search: " + destAirportCode);
-            if(t.getOutboundLeg().getOriginId().equals(originAirportCode) &&
-                t.getOutboundLeg().getDestinationId().equals(destAirportCode)) {
-                System.out.println("FROM/TO MATCH");
+            if(t.getOutboundLeg().getOriginId().toLowerCase().equals(originAirportCode.toLowerCase()) &&
+                t.getOutboundLeg().getDestinationId().toLowerCase().equals(destAirportCode.toLowerCase())) {
                 // check departure date
                 String departureDate = t.getOutboundLeg().getDepartureDate();
                 if(parseDate(departDate).equals(departureDate.substring(0, departureDate.indexOf("T")))) {
-                    System.out.println("DEPART DATE MATCHES");
                     // check return date
                     if(returnDate.length() > 0) {
                         String returningDate = t.getInboundLeg().getDepartureDate();
-                        System.out.println("RETURNING DATE MATCHES");
                         if(returningDate != null && parseDate(returnDate).equals(returningDate.substring(0, returningDate.indexOf("T")))) {
                             matchList.add(t);
                         }

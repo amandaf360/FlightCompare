@@ -257,8 +257,8 @@ public class SearchFlights extends Fragment {
         searchButton.setEnabled(false);
 
         String returnDate = (roundtripRadio.isChecked() ? returnDateEdit.getText().toString() : "");
-        String fromAirportCode = Singleton.getAirportCode(fromAirportEdit.getText().toString());
-        String toAirportCode = Singleton.getAirportCode(toAirportEdit.getText().toString());
+        String fromAirportCode = Singleton.getAirportCode(fromAirportEdit.getText().toString().toLowerCase());
+        String toAirportCode = Singleton.getAirportCode(toAirportEdit.getText().toString().toLowerCase());
 
         if(fromAirportCode == null) {
             Context context = Objects.requireNonNull(getActivity()).getApplicationContext();

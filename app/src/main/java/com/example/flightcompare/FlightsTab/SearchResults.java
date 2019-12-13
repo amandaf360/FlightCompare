@@ -50,7 +50,6 @@ public class SearchResults extends Fragment {
 
     public static SearchResults newInstance(String from, String to, String departDate, String returnDate, Boolean roundTrip) {
         SearchResults fragment = new SearchResults();
-        System.out.println("FROM: " + from);
         Bundle bundle = new Bundle();
         bundle.putString("fromAirport", from);
         bundle.putString("toAirport", to);

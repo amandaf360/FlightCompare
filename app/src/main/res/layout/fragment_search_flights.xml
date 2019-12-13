@@ -138,11 +138,13 @@
                             android:text="@string/depart_date" />
 
                         <!-- departure date edit text -->
+
                         <com.google.android.material.textfield.TextInputLayout
                             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="@string/date_format">
+                            android:hint="@string/date_format"
+                            android:visibility="visible">
                             <!--                            app:endIconContentDescription="Custom description"-->
                             <!--                            app:endIconDrawable="@drawable/ic_date"-->
                             <!--                            app:endIconMode="custom">-->
@@ -150,7 +152,8 @@
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/depart_date_edit"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content" />
+                                android:layout_height="wrap_content"
+                                android:inputType="date" />
 
                         </com.google.android.material.textfield.TextInputLayout>
 
@@ -185,7 +188,8 @@
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/return_date_edit"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content" />
+                                android:layout_height="wrap_content"
+                                android:inputType="date" />
 
                         </com.google.android.material.textfield.TextInputLayout>
 
